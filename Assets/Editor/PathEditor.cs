@@ -52,6 +52,7 @@ public class PathEditor : Editor
 
     void OnSceneGUI()
     {
+        creator.UpdateLineRenderer();
         Input();
         Draw();
     }
