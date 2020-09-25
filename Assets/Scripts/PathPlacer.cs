@@ -50,11 +50,6 @@ public class PathPlacer : MonoBehaviour
 
         if (childCount > 0)
         {
-            //foreach (Transform child in sphereParent.GetComponentsInChildren<Transform>())
-            //{
-            //    DestroyImmediate(child.gameObject);
-            //}
-
             for (int i = childCount - 1; i <= 0; i--)
             {
                 if (sphereParent.GetChild(i) != null)

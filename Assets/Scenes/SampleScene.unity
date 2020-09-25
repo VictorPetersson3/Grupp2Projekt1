@@ -154,6 +154,7 @@ MonoBehaviour:
   myReach: 0.1
   myGravity: 1
   myBaseSpeed: 10
+  myJumpForce: 1
 --- !u!4 &6554191
 Transform:
   m_ObjectHideFlags: 0

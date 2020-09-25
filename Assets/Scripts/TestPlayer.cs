@@ -12,11 +12,13 @@ public class TestPlayer : MonoBehaviour
     private float myGravity = 1f;
     [SerializeField]
     private float myBaseSpeed = 1f;
+    [SerializeField]
+    private float myJumpForce = 10f;
 
     private bool myGrounded = false;
+    private bool myTooCloseToOldSpline = false;
     private Vector2[] myPoints;
     private Vector2[] myOldPoints;
-    private Vector2 myLastMovement;
     private Vector2 myAirMovement = new Vector2(1, 0);
     private int myPointsIndex = -1;
     private float mySplineT = -1;
@@ -31,6 +33,15 @@ public class TestPlayer : MonoBehaviour
 
         if (myGrounded)
         {
+            if (Input.GetAxisRaw("Jump") != 0)
+            {
+                myAirMovement = myPoints[myPointsIndex] - myPoints[myPointsIndex - 1];
+                myAirMovement = myAirMovement.normalized;
+                myAirMovement = new Vector2(myAirMovement.x, myAirMovement.y + myJumpForce);
+                DropSpline();
+                return;
+            }
+
             Grounded();
             return;
         }
@@ -52,8 +63,8 @@ public class TestPlayer : MonoBehaviour
 
         if (myPointsIndex + 1 >= myPoints.Length)
         {
-            myLastMovement = myPoints[myPoints.Length - 1] - myPoints[myPoints.Length - 2];
-            myLastMovement = myLastMovement.normalized;
+            myAirMovement = myPoints[myPoints.Length - 1] - myPoints[myPoints.Length - 2];
+            myAirMovement = myAirMovement.normalized;
             DropSpline();            
         }
         else
@@ -71,44 +82,50 @@ public class TestPlayer : MonoBehaviour
         
         if (Vector2.Distance(transform.position, closestPoint) <= myReach)
         {
-            if ((myOldPoints != null && myPoints != null) && myOldPoints.Length == myPoints.Length)
+            if (IsOldSpline() && myTooCloseToOldSpline)
             {
-                //Debug.Log("Attempting to grab spline, but Same amount of spheres as old spline.");
-                bool sameSpline = true;
-
-                for (int i = 0; i < myOldPoints.Length; i++)
-                {
-                    if (myPoints[i] != myOldPoints[i])
-                    {
-                        sameSpline = false;
-                    }
-                }
-
-                if (sameSpline)
-                {
-                    //Debug.Log("Tried grabbing same spline. ABORT!");
-                    return;
-                }
-
-                //Debug.Log("Wasn't the same spline. LETS GO!");
+                return;
             }
 
             transform.position = closestPoint;
             myGrounded = true;
             mySplineT = 0;
-            //Debug.Log("Index: " + myPointsIndex);
-            //Debug.Log("Index vec2: " + myPoints[myPointsIndex]);
+            return;
+        }
+
+        if (Vector2.Distance(transform.position, closestPoint) > myReach && IsOldSpline())
+        {
+            myTooCloseToOldSpline = false;
         }
     }
 
     void DropSpline()
     {
-        myAirMovement = myLastMovement;
-        //Debug.Log("Dropping spline: " + myPoints);
+        myTooCloseToOldSpline = true;
         myGrounded = false;
         myPointsIndex = -1;
         myOldPoints = myPoints;
         myPoints = null;
         mySplineT = 0;
+    }
+
+    private bool IsOldSpline()
+    {
+        bool sameSpline = false;
+
+        if ((myOldPoints != null && myPoints != null) && myOldPoints.Length == myPoints.Length)
+        {
+            sameSpline = true;
+
+            for (int i = 0; i < myOldPoints.Length; i++)
+            {
+                if (myPoints[i] != myOldPoints[i])
+                {
+                    return false;
+                }
+            }
+        }
+
+        return sameSpline;
     }
 }

@@ -23,7 +23,6 @@ public class SplineManager : MonoBehaviour
 
             if (Vector2.Distance(aPlayerPosition, closestPointInIteratedSpline) < Vector2.Distance(aPlayerPosition, closestPoint))
             {
-                //Debug.Log(this + " found new closest point.");
                 closestPoint = closestPointInIteratedSpline;
                 aPoints = iteratedSplinesPoints;
                 closestIndex = aPointsIndex;
@@ -31,8 +30,6 @@ public class SplineManager : MonoBehaviour
         }
 
         aPointsIndex = closestIndex;
-        //Debug.Log("CLOSEST INDEX IN ALL SPLINES: " + aPointsIndex);
-
         return closestPoint;
     }
 
@@ -48,8 +45,6 @@ public class SplineManager : MonoBehaviour
                 aPointsIndex = i;
             }
         }
-
-        //Debug.Log("CLOSEST INDEX IN THIS SPLINE: " + aPointsIndex);
 
         return closestPoint;
     }
