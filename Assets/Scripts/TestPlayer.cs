@@ -9,14 +9,15 @@ public class TestPlayer : MonoBehaviour
     [SerializeField]
     private float myReach = 0.25f;
     [SerializeField]
-    private float myAirSpeed = 1f;
+    private float myGravity = 1f;
     [SerializeField]
-    private float myGroundSpeed = 1f;
+    private float myBaseSpeed = 1f;
 
-    private bool myNextIsNull = false;
     private bool myGrounded = false;
     private Vector2[] myPoints;
     private Vector2[] myOldPoints;
+    private Vector2 myLastMovement;
+    private Vector2 myAirMovement = new Vector2(1, 0);
     private int myPointsIndex = -1;
     private float mySplineT = -1;
 
@@ -39,17 +40,11 @@ public class TestPlayer : MonoBehaviour
 
     void Grounded()
     {
-        float currentMove = Time.deltaTime * myGroundSpeed;
+        float currentMove = Time.deltaTime * myBaseSpeed;
         mySplineT += currentMove;
 
         if (mySplineT >= 1f)
         {
-            if (myNextIsNull)
-            {
-                DropSpline();
-                return;
-            }
-
             transform.position = myPoints[myPointsIndex + 1];
             mySplineT -= 1f;
             myPointsIndex++;
@@ -57,7 +52,9 @@ public class TestPlayer : MonoBehaviour
 
         if (myPointsIndex + 1 >= myPoints.Length)
         {
-            myNextIsNull = true;
+            myLastMovement = myPoints[myPoints.Length - 1] - myPoints[myPoints.Length - 2];
+            myLastMovement = myLastMovement.normalized;
+            DropSpline();            
         }
         else
         {
@@ -67,8 +64,9 @@ public class TestPlayer : MonoBehaviour
 
     void Air()
     {
-        float currentMove = Time.deltaTime * myAirSpeed;
-        transform.position = new Vector3(transform.position.x + currentMove, transform.position.y - currentMove, transform.position.z);
+        Vector2 currentMove = Time.deltaTime * myAirMovement;
+        transform.position = new Vector3(transform.position.x + currentMove.x, transform.position.y + currentMove.y, transform.position.z);
+        myAirMovement = new Vector2(myAirMovement.x, myAirMovement.y - (myGravity * Time.deltaTime));
         Vector2 closestPoint = mySplineManager.GetClosestPoint(transform.position, ref myPointsIndex, ref myPoints);
         
         if (Vector2.Distance(transform.position, closestPoint) <= myReach)
@@ -105,8 +103,8 @@ public class TestPlayer : MonoBehaviour
 
     void DropSpline()
     {
+        myAirMovement = myLastMovement;
         //Debug.Log("Dropping spline: " + myPoints);
-        myNextIsNull = false;
         myGrounded = false;
         myPointsIndex = -1;
         myOldPoints = myPoints;
