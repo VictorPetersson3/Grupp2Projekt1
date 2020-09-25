@@ -15,6 +15,8 @@ public class TestPlayer : MonoBehaviour
     private float myBaseSpeed = 1f;
     [SerializeField]
     private float myJumpForce = 10f;
+    [SerializeField]
+    private float myRotationResetSpeed = 5f;
 
     private bool myGrounded = false;
     private bool myTooCloseToOldSpline = false;
@@ -23,11 +25,14 @@ public class TestPlayer : MonoBehaviour
     private Vector2 myAirMovement = new Vector2(1, 0);
     private int myPointsIndex = -1;
     private float mySplineT = -1;
-    private float myCurrentSpeed;
+    private float myCurrentSpeed; 
+    private Quaternion myOriginalRotation;
 
     private void Start()
     {
         myCurrentSpeed = myBaseSpeed;
+
+        myOriginalRotation = transform.rotation;
 
         if (mySplineManager == null)
         {
@@ -49,7 +54,8 @@ public class TestPlayer : MonoBehaviour
             SplineMovement();
             return;
         }
-
+        
+        ResetRotation();
         Air();
     }
 
@@ -159,5 +165,10 @@ public class TestPlayer : MonoBehaviour
         }
 
         return sameSpline;
+    }
+
+    private void ResetRotation()
+    {
+        transform.rotation = Quaternion.Slerp(transform.rotation, myOriginalRotation, Time.deltaTime * myRotationResetSpeed);
     }
 }
