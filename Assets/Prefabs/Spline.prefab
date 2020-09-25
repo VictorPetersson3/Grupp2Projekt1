@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df52c982a9c50954880b228da1a7e94d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathPlacer: {fileID: 0}
   myLineRenderer: {fileID: 2608755809564990190}
   path:
     points:
@@ -79,7 +78,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -131,7 +130,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.050006866
+        value: 0.02501297
         inSlope: 0
         outSlope: 0
         tangentMode: 0
