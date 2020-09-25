@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mySplineManager: {fileID: 312204006}
-  myReach: 0.1
+  myReach: 0.05
   myGravity: 1
   myBaseSpeed: 10
   myJumpForce: 1

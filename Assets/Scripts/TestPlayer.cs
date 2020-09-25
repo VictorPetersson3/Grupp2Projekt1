@@ -102,7 +102,7 @@ public class TestPlayer : MonoBehaviour
         
         if (Vector2.Distance(transform.position, closestPoint) <= myReach)
         {
-            if (IsOldSpline() && myTooCloseToOldSpline)
+            if (myTooCloseToOldSpline && IsOldSpline())
             {
                 return;
             }
