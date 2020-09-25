@@ -52,7 +52,6 @@ public class PathEditor : Editor
 
     void OnSceneGUI()
     {
-        creator.UpdateLineRenderer();
         Input();
         Draw();
     }
@@ -61,6 +60,7 @@ public class PathEditor : Editor
     {
         Event guiEvent = Event.current;
         Vector2 mousePos = HandleUtility.GUIPointToWorldRay(guiEvent.mousePosition).origin;
+        bool needToUpdateLines = false;
 
         if (guiEvent.type == EventType.MouseDown && guiEvent.button == 0 && guiEvent.shift)
         {
@@ -68,11 +68,13 @@ public class PathEditor : Editor
             {
                 Undo.RecordObject(creator, "Split segment");
                 Path.SplitSegment(mousePos, selectedSegmentIndex);
+                needToUpdateLines = true;
             }
             else if (!Path.IsClosed)
             {
                 Undo.RecordObject(creator, "Add segment");
                 Path.AddSegment(mousePos);
+                needToUpdateLines = true;
             }
         }
 
@@ -95,6 +97,7 @@ public class PathEditor : Editor
             {
                 Undo.RecordObject(creator, "Delete segment");
                 Path.DeleteSegment(closestAnchorIndex);
+                needToUpdateLines = true;
             }
         }
 
@@ -118,7 +121,13 @@ public class PathEditor : Editor
             {
                 selectedSegmentIndex = newSelectedSegmentIndex;
                 HandleUtility.Repaint();
+                needToUpdateLines = true;
             }
+        }
+
+        if (needToUpdateLines)
+        {
+            creator.UpdateLineRenderer();
         }
     }
 

@@ -56,21 +56,4 @@ public class PathCreator : MonoBehaviour
     {
         CreatePath();
     }
-
-    public Vector2 GetClosestPoint(Vector2 aPosition, ref int aPointsIndex)
-    {
-        Vector2 closestPoint = new Vector2(-100, 100);
-        Vector2[] evenPoints = path.CalculateEvenlySpacedPoints();
-
-        for (int i = 0; i < evenPoints.Length; i++)
-        {
-            if (Vector2.Distance(aPosition, evenPoints[i]) < Vector2.Distance(aPosition, closestPoint))
-            {
-                closestPoint = evenPoints[i];
-                aPointsIndex = i;
-            }
-        }
-
-        return closestPoint;
-    }
 }
