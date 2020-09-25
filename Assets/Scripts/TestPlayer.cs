@@ -71,6 +71,8 @@ public class TestPlayer : MonoBehaviour
 
     void SplineMovement()
     {
+        transform.LookAt(myCurrentPoints[myPointsIndex + 1]);
+
         float currentMove = Time.deltaTime * myCurrentSpeed;
         mySplineT += currentMove;
 
