@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Boo.Lang.Environments;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,59 +18,78 @@ public class TestPlayer : MonoBehaviour
 
     private bool myGrounded = false;
     private bool myTooCloseToOldSpline = false;
-    private Vector2[] myPoints;
+    private Vector2[] myCurrentPoints;
     private Vector2[] myOldPoints;
     private Vector2 myAirMovement = new Vector2(1, 0);
     private int myPointsIndex = -1;
     private float mySplineT = -1;
+    private float myCurrentSpeed;
 
-    void Update()
+    private void Start()
     {
+        myCurrentSpeed = myBaseSpeed;
+
         if (mySplineManager == null)
         {
             Debug.LogError(this + " has no splineManager!");
             return;
         }
+    }
 
+    void Update()
+    {
         if (myGrounded)
         {
             if (Input.GetAxisRaw("Jump") != 0)
             {
-                myAirMovement = myPoints[myPointsIndex] - myPoints[myPointsIndex - 1];
-                myAirMovement = myAirMovement.normalized;
-                myAirMovement = new Vector2(myAirMovement.x, myAirMovement.y + myJumpForce);
-                DropSpline();
+                Jump();
                 return;
             }
 
-            Grounded();
+            SplineMovement();
             return;
         }
 
         Air();
     }
 
-    void Grounded()
+    void Jump()
     {
-        float currentMove = Time.deltaTime * myBaseSpeed;
+        if (myPointsIndex == 0)
+        {
+            myAirMovement = myCurrentPoints[0] - myCurrentPoints[1];
+        }
+        else
+        {
+            myAirMovement = myCurrentPoints[myPointsIndex] - myCurrentPoints[myPointsIndex - 1];
+        }
+        
+        myAirMovement = myAirMovement.normalized;
+        myAirMovement = new Vector2(myAirMovement.x, myAirMovement.y + myJumpForce);
+        DropSpline();
+    }
+
+    void SplineMovement()
+    {
+        float currentMove = Time.deltaTime * myCurrentSpeed;
         mySplineT += currentMove;
 
         if (mySplineT >= 1f)
         {
-            transform.position = myPoints[myPointsIndex + 1];
+            transform.position = myCurrentPoints[myPointsIndex + 1];
             mySplineT -= 1f;
             myPointsIndex++;
         }
 
-        if (myPointsIndex + 1 >= myPoints.Length)
+        if (myPointsIndex + 1 >= myCurrentPoints.Length)
         {
-            myAirMovement = myPoints[myPoints.Length - 1] - myPoints[myPoints.Length - 2];
+            myAirMovement = myCurrentPoints[myCurrentPoints.Length - 1] - myCurrentPoints[myCurrentPoints.Length - 2];
             myAirMovement = myAirMovement.normalized;
             DropSpline();            
         }
         else
         {
-            transform.position = Vector2.Lerp(myPoints[myPointsIndex], myPoints[myPointsIndex + 1], mySplineT);
+            transform.position = Vector2.Lerp(myCurrentPoints[myPointsIndex], myCurrentPoints[myPointsIndex + 1], mySplineT);
         }
     }
 
@@ -78,7 +98,7 @@ public class TestPlayer : MonoBehaviour
         Vector2 currentMove = Time.deltaTime * myAirMovement;
         transform.position = new Vector3(transform.position.x + currentMove.x, transform.position.y + currentMove.y, transform.position.z);
         myAirMovement = new Vector2(myAirMovement.x, myAirMovement.y - (myGravity * Time.deltaTime));
-        Vector2 closestPoint = mySplineManager.GetClosestPoint(transform.position, ref myPointsIndex, ref myPoints);
+        Vector2 closestPoint = mySplineManager.GetClosestPoint(transform.position, ref myPointsIndex, ref myCurrentPoints);
         
         if (Vector2.Distance(transform.position, closestPoint) <= myReach)
         {
@@ -104,8 +124,8 @@ public class TestPlayer : MonoBehaviour
         myTooCloseToOldSpline = true;
         myGrounded = false;
         myPointsIndex = -1;
-        myOldPoints = myPoints;
-        myPoints = null;
+        myOldPoints = myCurrentPoints;
+        myCurrentPoints = null;
         mySplineT = 0;
     }
 
@@ -113,13 +133,13 @@ public class TestPlayer : MonoBehaviour
     {
         bool sameSpline = false;
 
-        if ((myOldPoints != null && myPoints != null) && myOldPoints.Length == myPoints.Length)
+        if ((myOldPoints != null && myCurrentPoints != null) && myOldPoints.Length == myCurrentPoints.Length)
         {
             sameSpline = true;
 
             for (int i = 0; i < myOldPoints.Length; i++)
             {
-                if (myPoints[i] != myOldPoints[i])
+                if (myCurrentPoints[i] != myOldPoints[i])
                 {
                     return false;
                 }
