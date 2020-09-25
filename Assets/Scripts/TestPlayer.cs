@@ -70,7 +70,7 @@ public class TestPlayer : MonoBehaviour
             myAirMovement = myCurrentPoints[myPointsIndex] - myCurrentPoints[myPointsIndex - 1];
         }
         
-        myAirMovement = myAirMovement.normalized;
+        myAirMovement = myAirMovement.normalized * myBaseSpeed / 10;
         myAirMovement = new Vector2(myAirMovement.x, myAirMovement.y + myJumpForce);
         DropSpline();
     }
@@ -92,7 +92,7 @@ public class TestPlayer : MonoBehaviour
         if (myPointsIndex + 1 >= myCurrentPoints.Length)
         {
             myAirMovement = myCurrentPoints[myCurrentPoints.Length - 1] - myCurrentPoints[myCurrentPoints.Length - 2];
-            myAirMovement = myAirMovement.normalized;
+            myAirMovement = myAirMovement.normalized * myBaseSpeed / 10;
             DropSpline();            
         }
         else

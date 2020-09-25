@@ -13,7 +13,7 @@ public class SplineManager : MonoBehaviour
 
     public Vector2 GetClosestPoint(Vector2 aPlayerPosition, ref int aPointsIndex, ref Vector2[] aPoints)
     {
-        Vector2 closestPoint = new Vector2(-100100, 100000);
+        Vector2 closestPoint = Vector2.negativeInfinity;
         int closestIndex = 0;
 
         for (int i = 0; i < pathCreators.Length; i++)
@@ -35,7 +35,7 @@ public class SplineManager : MonoBehaviour
 
     private Vector2 GetClosestPointInSpline(Vector2 aPlayerPosition, Vector2[] somePoints, ref int aPointsIndex)
     {
-        Vector2 closestPoint = new Vector2(-100000, 100000);
+        Vector2 closestPoint = Vector2.negativeInfinity;
 
         for (int i = 0; i < somePoints.Length; i++)
         {
