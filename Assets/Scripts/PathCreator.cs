@@ -25,6 +25,12 @@ public class PathCreator : MonoBehaviour
 
     public void UpdateLineRenderer()
     {
+        if (myLineRenderer == null)
+        {
+            Debug.Log("Missing Line Renderer. Intentional?");
+            return;
+        }
+
         Vector3[] v3 = ConvertV2V3(path.CalculateEvenlySpacedPoints());
         myLineRenderer.positionCount = v3.Length;
         myLineRenderer.SetPositions(v3);

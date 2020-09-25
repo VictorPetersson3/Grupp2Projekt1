@@ -97,9 +97,19 @@ public class TestPlayer : MonoBehaviour
     {
         Vector2 currentMove = Time.deltaTime * myAirMovement;
         transform.position = new Vector3(transform.position.x + currentMove.x, transform.position.y + currentMove.y, transform.position.z);
-        myAirMovement = new Vector2(myAirMovement.x, myAirMovement.y - (myGravity * Time.deltaTime));
-        Vector2 closestPoint = mySplineManager.GetClosestPoint(transform.position, ref myPointsIndex, ref myCurrentPoints);
         
+        if (myAirMovement.y < 0)
+        {
+            AttemptToCatchSpline();
+        }       
+
+        myAirMovement = new Vector2(myAirMovement.x, myAirMovement.y - (myGravity * Time.deltaTime));
+    }
+
+    void AttemptToCatchSpline()
+    {
+        Vector2 closestPoint = mySplineManager.GetClosestPoint(transform.position, ref myPointsIndex, ref myCurrentPoints);
+
         if (Vector2.Distance(transform.position, closestPoint) <= myReach)
         {
             if (myTooCloseToOldSpline && IsOldSpline())
