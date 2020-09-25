@@ -42,7 +42,7 @@ public class TestPlayer : MonoBehaviour
         float currentMove = Time.deltaTime * myGroundSpeed;
         mySplineT += currentMove;
 
-        if (mySplineT > 1f)
+        if (mySplineT >= 1f)
         {
             if (myNextIsNull)
             {
@@ -75,7 +75,7 @@ public class TestPlayer : MonoBehaviour
         {
             if ((myOldPoints != null && myPoints != null) && myOldPoints.Length == myPoints.Length)
             {
-                Debug.Log("Attempting to grab spline, but Same amount of spheres as old spline.");
+                //Debug.Log("Attempting to grab spline, but Same amount of spheres as old spline.");
                 bool sameSpline = true;
 
                 for (int i = 0; i < myOldPoints.Length; i++)
@@ -88,20 +88,18 @@ public class TestPlayer : MonoBehaviour
 
                 if (sameSpline)
                 {
-                    Debug.Log("Tried grabbing same spline. ABORT!");
+                    //Debug.Log("Tried grabbing same spline. ABORT!");
                     return;
                 }
 
-                Debug.Log("Wasn't the same spline. LETS GO!");
+                //Debug.Log("Wasn't the same spline. LETS GO!");
             }
 
             transform.position = closestPoint;
             myGrounded = true;
             mySplineT = 0;
-            //Debug.Log("Closest point: " + closestPoint);
-            Debug.Log("Index: " + myPointsIndex);
-            Debug.Log("Index vec2: " + myPoints[myPointsIndex]);
-            //Debug.Log("Grabbing Points: " + myPoints);
+            //Debug.Log("Index: " + myPointsIndex);
+            //Debug.Log("Index vec2: " + myPoints[myPointsIndex]);
         }
     }
 

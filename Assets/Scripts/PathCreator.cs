@@ -34,7 +34,7 @@ public class PathCreator : MonoBehaviour
 
         if (pathPlacer == null)
         {
-            Debug.Log("PathCreator " + this + " is missing a PathPlacer!");
+            Debug.LogError("PathCreator " + this + " is missing a PathPlacer!");
             return;
         }
 
