@@ -70,7 +70,7 @@ public class TestPlayer : MonoBehaviour
             myAirMovement = myCurrentPoints[myPointsIndex] - myCurrentPoints[myPointsIndex - 1];
         }
         
-        myAirMovement = myAirMovement.normalized * myBaseSpeed * transform.localscale.x;
+        myAirMovement = myAirMovement.normalized * myBaseSpeed * transform.localScale.x;
         myAirMovement = new Vector2(myAirMovement.x, myAirMovement.y + myJumpForce);
         DropSpline();
     }
