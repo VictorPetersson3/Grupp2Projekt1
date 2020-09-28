@@ -4,7 +4,7 @@ public class SplineManager : MonoBehaviour
 {
     private PathCreator[] pathCreators;
     
-    void Start()
+    private void Start()
     {
         pathCreators = GetComponentsInChildren<PathCreator>();
     }

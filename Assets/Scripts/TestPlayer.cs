@@ -38,7 +38,7 @@ public class TestPlayer : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (myGrounded)
         {
@@ -56,7 +56,7 @@ public class TestPlayer : MonoBehaviour
         Air();
     }
 
-    void Jump()
+    private void Jump()
     {
         if (myPointsIndex == 0)
         {
@@ -72,7 +72,7 @@ public class TestPlayer : MonoBehaviour
         DropSpline();
     }
 
-    void SplineMovement()
+    private void SplineMovement()
     {
         transform.LookAt(myCurrentPoints[myPointsIndex + 1]);
 
@@ -98,7 +98,7 @@ public class TestPlayer : MonoBehaviour
         }
     }
 
-    void Air()
+    private void Air()
     {
         Vector2 currentMove = Time.deltaTime * myAirMovement;
         transform.position = new Vector3(transform.position.x + currentMove.x, transform.position.y + currentMove.y, transform.position.z);
@@ -111,7 +111,7 @@ public class TestPlayer : MonoBehaviour
         myAirMovement = new Vector2(myAirMovement.x, myAirMovement.y - (myGravity * Time.deltaTime));
     }
 
-    void AttemptToCatchSpline()
+    private void AttemptToCatchSpline()
     {
         Vector2 closestPoint = mySplineManager.GetClosestPoint(transform.position, ref myPointsIndex, ref myCurrentPoints);
 
@@ -134,7 +134,7 @@ public class TestPlayer : MonoBehaviour
         }
     }
 
-    void DropSpline()
+    private void DropSpline()
     {
         myTooCloseToOldSpline = true;
         myGrounded = false;

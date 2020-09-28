@@ -5,8 +5,8 @@ using UnityEditor;
 public class PathEditor : Editor
 {
 
-    PathCreator creator;
-    Path Path
+    private PathCreator creator;
+    private Path Path
     {
         get
         {
@@ -14,8 +14,8 @@ public class PathEditor : Editor
         }
     }
 
-    const float segmentSelectDistanceThreshold = .1f;
-    int selectedSegmentIndex = -1;
+    private const float segmentSelectDistanceThreshold = .1f;
+    private int selectedSegmentIndex = -1;
 
     public override void OnInspectorGUI()
     {
@@ -48,13 +48,13 @@ public class PathEditor : Editor
         }
     }
 
-    void OnSceneGUI()
+    private void OnSceneGUI()
     {
         Input();
         Draw();
     }
 
-    void Input()
+    private void Input()
     {
         Event guiEvent = Event.current;
         Vector2 mousePos = HandleUtility.GUIPointToWorldRay(guiEvent.mousePosition).origin;
@@ -129,7 +129,7 @@ public class PathEditor : Editor
         }
     }
 
-    void Draw()
+    private void Draw()
     {
         for (int i = 0; i < Path.NumSegments; i++)
         {
@@ -161,7 +161,7 @@ public class PathEditor : Editor
         }
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
         creator = (PathCreator)target;
         if (creator.path == null)

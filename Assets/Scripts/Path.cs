@@ -232,7 +232,7 @@ public class Path
         return evenlySpacedPoints.ToArray();
     }
 
-    void AutoSetAllAffectedControlPoints(int updatedAnchorIndex)
+    private void AutoSetAllAffectedControlPoints(int updatedAnchorIndex)
     {
         for (int i = updatedAnchorIndex - 3; i <= updatedAnchorIndex + 3; i += 3)
         {
@@ -245,7 +245,7 @@ public class Path
         AutoSetStartAndEndControls();
     }
 
-    void AutoSetAllControlPoints()
+    private void AutoSetAllControlPoints()
     {
         for (int i = 0; i < points.Count; i += 3)
         {
@@ -255,7 +255,7 @@ public class Path
         AutoSetStartAndEndControls();
     }
 
-    void AutoSetAnchorControlPoints(int anchorIndex)
+    private void AutoSetAnchorControlPoints(int anchorIndex)
     {
         Vector2 anchorPos = points[anchorIndex];
         Vector2 dir = Vector2.zero;
@@ -286,7 +286,7 @@ public class Path
         }
     }
 
-    void AutoSetStartAndEndControls()
+    private void AutoSetStartAndEndControls()
     {
         if (!isClosed)
         {
@@ -295,7 +295,7 @@ public class Path
         }
     }
 
-    int LoopIndex(int i)
+    private int LoopIndex(int i)
     {
         return (i + points.Count) % points.Count;
     }

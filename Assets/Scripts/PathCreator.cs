@@ -56,7 +56,7 @@ public class PathCreator : MonoBehaviour
         Reset();
     }
 
-    void Reset()
+    private void Reset()
     {
         CreatePath();
     }
