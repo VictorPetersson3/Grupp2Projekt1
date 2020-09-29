@@ -195,6 +195,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33aee5f7f631c684badad8ceadb544d0, type: 3}
+--- !u!4 &25485732 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1607898315252366860, guid: 33aee5f7f631c684badad8ceadb544d0,
+    type: 3}
+  m_PrefabInstance: {fileID: 25485731}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &70386103
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4011,7 +4017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac749ec6bafb653428e6771cbb6b2e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myTarget: {fileID: 0}
+  myTarget: {fileID: 25485732}
   myTrackX: 1
   myTrackY: 1
 --- !u!1001 &978138118
