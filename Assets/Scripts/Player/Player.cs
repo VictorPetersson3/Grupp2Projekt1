@@ -4,6 +4,7 @@
 [RequireComponent(typeof(PlayerJump))]
 [RequireComponent(typeof(PlayerAir))]
 [RequireComponent(typeof(SplineManager))]
+[RequireComponent(typeof(PlayerInput))]
 public class Player : MonoBehaviour
 {
     [SerializeField]
@@ -22,9 +23,11 @@ public class Player : MonoBehaviour
     private PlayerSpline myPlayerSpline;
     private PlayerJump myPlayerJump;
     private PlayerAir myPlayerAir;
+    private PlayerInput myPlayerInput;
 
     private bool myGrounded = false;
     private bool myTooCloseToOldSpline = false;
+    private bool isJumping;
     private Vector2[] myCurrentPoints;
     private Vector2[] myOldPoints;
     private Vector2 myAirMovement = new Vector2(1, 0);
@@ -38,6 +41,7 @@ public class Player : MonoBehaviour
         myPlayerSpline = GetComponent<PlayerSpline>();
         myPlayerJump = GetComponent<PlayerJump>();
         myPlayerAir = GetComponent<PlayerAir>();
+        myPlayerInput = GetComponent<PlayerInput>();
 
         myCurrentSpeed = myBaseSpeed;
         myOriginalRotation = transform.rotation;
@@ -51,9 +55,11 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        isJumping = myPlayerInput.IsJumping();
+
         if (myGrounded)
         {
-            if (Input.GetAxisRaw("Jump") != 0)
+            if (isJumping)
             {
                 myPlayerJump.Jump(myCurrentPoints, myPointsIndex, myJumpForce, myCurrentSpeed, ref myAirMovement);
                 ResetSpline();
@@ -67,9 +73,17 @@ public class Player : MonoBehaviour
             }
             return;
         }
-
-        myPlayerAir.ResetRotation(myOriginalRotation, myRotationResetSpeed);
+        
         myPlayerAir.AirMovement(myGravity, ref myAirMovement);
+
+        if (isJumping)
+        {
+            myPlayerAir.Backflip();
+        }
+        else
+        {
+            myPlayerAir.ResetRotation(myOriginalRotation, myRotationResetSpeed);
+        }
 
         if (myAirMovement.y < 0)
         {
