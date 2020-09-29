@@ -5,6 +5,8 @@
 [RequireComponent(typeof(PlayerAir))]
 [RequireComponent(typeof(SplineManager))]
 [RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(PlayerCollision))]
+[RequireComponent(typeof(PlayerDeath))]
 public class Player : MonoBehaviour
 {
     [SerializeField]
@@ -26,10 +28,13 @@ public class Player : MonoBehaviour
     private PlayerJump myPlayerJump;
     private PlayerAir myPlayerAir;
     private PlayerInput myPlayerInput;
+    private PlayerCollision myPlayerCollision;
+    private PlayerDeath myPlayerDeath;
 
     private bool myGrounded = false;
     private bool myTooCloseToOldSpline = false;
-    private bool isJumping;
+    private bool myIsJumping;
+    private bool myHasCollided = false;
     private Vector2[] myCurrentPoints;
     private Vector2[] myOldPoints;
     private Vector2 myAirMovement = new Vector2(1, 0);
@@ -44,6 +49,8 @@ public class Player : MonoBehaviour
         myPlayerJump = GetComponent<PlayerJump>();
         myPlayerAir = GetComponent<PlayerAir>();
         myPlayerInput = GetComponent<PlayerInput>();
+        myPlayerDeath = GetComponent<PlayerDeath>();
+        myPlayerCollision = GetComponentInChildren<PlayerCollision>();
 
         myCurrentSpeed = myBaseSpeed;
         myOriginalRotation = transform.rotation;
@@ -57,11 +64,18 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        isJumping = myPlayerInput.IsJumping();
+        myIsJumping = myPlayerInput.IsJumping();
+        myHasCollided = myPlayerCollision.HasCollided();
+
+        if (myHasCollided)
+        {
+            myPlayerDeath.Die();
+            ResetSpline();
+        }
 
         if (myGrounded)
         {
-            if (isJumping)
+            if (myIsJumping)
             {
                 myPlayerJump.Jump(myCurrentPoints, myPointsIndex, myJumpForce, myCurrentSpeed, ref myAirMovement);
                 ResetSpline();
@@ -78,7 +92,7 @@ public class Player : MonoBehaviour
         
         myPlayerAir.AirMovement(myGravity, ref myAirMovement);
 
-        if (isJumping)
+        if (myIsJumping)
         {
             myPlayerAir.Backflip(myFlipRotationSpeed);
         }
@@ -97,7 +111,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void ResetSpline()
+    private void ResetSpline()
     {
         myTooCloseToOldSpline = true;
         myGrounded = false;

@@ -2,8 +2,19 @@
 
 public class PlayerCollision : MonoBehaviour
 {
+    private bool myCollision = false;
+
+    public bool HasCollided()
+    {
+        return myCollision;
+    }
     private void OnCollisionEnter(Collision aCollision)
     {
-        Debug.Log("Collision");
+        myCollision = true;
+    }
+
+    private void OnCollisionExit(Collision aCollision)
+    {
+        myCollision = false;
     }
 }
