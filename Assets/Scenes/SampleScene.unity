@@ -3946,6 +3946,36 @@ MonoBehaviour:
   myTarget: {fileID: 6554191}
   myTrackX: 1
   myTrackY: 1
+--- !u!1 &964082495 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5996222493095275923, guid: 46735a99d69cdb944b0a28e0fdc7adaf,
+    type: 3}
+  m_PrefabInstance: {fileID: 5996222493097111518}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &964082496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964082495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1939534ccaa90b84fb8e2f99dbe23880, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &964082497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964082495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6406fbae21dffc64b83f9c36b0f16e57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &978138118
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5382,7 +5412,7 @@ PrefabInstance:
     - target: {fileID: 5996222493095275923, guid: 46735a99d69cdb944b0a28e0fdc7adaf,
         type: 3}
       propertyPath: m_Name
-      value: TestPlayer
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46735a99d69cdb944b0a28e0fdc7adaf, type: 3}
