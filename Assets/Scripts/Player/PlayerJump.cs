@@ -3,12 +3,6 @@
 [RequireComponent(typeof(Player))]
 public class PlayerJump : MonoBehaviour
 {
-    private Player myPlayer;
-    void Start()
-    {
-        myPlayer = GetComponent<Player>();
-    }
-
     public void Jump(Vector2[] aCurrentPoints, int aPointsIndex, float aJumpForce, float aBaseSpeed, ref Vector2 aAirMovement)
     {
         if (aPointsIndex == 0)

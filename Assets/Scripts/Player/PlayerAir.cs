@@ -3,13 +3,7 @@
 [RequireComponent(typeof(Player))]
 public class PlayerAir : MonoBehaviour
 {
-    private Player myPlayer;
-    void Start()
-    {
-        myPlayer = GetComponent<Player>();
-    }
-
-    public bool InAir(float aGravity, ref Vector2 aAirMovement)
+    public bool CanGrabSplineInAir(float aGravity, ref Vector2 aAirMovement)
     {
         Vector2 currentMove = Time.deltaTime * aAirMovement;
         transform.position = new Vector3(transform.position.x + currentMove.x, transform.position.y + currentMove.y, transform.position.z);

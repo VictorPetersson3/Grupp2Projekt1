@@ -60,13 +60,18 @@ public class Player : MonoBehaviour
                 return;
             }
 
-            myPlayerSpline.SplineMovement(myCurrentPoints, myCurrentSpeed, myBaseSpeed, ref myPointsIndex, ref mySplineT, ref myAirMovement);
+            if (!myPlayerSpline.SplineMovement(myCurrentPoints, myCurrentSpeed, ref myPointsIndex, ref mySplineT))
+            {
+                myPlayerSpline.ReleaseSpline(myCurrentPoints, myCurrentSpeed, ref myAirMovement);
+                ResetSpline();
+            }
             return;
         }
-        
-        if (myPlayerAir.InAir(myGravity, ref myAirMovement))
-        {
-            myPlayerAir.ResetRotation(myOriginalRotation, myRotationResetSpeed);
+
+        myPlayerAir.ResetRotation(myOriginalRotation, myRotationResetSpeed);
+
+        if (myPlayerAir.CanGrabSplineInAir(myGravity, ref myAirMovement))
+        {            
             if (myPlayerSpline.AttemptToCatchSpline(mySplineManager, myReach, ref myTooCloseToOldSpline, ref myPointsIndex, ref myCurrentPoints, ref myOldPoints))
             {
                 myGrounded = true;

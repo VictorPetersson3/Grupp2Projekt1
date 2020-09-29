@@ -3,13 +3,7 @@
 [RequireComponent(typeof(Player))]
 public class PlayerSpline : MonoBehaviour
 {
-    private Player myPlayer;
-    private void Start()
-    {
-        myPlayer = GetComponent<Player>();
-    }
-
-    public void SplineMovement(Vector2[] aCurrentPoints, float aCurrentSpeed, float aBaseSpeed, ref int aPointsIndex, ref float aSplineT, ref Vector2 aAirMovement)
+    public bool SplineMovement(Vector2[] aCurrentPoints, float aCurrentSpeed, ref int aPointsIndex, ref float aSplineT)
     {
         if (aCurrentPoints.Length > aPointsIndex + 1)
         {
@@ -28,14 +22,20 @@ public class PlayerSpline : MonoBehaviour
 
         if (aPointsIndex + 1 >= aCurrentPoints.Length)
         {
-            aAirMovement = aCurrentPoints[aCurrentPoints.Length - 1] - aCurrentPoints[aCurrentPoints.Length - 2];
-            aAirMovement = aAirMovement.normalized * aBaseSpeed / 10;
-            myPlayer.ResetSpline();
+            return false;
         }
         else
         {
             transform.position = Vector2.Lerp(aCurrentPoints[aPointsIndex], aCurrentPoints[aPointsIndex + 1], aSplineT);
         }
+
+        return true;
+    }
+
+    public void ReleaseSpline(Vector2[] aCurrentPoints, float aBaseSpeed, ref Vector2 aAirMovement)
+    {
+        aAirMovement = aCurrentPoints[aCurrentPoints.Length - 1] - aCurrentPoints[aCurrentPoints.Length - 2];
+        aAirMovement = aAirMovement.normalized * aBaseSpeed / 10;
     }
 
     private bool IsOldSpline(Vector2[] aOldPoints, Vector2[] aCurrentPoints)
