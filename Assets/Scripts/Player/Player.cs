@@ -69,9 +69,10 @@ public class Player : MonoBehaviour
         }
 
         myPlayerAir.ResetRotation(myOriginalRotation, myRotationResetSpeed);
+        myPlayerAir.AirMovement(myGravity, ref myAirMovement);
 
-        if (myPlayerAir.CanGrabSplineInAir(myGravity, ref myAirMovement))
-        {            
+        if (myAirMovement.y < 0)
+        {
             if (myPlayerSpline.AttemptToCatchSpline(mySplineManager, myReach, ref myTooCloseToOldSpline, ref myPointsIndex, ref myCurrentPoints, ref myOldPoints))
             {
                 myGrounded = true;
