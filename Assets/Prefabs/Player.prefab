@@ -159,6 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6406fbae21dffc64b83f9c36b0f16e57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myGroundedRotationSpeed: 5
 --- !u!114 &1607898314831972099
 MonoBehaviour:
   m_ObjectHideFlags: 0

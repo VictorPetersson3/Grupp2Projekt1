@@ -3,11 +3,16 @@
 [RequireComponent(typeof(Player))]
 public class PlayerSpline : MonoBehaviour
 {
+    [SerializeField]
+    private float myGroundedRotationSpeed = 10f;
     public bool SplineMovement(Vector2[] aCurrentPoints, float aCurrentSpeed, ref int aPointsIndex, ref float aSplineT)
     {
         if (aCurrentPoints.Length > aPointsIndex + 1)
         {
-            transform.LookAt(aCurrentPoints[aPointsIndex + 1]);
+            Vector3 lookPos = new Vector3(aCurrentPoints[aPointsIndex + 1].x, aCurrentPoints[aPointsIndex + 1].y, 0) - transform.position;
+            lookPos.z = 0;
+            Quaternion rotation = Quaternion.LookRotation(lookPos);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * myGroundedRotationSpeed);
         }
 
         float currentMove = Time.deltaTime * aCurrentSpeed;
