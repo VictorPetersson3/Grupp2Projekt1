@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
         {
             if (Input.GetAxisRaw("Jump") != 0)
             {
-                myPlayerJump.Jump(myCurrentPoints, myPointsIndex, myJumpForce, myBaseSpeed, ref myAirMovement);
+                myPlayerJump.Jump(myCurrentPoints, myPointsIndex, myJumpForce, myCurrentSpeed, ref myAirMovement);
                 ResetSpline();
                 return;
             }
