@@ -5,13 +5,13 @@ public class PlayerJump : MonoBehaviour
 {
     public void Jump(Vector2[] aCurrentPoints, int aPointsIndex, float aJumpForce, float aBaseSpeed, ref Vector2 aAirMovement)
     {
-        if (aPointsIndex == 0)
+        if (aPointsIndex < aCurrentPoints.Length)
         {
-            aAirMovement = aCurrentPoints[0] - aCurrentPoints[1];
+            aAirMovement = aCurrentPoints[aPointsIndex + 1] - aCurrentPoints[aPointsIndex];
         }
         else
         {
-            aAirMovement = aCurrentPoints[aPointsIndex] - aCurrentPoints[aPointsIndex - 1];
+            aAirMovement = aCurrentPoints[aCurrentPoints.Length] - aCurrentPoints[aCurrentPoints.Length - 1];
         }
 
         aAirMovement = aAirMovement.normalized * aBaseSpeed / 10;
