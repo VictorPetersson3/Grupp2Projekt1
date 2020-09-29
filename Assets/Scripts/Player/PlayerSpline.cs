@@ -5,7 +5,12 @@ public class PlayerSpline : MonoBehaviour
 {
     [SerializeField]
     private float myGroundedRotationSpeed = 10f;
-    public bool SplineMovement(Vector2[] aCurrentPoints, float aCurrentSpeed, ref int aPointsIndex, ref float aSplineT)
+
+    private float myOldY = 0f;
+    private float myCurrentY = 0f;
+    private bool myFirstCheck = true;
+
+    public bool SplineMovement(Vector2[] aCurrentPoints, float aCurrentSpeed, ref int aPointsIndex, ref float aSplineT, float aGravity)
     {
         if (aCurrentPoints.Length > aPointsIndex + 1)
         {
@@ -27,14 +32,55 @@ public class PlayerSpline : MonoBehaviour
 
         if (aPointsIndex + 1 >= aCurrentPoints.Length)
         {
+            ResetDeltaVariables();
             return false;
         }
-        else
+
+        transform.position = Vector2.Lerp(aCurrentPoints[aPointsIndex], aCurrentPoints[aPointsIndex + 1], aSplineT);
+
+        if (DeltaYGreaterThanYGravity(aGravity))
         {
-            transform.position = Vector2.Lerp(aCurrentPoints[aPointsIndex], aCurrentPoints[aPointsIndex + 1], aSplineT);
+            ResetDeltaVariables();
+            return false;
         }
 
         return true;
+    }
+
+    private void ResetDeltaVariables()
+    {
+        myOldY = 0f;
+        myCurrentY = 0f;
+        myFirstCheck = true;
+    }
+
+    private bool DeltaYGreaterThanYGravity(float aGravity)
+    {
+        myOldY = myCurrentY;
+        myCurrentY = transform.position.y;
+
+        if (myFirstCheck)
+        {
+            Debug.Log("FIRST CHECK THING");
+            myFirstCheck = false;
+            return false;
+        }
+        
+        float deltaY = myCurrentY - myOldY;
+        float deltaGrav = -aGravity * Time.deltaTime;
+
+        if (myOldY + deltaY < (myOldY + deltaGrav))
+        {
+            Debug.Log("Old Y: " + myOldY);
+            Debug.Log("Current Y: " + myCurrentY);
+            Debug.Log("Delta Y:" + deltaY);
+            Debug.Log("Delta Gravity:" + deltaGrav);
+
+            ResetDeltaVariables();            
+            return true;
+        }
+
+        return false;
     }
 
     public void ReleaseSpline(Vector2[] aCurrentPoints, float aBaseSpeed, ref Vector2 aAirMovement)
