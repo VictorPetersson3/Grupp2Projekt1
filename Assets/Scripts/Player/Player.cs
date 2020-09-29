@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     private float myJumpForce = 10f;
     [SerializeField]
     private float myRotationResetSpeed = 5f;
+    [SerializeField]
+    private float myFlipRotationSpeed = 100f;
 
     private PlayerSpline myPlayerSpline;
     private PlayerJump myPlayerJump;
@@ -78,7 +80,7 @@ public class Player : MonoBehaviour
 
         if (isJumping)
         {
-            myPlayerAir.Backflip();
+            myPlayerAir.Backflip(myFlipRotationSpeed);
         }
         else
         {
