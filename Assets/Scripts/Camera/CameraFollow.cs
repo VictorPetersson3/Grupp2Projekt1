@@ -9,7 +9,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField]
     private bool myTrackY = true;
 
-    void Update()
+    void LateUpdate()
     {
         float newX = transform.position.x;
         float newY = transform.position.y;
