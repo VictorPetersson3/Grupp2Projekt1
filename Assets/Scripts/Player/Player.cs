@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
 
             if (!myPlayerSpline.SplineMovement(myCurrentPoints, myCurrentSpeed, ref myPointsIndex, ref mySplineT, myGravity))
             {
-                myPlayerSpline.ReleaseSpline(myCurrentPoints, myCurrentSpeed, ref myAirMovement);
+                myPlayerSpline.ReleaseSpline(myCurrentPoints, myCurrentSpeed, ref myAirMovement, myPointsIndex);
                 ResetSpline();
             }
             return;
@@ -103,5 +103,6 @@ public class Player : MonoBehaviour
         myOldPoints = myCurrentPoints;
         myCurrentPoints = null;
         mySplineT = 0;
+        myPlayerSpline.ResetAngleVariables();
     }
 }
