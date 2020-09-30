@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private SplineManager mySplineManager = null;
     [SerializeField]
-    private Camera myCamera = null;
+    private CameraShake myCamera = null;
     [SerializeField]
     private float myReach = 0.25f;
     [SerializeField]
@@ -40,7 +40,6 @@ public class Player : MonoBehaviour
     private PlayerInput myPlayerInput;
     private PlayerCollision myPlayerCollision;
     private PlayerDeath myPlayerDeath;
-    private CameraShake myCameraShake;
 
     private bool myGrounded = false;
     private bool myTooCloseToOldSpline = false;
@@ -62,8 +61,6 @@ public class Player : MonoBehaviour
         myPlayerInput = GetComponent<PlayerInput>();
         myPlayerDeath = GetComponent<PlayerDeath>();
         myPlayerCollision = GetComponentInChildren<PlayerCollision>();
-        myCameraShake = myCamera.GetComponent<CameraShake>();
-
 
         myCurrentSpeed = myBaseSpeed;
         myOriginalRotation = transform.rotation;
@@ -86,7 +83,7 @@ public class Player : MonoBehaviour
 
         if (myHasCollided)
         {
-            myCameraShake.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
+            myCamera.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
             myPlayerDeath.Die();
             ResetSpline();
         }
@@ -123,7 +120,7 @@ public class Player : MonoBehaviour
         {
             if (myPlayerSpline.AttemptToCatchSpline(mySplineManager, myReach, ref myTooCloseToOldSpline, ref myPointsIndex, ref myCurrentPoints, ref myOldPoints))
             {
-                myCameraShake.TriggerShake(myShakeDurationSplines, myShakeMagnitudeSplines);
+                myCamera.TriggerShake(myShakeDurationSplines, myShakeMagnitudeSplines);
                 myGrounded = true;
                 mySplineT = 0;
             }
