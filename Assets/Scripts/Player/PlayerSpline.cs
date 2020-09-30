@@ -16,14 +16,6 @@ public class PlayerSpline : MonoBehaviour
         float currentMove = Time.deltaTime * aCurrentSpeed;
         aSplineT += currentMove;
 
-        if (myFirstCheck && 
-            aPointsIndex + 1 < someCurrentPoints.Length && 
-            aSplineT < 1f)
-        {
-            myFirstCheck = false;
-            myCurrentAngle = GetAngle(someCurrentPoints[aPointsIndex], someCurrentPoints[aPointsIndex + 1]);
-        }
-
         if (aSplineT >= 1f)
         {
             transform.position = someCurrentPoints[aPointsIndex + 1];
@@ -36,6 +28,11 @@ public class PlayerSpline : MonoBehaviour
                     return false;
                 }
             }
+        }
+        else if ((myFirstCheck) && (aPointsIndex + 1 < someCurrentPoints.Length) && (aSplineT < 1f))
+        {
+            myOldAngle = myCurrentAngle;
+            myCurrentAngle = GetAngle(someCurrentPoints[aPointsIndex], someCurrentPoints[aPointsIndex + 1]);
         }
 
         if (aPointsIndex + 1 >= someCurrentPoints.Length)
@@ -68,12 +65,10 @@ public class PlayerSpline : MonoBehaviour
         {
             myFirstCheck = false;
         }
-        else
+
+        if (SplineTooSteep(someCurrentPoints, aPointsIndex, aSpeed, aGravity))
         {
-            if (SplineTooSteep(someCurrentPoints, aPointsIndex, aSpeed, aGravity))
-            {
-                return false;
-            }
+            return false;
         }
 
         return true;
@@ -88,18 +83,12 @@ public class PlayerSpline : MonoBehaviour
 
         Vector2 splineMovement = (someCurrentPoints[aPointsIndex] - someCurrentPoints[aPointsIndex + 1]) * aSpeed;
         aGravity *= -1;
-        float buffer = 2;
+        const float buffer = -0.1f;
         float delta = splineMovement.y - aGravity;
-        //Debug.Log("Y: " + splineMovement.y);
 
-        if (splineMovement.y < aGravity)
+        if ((splineMovement.y < aGravity) && (delta < buffer))
         {
-            Debug.Log("might release");
-            if (delta < buffer)
-            {
-                Debug.Log("DEFINITELY RELEASE");
-                return true;
-            }
+            return true;
         }
 
         return false;
