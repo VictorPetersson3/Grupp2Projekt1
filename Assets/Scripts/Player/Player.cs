@@ -5,10 +5,14 @@
 [RequireComponent(typeof(PlayerAir))]
 [RequireComponent(typeof(SplineManager))]
 [RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(PlayerCollision))]
+[RequireComponent(typeof(PlayerDeath))]
 public class Player : MonoBehaviour
 {
     [SerializeField]
     private SplineManager mySplineManager = null;
+    [SerializeField]
+    private Camera myCamera = null;
     [SerializeField]
     private float myReach = 0.25f;
     [SerializeField]
@@ -19,15 +23,29 @@ public class Player : MonoBehaviour
     private float myJumpForce = 10f;
     [SerializeField]
     private float myRotationResetSpeed = 5f;
+    [SerializeField]
+    private float myFlipRotationSpeed = 100f;
+    [SerializeField]
+    private float myShakeDurationRocks = 15f;
+    [SerializeField]
+    private float myShakeMagnitudeRocks = 10f;
+    [SerializeField]
+    private float myShakeDurationSplines = 10f;
+    [SerializeField]
+    private float myShakeMagnitudeSplines = 5f;
 
     private PlayerSpline myPlayerSpline;
     private PlayerJump myPlayerJump;
     private PlayerAir myPlayerAir;
     private PlayerInput myPlayerInput;
+    private PlayerCollision myPlayerCollision;
+    private PlayerDeath myPlayerDeath;
+    private CameraShake myCameraShake;
 
     private bool myGrounded = false;
     private bool myTooCloseToOldSpline = false;
-    private bool isJumping;
+    private bool myIsJumping;
+    private bool myHasCollided = false;
     private Vector2[] myCurrentPoints;
     private Vector2[] myOldPoints;
     private Vector2 myAirMovement = new Vector2(1, 0);
@@ -42,6 +60,10 @@ public class Player : MonoBehaviour
         myPlayerJump = GetComponent<PlayerJump>();
         myPlayerAir = GetComponent<PlayerAir>();
         myPlayerInput = GetComponent<PlayerInput>();
+        myPlayerDeath = GetComponent<PlayerDeath>();
+        myPlayerCollision = GetComponentInChildren<PlayerCollision>();
+        myCameraShake = myCamera.GetComponent<CameraShake>();
+
 
         myCurrentSpeed = myBaseSpeed;
         myOriginalRotation = transform.rotation;
@@ -51,15 +73,27 @@ public class Player : MonoBehaviour
             Debug.LogError(this + " has no splineManager!");
             return;
         }
+        if (myCamera == null)
+        {
+            Debug.LogError(this + " has no camera!");
+        }
     }
 
     private void Update()
     {
-        isJumping = myPlayerInput.IsJumping();
+        myIsJumping = myPlayerInput.IsJumping();
+        myHasCollided = myPlayerCollision.HasCollided();
+
+        if (myHasCollided)
+        {
+            myCameraShake.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
+            myPlayerDeath.Die();
+            ResetSpline();
+        }
 
         if (myGrounded)
         {
-            if (isJumping)
+            if (myIsJumping)
             {
                 myPlayerJump.Jump(myCurrentPoints, myPointsIndex, myJumpForce, myCurrentSpeed, ref myAirMovement);
                 ResetSpline();
@@ -76,9 +110,9 @@ public class Player : MonoBehaviour
         
         myPlayerAir.AirMovement(myGravity, ref myAirMovement);
 
-        if (isJumping)
+        if (myIsJumping)
         {
-            myPlayerAir.Backflip();
+            myPlayerAir.Backflip(myFlipRotationSpeed);
         }
         else
         {
@@ -89,13 +123,14 @@ public class Player : MonoBehaviour
         {
             if (myPlayerSpline.AttemptToCatchSpline(mySplineManager, myReach, ref myTooCloseToOldSpline, ref myPointsIndex, ref myCurrentPoints, ref myOldPoints))
             {
+                myCameraShake.TriggerShake(myShakeDurationSplines, myShakeMagnitudeSplines);
                 myGrounded = true;
                 mySplineT = 0;
             }
         }
     }
 
-    public void ResetSpline()
+    private void ResetSpline()
     {
         myTooCloseToOldSpline = true;
         myGrounded = false;

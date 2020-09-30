@@ -15,8 +15,8 @@ public class PlayerAir : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, aOriginalRotation, Time.deltaTime * aRotationResetSpeed);
     }
 
-    public void Backflip()
+    public void Backflip(float aFlipRotationSpeed)
     {
-
+        transform.Rotate(Vector3.left, aFlipRotationSpeed * Time.deltaTime);
     }
 }
