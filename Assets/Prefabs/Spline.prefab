@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 5481714173577539876}
   - component: {fileID: 5678333295407711045}
   - component: {fileID: 2608755809564990190}
+  - component: {fileID: 7689339231236597500}
+  - component: {fileID: 4438321124037501113}
+  - component: {fileID: 6276021223367923412}
   m_Layer: 0
   m_Name: Spline
   m_TagString: Untagged
@@ -48,7 +51,7 @@ MonoBehaviour:
   path:
     points:
     - {x: 3.0354557, y: 0.77825683}
-    - {x: 3.5354557, y: 1.2782569}
+    - {x: 3.6971874, y: 1.6743243}
     - {x: 4.5354557, y: 0.27825683}
     - {x: 5.0354557, y: 0.77825683}
     isClosed: 0
@@ -67,7 +70,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1301544593110799926}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -200,3 +203,68 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!33 &7689339231236597500
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301544593110799926}
+  m_Mesh: {fileID: 0}
+--- !u!23 &4438321124037501113
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301544593110799926}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 0a059ceacbcd1d342b6c7dfe23401f53, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &6276021223367923412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301544593110799926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f91de7a78c0fd40be0c992203d7daf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spacing: 0.106
+  meshHeigth: 0.1
+  meshWidth: 0.11
+  previewGeneratedMesh: 1
+  uvTiling: 3
+  material: {fileID: 2100000, guid: 0a059ceacbcd1d342b6c7dfe23401f53, type: 2}
