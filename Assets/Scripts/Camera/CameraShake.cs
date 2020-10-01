@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraShake : MonoBehaviour
 {
     private float myShakeDuration;
     private float myShakeMagnitude;
     private float myDampingSpeed = 1f;
+    private float myMultiplier = 0.01f;
     private Vector3 myOriginalPosition;
 
     private void OnEnable()
@@ -30,7 +29,7 @@ public class CameraShake : MonoBehaviour
 
     public void TriggerShake(float aShakeDuration, float aShakeMagnitude)
     {
-        myShakeDuration = aShakeDuration;
-        myShakeMagnitude = aShakeMagnitude;
+        myShakeDuration = (aShakeDuration * myMultiplier);
+        myShakeMagnitude = (aShakeMagnitude * myMultiplier);
     }
 }

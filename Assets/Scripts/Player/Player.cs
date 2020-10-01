@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private SplineManager mySplineManager = null;
     [SerializeField]
+    private CameraShake myCamera = null;
+    [SerializeField]
     private float myReach = 0.25f;
     [SerializeField]
     private float myGravity = 1f;
@@ -23,6 +25,14 @@ public class Player : MonoBehaviour
     private float myRotationResetSpeed = 5f;
     [SerializeField]
     private float myFlipRotationSpeed = 100f;
+    [SerializeField]
+    private float myShakeDurationRocks = 15f;
+    [SerializeField]
+    private float myShakeMagnitudeRocks = 10f;
+    [SerializeField]
+    private float myShakeDurationSplines = 10f;
+    [SerializeField]
+    private float myShakeMagnitudeSplines = 5f;
 
     private PlayerSpline myPlayerSpline;
     private PlayerJump myPlayerJump;
@@ -60,6 +70,10 @@ public class Player : MonoBehaviour
             Debug.LogError(this + " has no splineManager!");
             return;
         }
+        if (myCamera == null)
+        {
+            Debug.LogError(this + " has no camera!");
+        }
     }
 
     private void Update()
@@ -69,6 +83,7 @@ public class Player : MonoBehaviour
 
         if (myHasCollided)
         {
+            myCamera.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
             myPlayerDeath.Die();
             ResetSpline();
         }
@@ -82,9 +97,9 @@ public class Player : MonoBehaviour
                 return;
             }
 
-            if (!myPlayerSpline.SplineMovement(myCurrentPoints, myCurrentSpeed, ref myPointsIndex, ref mySplineT))
+            if (!myPlayerSpline.SplineMovement(myCurrentPoints, myCurrentSpeed, ref myPointsIndex, ref mySplineT, myGravity))
             {
-                myPlayerSpline.ReleaseSpline(myCurrentPoints, myCurrentSpeed, ref myAirMovement);
+                myPlayerSpline.ReleaseSpline(myCurrentPoints, myCurrentSpeed, ref myAirMovement, myPointsIndex);
                 ResetSpline();
             }
             return;
@@ -105,6 +120,7 @@ public class Player : MonoBehaviour
         {
             if (myPlayerSpline.AttemptToCatchSpline(mySplineManager, myReach, ref myTooCloseToOldSpline, ref myPointsIndex, ref myCurrentPoints, ref myOldPoints))
             {
+                myCamera.TriggerShake(myShakeDurationSplines, myShakeMagnitudeSplines);
                 myGrounded = true;
                 mySplineT = 0;
             }
@@ -119,5 +135,6 @@ public class Player : MonoBehaviour
         myOldPoints = myCurrentPoints;
         myCurrentPoints = null;
         mySplineT = 0;
+        myPlayerSpline.ResetAngleVariables();
     }
 }
