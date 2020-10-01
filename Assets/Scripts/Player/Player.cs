@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(PlayerSpline))]
-[RequireComponent(typeof(PlayerJump))]
-[RequireComponent(typeof(PlayerAir))]
-[RequireComponent(typeof(SplineManager))]
-[RequireComponent(typeof(PlayerInput))]
-[RequireComponent(typeof(PlayerCollision))]
-[RequireComponent(typeof(PlayerDeath))]
+//[RequireComponent(typeof(PlayerSpline))]
+//[RequireComponent(typeof(PlayerJump))]
+//[RequireComponent(typeof(PlayerAir))]
+//[RequireComponent(typeof(SplineManager))]
+//[RequireComponent(typeof(PlayerInput))]
+//[RequireComponent(typeof(PlayerCollision))]
+//[RequireComponent(typeof(PlayerDeath))]
 public class Player : MonoBehaviour
 {
     [SerializeField]
@@ -77,6 +77,8 @@ public class Player : MonoBehaviour
         {
             Debug.LogError(this + " has no camera!");
         }
+
+        mySplineManager.ResetAllSplines();
     }
 
     private void Update()
