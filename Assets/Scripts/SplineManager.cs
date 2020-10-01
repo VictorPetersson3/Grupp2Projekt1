@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 
 public class SplineManager : MonoBehaviour
 {
@@ -19,7 +18,6 @@ public class SplineManager : MonoBehaviour
         {
             mySplines = GameObject.FindGameObjectsWithTag("Spline");
         }
-        //SetSplineActivate();
     }
 
     private void Update()
@@ -95,6 +93,14 @@ public class SplineManager : MonoBehaviour
                     mySplines[i].SetActive(true);
                 }
             }
+        }
+    }
+
+    public void ResetAllSplines()
+    {
+        for (int i = 0; i < mySplines.Length; i++)
+        {
+            mySplines[i].SetActive(true);
         }
     }
 }

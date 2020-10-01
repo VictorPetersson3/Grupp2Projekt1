@@ -87,19 +87,20 @@ public class Player : MonoBehaviour
         {
             myCamera.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
             myPlayerDeath.Die();
+            mySplineManager.ResetAllSplines();
             ResetSpline();
         }
 
         if (myGrounded)
-        {
+        {    
+            myPlayerBobbing.Bob();
+            
             if (myIsJumping)
             {
                 myPlayerJump.Jump(myCurrentPoints, myPointsIndex, myJumpForce, myCurrentSpeed, ref myAirMovement);
                 ResetSpline();
                 return;
             }
-
-            myPlayerBobbing.Bob();
 
             if (!myPlayerSpline.SplineMovement(myCurrentPoints, myCurrentSpeed, ref myPointsIndex, ref mySplineT, myGravity))
             {
