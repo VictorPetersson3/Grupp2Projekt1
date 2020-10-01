@@ -5,17 +5,17 @@ using UnityEditor;
 public class PathEditor : Editor
 {
 
-    private PathCreator creator;
-    private Path Path
+    private PathCreator myCreator;
+    private Path myPath
     {
         get
         {
-            return creator.path;
+            return myCreator.path;
         }
     }
 
-    private const float segmentSelectDistanceThreshold = .1f;
-    private int selectedSegmentIndex = -1;
+    private const float mySegmentSelectDistanceThreshold = .1f;
+    private int mySelectedSegmentIndex = -1;
 
     public override void OnInspectorGUI()
     {
@@ -24,22 +24,22 @@ public class PathEditor : Editor
         EditorGUI.BeginChangeCheck();
         if (GUILayout.Button("DELETE and start over"))
         {
-            Undo.RecordObject(creator, "DELETE and start over");
-            creator.StartOver();
+            Undo.RecordObject(myCreator, "DELETE and start over");
+            myCreator.StartOver();
         }
 
-        bool isClosed = GUILayout.Toggle(Path.IsClosed, "Closed");
-        if (isClosed != Path.IsClosed)
+        bool isClosed = GUILayout.Toggle(myPath.IsClosed, "Closed");
+        if (isClosed != myPath.IsClosed)
         {
-            Undo.RecordObject(creator, "Toggle closed");
-            Path.IsClosed = isClosed;
+            Undo.RecordObject(myCreator, "Toggle closed");
+            myPath.IsClosed = isClosed;
         }
 
-        bool autoSetControlPoints = GUILayout.Toggle(Path.AutoSetControlPoints, "Auto Set Control Points");
-        if (autoSetControlPoints != Path.AutoSetControlPoints)
+        bool autoSetControlPoints = GUILayout.Toggle(myPath.AutoSetControlPoints, "Auto Set Control Points");
+        if (autoSetControlPoints != myPath.AutoSetControlPoints)
         {
-            Undo.RecordObject(creator, "Toggle auto set controls");
-            Path.AutoSetControlPoints = autoSetControlPoints;
+            Undo.RecordObject(myCreator, "Toggle auto set controls");
+            myPath.AutoSetControlPoints = autoSetControlPoints;
         }
 
         if (EditorGUI.EndChangeCheck())
@@ -58,32 +58,29 @@ public class PathEditor : Editor
     {
         Event guiEvent = Event.current;
         Vector2 mousePos = HandleUtility.GUIPointToWorldRay(guiEvent.mousePosition).origin;
-        bool needToUpdateLines = false;
 
         if (guiEvent.type == EventType.MouseDown && guiEvent.button == 0 && guiEvent.shift)
         {
-            if (selectedSegmentIndex != -1)
+            if (mySelectedSegmentIndex != -1)
             {
-                Undo.RecordObject(creator, "Split segment");
-                Path.SplitSegment(mousePos, selectedSegmentIndex);
-                needToUpdateLines = true;
+                Undo.RecordObject(myCreator, "Split segment");
+                myPath.SplitSegment(mousePos, mySelectedSegmentIndex);
             }
-            else if (!Path.IsClosed)
+            else if (!myPath.IsClosed)
             {
-                Undo.RecordObject(creator, "Add segment");
-                Path.AddSegment(mousePos);
-                needToUpdateLines = true;
+                Undo.RecordObject(myCreator, "Add segment");
+                myPath.AddSegment(mousePos);
             }
         }
 
         if (guiEvent.type == EventType.MouseDown && guiEvent.button == 1)
         {
-            float minDstToAnchor = creator.anchorDiameter * .5f;
+            float minDstToAnchor = myCreator.anchorDiameter * .5f;
             int closestAnchorIndex = -1;
 
-            for (int i = 0; i < Path.NumPoints; i += 3)
+            for (int i = 0; i < myPath.NumPoints; i += 3)
             {
-                float dst = Vector2.Distance(mousePos, Path[i]);
+                float dst = Vector2.Distance(mousePos, myPath[i]);
                 if (dst < minDstToAnchor)
                 {
                     minDstToAnchor = dst;
@@ -93,20 +90,19 @@ public class PathEditor : Editor
 
             if (closestAnchorIndex != -1)
             {
-                Undo.RecordObject(creator, "Delete segment");
-                Path.DeleteSegment(closestAnchorIndex);
-                needToUpdateLines = true;
+                Undo.RecordObject(myCreator, "Delete segment");
+                myPath.DeleteSegment(closestAnchorIndex);
             }
         }
 
         if (guiEvent.type == EventType.MouseMove)
         {
-            float minDstToSegment = segmentSelectDistanceThreshold;
+            float minDstToSegment = mySegmentSelectDistanceThreshold;
             int newSelectedSegmentIndex = -1;
 
-            for (int i = 0; i < Path.NumSegments; i++)
+            for (int i = 0; i < myPath.NumSegments; i++)
             {
-                Vector2[] points = Path.GetPointsInSegment(i);
+                Vector2[] points = myPath.GetPointsInSegment(i);
                 float dst = HandleUtility.DistancePointBezier(mousePos, points[0], points[3], points[1], points[2]);
                 if (dst < minDstToSegment)
                 {
@@ -115,47 +111,41 @@ public class PathEditor : Editor
                 }
             }
 
-            if (newSelectedSegmentIndex != selectedSegmentIndex)
+            if (newSelectedSegmentIndex != mySelectedSegmentIndex)
             {
-                selectedSegmentIndex = newSelectedSegmentIndex;
+                mySelectedSegmentIndex = newSelectedSegmentIndex;
                 HandleUtility.Repaint();
-                needToUpdateLines = true;
             }
-        }
-
-        if (needToUpdateLines)
-        {
-            creator.UpdateLineRenderer();
         }
     }
 
     private void Draw()
     {
-        for (int i = 0; i < Path.NumSegments; i++)
+        for (int i = 0; i < myPath.NumSegments; i++)
         {
-            Vector2[] points = Path.GetPointsInSegment(i);
-            if (creator.displayControlPoints)
+            Vector2[] points = myPath.GetPointsInSegment(i);
+            if (myCreator.displayControlPoints)
             {
                 Handles.color = Color.black;
                 Handles.DrawLine(points[1], points[0]);
                 Handles.DrawLine(points[2], points[3]);
             }
-            Color segmentCol = (i == selectedSegmentIndex && Event.current.shift) ? creator.selectedSegmentCol : creator.segmentCol;
+            Color segmentCol = (i == mySelectedSegmentIndex && Event.current.shift) ? myCreator.selectedSegmentCol : myCreator.segmentCol;
             Handles.DrawBezier(points[0], points[3], points[1], points[2], segmentCol, null, 2);
         }
 
 
-        for (int i = 0; i < Path.NumPoints; i++)
+        for (int i = 0; i < myPath.NumPoints; i++)
         {
-            if (i % 3 == 0 || creator.displayControlPoints)
+            if (i % 3 == 0 || myCreator.displayControlPoints)
             {
-                Handles.color = (i % 3 == 0) ? creator.anchorCol : creator.controlCol;
-                float handleSize = (i % 3 == 0) ? creator.anchorDiameter : creator.controlDiameter;
-                Vector2 newPos = Handles.FreeMoveHandle(Path[i], Quaternion.identity, handleSize, Vector2.zero, Handles.CylinderHandleCap);
-                if (Path[i] != newPos)
+                Handles.color = (i % 3 == 0) ? myCreator.anchorCol : myCreator.controlCol;
+                float handleSize = (i % 3 == 0) ? myCreator.anchorDiameter : myCreator.controlDiameter;
+                Vector2 newPos = Handles.FreeMoveHandle(myPath[i], Quaternion.identity, handleSize, Vector2.zero, Handles.CylinderHandleCap);
+                if (myPath[i] != newPos)
                 {
-                    Undo.RecordObject(creator, "Move point");
-                    Path.MovePoint(i, newPos);
+                    Undo.RecordObject(myCreator, "Move point");
+                    myPath.MovePoint(i, newPos);
                 }
             }
         }
@@ -163,10 +153,10 @@ public class PathEditor : Editor
 
     private void OnEnable()
     {
-        creator = (PathCreator)target;
-        if (creator.path == null)
+        myCreator = (PathCreator)target;
+        if (myCreator.path == null)
         {
-            creator.CreatePath();
+            myCreator.CreatePath();
         }
     }
 }

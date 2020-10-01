@@ -5,6 +5,8 @@ public class PlayerSpline : MonoBehaviour
 {
     [SerializeField]
     private float myGroundedRotationSpeed = 10f;
+    [SerializeField]
+    private float buffer = -0.1f;
 
     private float myOldAngle = 0;
     private float myCurrentAngle = 0;
@@ -83,7 +85,6 @@ public class PlayerSpline : MonoBehaviour
 
         Vector2 splineMovement = (someCurrentPoints[aPointsIndex] - someCurrentPoints[aPointsIndex + 1]) * aSpeed;
         aGravity *= -1;
-        const float buffer = -0.1f;
         float delta = splineMovement.y - aGravity;
 
         if ((splineMovement.y < aGravity) && (delta < buffer))

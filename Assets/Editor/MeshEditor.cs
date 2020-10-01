@@ -1,19 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 
 [CustomEditor(typeof(MeshCreator))]
 public class MeshEditor : Editor
 {
-    private MeshCreator creator;
+    private MeshCreator myCreator;
 
 
     private void OnSceneGUI()
     {
-        if (creator.previewGeneratedMesh && Event.current.type == EventType.Repaint)
+        if (myCreator.previewGeneratedMesh && Event.current.type == EventType.Repaint)
         {
-            creator.UpdateMesh();
+            myCreator.UpdateMesh();
         }
     }
     public override void OnInspectorGUI()
@@ -22,27 +20,23 @@ public class MeshEditor : Editor
         EditorGUI.BeginChangeCheck();
         
         GUILayout.Label(" ");
-        //updateMesh = GUILayout.Toggle(updateMesh, "Update mesh while editing.");
-        //{
-        //    creator.previewGeneratedMesh = true;
-        //}
         if (GUILayout.Button("Update 3D mesh"))
         {
-            Undo.RecordObject(creator, "Update 3D mesh");
-            creator.UpdateMesh();
+            Undo.RecordObject(myCreator, "Update 3D mesh");
+            myCreator.UpdateMesh();
         }
         GUILayout.Label(" ");
         GUILayout.Label("Options to manipulate the mesh on the spline.");
         GUILayout.Label(" ");
         if (GUILayout.Button("Generate 3D Mesh"))
         {
-            Undo.RecordObject(creator, "Generate 3D Mesh");
-            creator.CreateMesh();
+            Undo.RecordObject(myCreator, "Generate 3D Mesh");
+            myCreator.CreateMesh();
         }
     }
 
     private void OnEnable()
     {
-        creator = (MeshCreator)target;
+        myCreator = (MeshCreator)target;
     }
 }
