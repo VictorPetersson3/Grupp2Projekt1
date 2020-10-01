@@ -45,6 +45,7 @@ public class Player : MonoBehaviour
     private bool myGrounded = false;
     private bool myTooCloseToOldSpline = false;
     private bool myIsJumping;
+    private bool myIsQuitting;
     private bool myHasCollided = false;
     private Vector2[] myCurrentPoints;
     private Vector2[] myOldPoints;
@@ -81,7 +82,13 @@ public class Player : MonoBehaviour
     private void Update()
     {
         myIsJumping = myPlayerInput.IsJumping();
+        myIsQuitting = myPlayerInput.IsQuitting();
         myHasCollided = myPlayerCollision.HasCollided();
+
+        if (myIsQuitting)
+        {
+            Application.Quit();
+        }
 
         if (myHasCollided)
         {

@@ -11,4 +11,14 @@ public class PlayerInput : MonoBehaviour
 
         return false;
     }
+
+    public bool IsQuitting()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            return true;
+        }
+
+        return false;
+    }
 }
