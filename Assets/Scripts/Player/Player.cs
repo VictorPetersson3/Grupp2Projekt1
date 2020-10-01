@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
             Debug.LogError(this + " has no camera!");
         }
 
-        mySplineManager.ResetAllSplines();
+        //mySplineManager.ResetAllSplines();
     }
 
     private void Update()
@@ -96,7 +96,7 @@ public class Player : MonoBehaviour
         {
             myCamera.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
             myPlayerDeath.Die();
-            mySplineManager.ResetAllSplines();
+            //mySplineManager.ResetAllSplines();
             ResetSpline();
         }
 
