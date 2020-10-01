@@ -28,7 +28,6 @@ public class MeshCreator : MonoBehaviour
         GetComponent<MeshFilter>().mesh = previewMesh; 
         GetComponent<MeshRenderer>().material = material;
         int textureRepeat = Mathf.RoundToInt(uvTiling * points.Length * spacing * 0.5f);
-        GetComponent<MeshRenderer>().material.mainTextureScale = new Vector2(1, textureRepeat);
     }
     public void CreateMesh()
     {
@@ -61,11 +60,8 @@ public class MeshCreator : MonoBehaviour
             //Create Vertices
             vertices[vertexIndex] = points[i] + left * meshHeigth * 0.5f;
             vertices[vertexIndex + 1] = points[i] - left * meshHeigth * .5f;
+            
             //Adding Z as a changeable variable
-
-            //reCastVertices[vertexIndex] = new Vector3 (vertices[vertexIndex].x, vertices[vertexIndex].y, meshWidth);
-            //reCastVertices[vertexIndex + 1] = new Vector3 (vertices[vertexIndex+1].x, vertices[vertexIndex+1].y, -meshWidth);
-
             vertices[vertexIndex].z = meshWidth;
             vertices[vertexIndex + 1].z = -meshWidth;
 
@@ -73,6 +69,9 @@ public class MeshCreator : MonoBehaviour
             float v = 1 - Mathf.Abs(2 * pathCompletionPercent - 1);
             uvs[vertexIndex] = new Vector2(0, v);
             uvs[vertexIndex + 1] = new Vector2(1, v);
+            //Updating V to be scaled based on lenght of spline
+            uvs[vertexIndex].y *= uvTiling * points.Length * spacing * 0.5f;
+            uvs[vertexIndex +1].y *= uvTiling * points.Length * spacing * 0.5f;
 
             //Create triangles
             if (i < points.Length - 1 || isClosed)
@@ -87,8 +86,8 @@ public class MeshCreator : MonoBehaviour
             }
             vertexIndex += 2;
             triangleIndex += 6;
-
         }
+        //write vectors to a new mesh
         Mesh mesh = new Mesh();
         mesh.vertices = vertices;
         mesh.triangles = triangles;
@@ -119,7 +118,6 @@ public class MeshCreator : MonoBehaviour
         newGameObject.GetComponent<MeshFilter>().mesh = newMesh;
 
         int textureRepeat = Mathf.RoundToInt(uvTiling * points.Length * spacing * 0.5f);
-        newGameObject.GetComponent<MeshRenderer>().material.mainTextureScale = new Vector2(1, textureRepeat);
         return newGameObject;
 
 

@@ -7,7 +7,6 @@ using UnityEditor;
 public class MeshEditor : Editor
 {
     private MeshCreator creator;
-    bool updateMesh = false;
 
 
     private void OnSceneGUI()
