@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Player))]
+//[RequireComponent(typeof(Player))]
 public class PlayerSpline : MonoBehaviour
 {
     [SerializeField]

@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(PlayerSpline))]
-[RequireComponent(typeof(PlayerJump))]
-[RequireComponent(typeof(PlayerAir))]
-[RequireComponent(typeof(SplineManager))]
-[RequireComponent(typeof(PlayerInput))]
-[RequireComponent(typeof(PlayerCollision))]
-[RequireComponent(typeof(PlayerDeath))]
+//[RequireComponent(typeof(PlayerSpline))]
+//[RequireComponent(typeof(PlayerJump))]
+//[RequireComponent(typeof(PlayerAir))]
+//[RequireComponent(typeof(SplineManager))]
+//[RequireComponent(typeof(PlayerInput))]
+//[RequireComponent(typeof(PlayerCollision))]
+//[RequireComponent(typeof(PlayerDeath))]
 public class Player : MonoBehaviour
 {
     [SerializeField]
@@ -51,20 +51,18 @@ public class Player : MonoBehaviour
     private Vector2 myAirMovement = new Vector2(1, 0);
     private int myPointsIndex = -1;
     private float mySplineT = -1;
-    private float myCurrentSpeed; 
-    private Quaternion myOriginalRotation;
+    private float myCurrentSpeed;
+    Quaternion myOriginalRotation;
 
     private void Start()
     {
         myPlayerSpline = GetComponent<PlayerSpline>();
         myPlayerJump = GetComponent<PlayerJump>();
-        myPlayerAir = GetComponent<PlayerAir>();
+        myPlayerAir = GetComponentInChildren<PlayerAir>();
         myPlayerInput = GetComponent<PlayerInput>();
         myPlayerDeath = GetComponent<PlayerDeath>();
         myPlayerCollision = GetComponentInChildren<PlayerCollision>();
         myCameraShake = myCamera.GetComponent<CameraShake>();
-
-
         myCurrentSpeed = myBaseSpeed;
         myOriginalRotation = transform.rotation;
 
@@ -93,6 +91,7 @@ public class Player : MonoBehaviour
 
         if (myGrounded)
         {
+
             if (myIsJumping)
             {
                 myPlayerJump.Jump(myCurrentPoints, myPointsIndex, myJumpForce, myCurrentSpeed, ref myAirMovement);
@@ -107,17 +106,17 @@ public class Player : MonoBehaviour
             }
             return;
         }
-        
-        myPlayerAir.AirMovement(myGravity, ref myAirMovement);
+        else
+        {
+            AirMovement(myGravity, ref myAirMovement);
+        }
 
         if (myIsJumping)
         {
             myPlayerAir.Backflip(myFlipRotationSpeed);
         }
-        else
-        {
-            myPlayerAir.ResetRotation(myOriginalRotation, myRotationResetSpeed);
-        }
+
+        AirRotation(myRotationResetSpeed, myOriginalRotation);
 
         if (myAirMovement.y < 0)
         {
@@ -138,5 +137,21 @@ public class Player : MonoBehaviour
         myOldPoints = myCurrentPoints;
         myCurrentPoints = null;
         mySplineT = 0;
+    }
+
+    public void AirMovement(float aGravity, ref Vector2 aAirMovement)
+    {
+        Vector2 currentMove = Time.deltaTime * aAirMovement;
+        transform.position = new Vector3(transform.position.x + currentMove.x, transform.position.y + currentMove.y, transform.position.z);
+        aAirMovement = new Vector2(aAirMovement.x, aAirMovement.y - (aGravity * Time.deltaTime));
+    }
+
+    public void AirRotation(float aRotationResetSpeed, Quaternion anOriginalRotation)
+    {
+        //float newXRot = 45f;
+        //float newYRot = 90f;
+
+        //Quaternion newRot = Quaternion.Euler(newXRot, newYRot, 0);
+        transform.rotation = Quaternion.Slerp(transform.rotation, anOriginalRotation, Time.deltaTime * aRotationResetSpeed);
     }
 }
