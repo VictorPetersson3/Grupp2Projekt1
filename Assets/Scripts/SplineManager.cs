@@ -1,12 +1,30 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class SplineManager : MonoBehaviour
 {
     private PathCreator[] pathCreators;
+    private Player myPlayer;
+    private GameObject[] mySplines;
+
+    [SerializeField]
+    private float mySplineOffset = 25f;
     
     private void Start()
     {
         pathCreators = GetComponentsInChildren<PathCreator>();
+        myPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        if (mySplines == null)
+        {
+            mySplines = GameObject.FindGameObjectsWithTag("Spline");
+        }
+        //SetSplineActivate();
+    }
+
+    private void Update()
+    {
+        SetSplineActivate();
     }
 
     public Vector2 GetClosestPoint(Vector2 aPlayerPosition, ref int aPointsIndex, ref Vector2[] aPoints)
@@ -45,5 +63,38 @@ public class SplineManager : MonoBehaviour
         }
 
         return closestPoint;
+    }
+
+    private void SetSplineActivate()
+    {
+        for (int i = 0; i < pathCreators.Length; i++)
+        {
+            Vector2 first = pathCreators[i].path.GetFirstPoint();
+            Vector2 last = pathCreators[i].path.GetLastPoint();
+
+            if (myPlayer.transform.position.x > last.x)
+            {
+                if ((myPlayer.transform.position.x - last.x) > mySplineOffset)
+                {
+                    mySplines[i].SetActive(false);
+                }
+                else
+                {
+                    mySplines[i].SetActive(true);
+                }
+            }
+
+            if (myPlayer.transform.position.x < first.x)
+            {
+                if ((first.x - myPlayer.transform.position.x) > mySplineOffset)
+                {
+                    mySplines[i].SetActive(false);
+                }
+                else
+                {
+                    mySplines[i].SetActive(true);
+                }
+            }
+        }
     }
 }

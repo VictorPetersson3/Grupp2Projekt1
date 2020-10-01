@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6966543263186623406}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,12 +51,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mySplineManager: {fileID: 0}
+  myCamera: {fileID: 0}
   myReach: 0.05
   myGravity: 2
   myBaseSpeed: 10
   myJumpForce: 1.5
   myRotationResetSpeed: 5
   myFlipRotationSpeed: 100
+  myShakeDurationRocks: 15
+  myShakeMagnitudeRocks: 10
+  myShakeDurationSplines: 10
+  myShakeMagnitudeSplines: 5
 --- !u!114 &1607898314831972098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,6 +75,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myGroundedRotationSpeed: 10
+  buffer: -0.1
 --- !u!114 &1607898314831972099
 MonoBehaviour:
   m_ObjectHideFlags: 0
