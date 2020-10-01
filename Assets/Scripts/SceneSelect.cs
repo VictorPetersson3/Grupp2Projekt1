@@ -29,7 +29,7 @@ public class SceneSelect : MonoBehaviour
     public void StartingTheGame()
     {
 
-        Debug.Log("Laddar \"CollisionTestScene\"");
+        Debug.Log("Laddar \"IntroLevel\"");
         SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1));
 
     }
