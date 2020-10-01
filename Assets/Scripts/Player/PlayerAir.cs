@@ -3,12 +3,20 @@
 //[RequireComponent(typeof(Player))]
 public class PlayerAir : MonoBehaviour
 {
+<<<<<<< Updated upstream
 
     public void AirRotation(float aRotationResetSpeed, Quaternion anOriginalRotation)
     {
         float newXRot = 45f;
         float newYRot = 90f;
 
+=======
+    public void AirRotation(float aRotationResetSpeed)
+    {
+        float newXRot = 35f;
+        float newYRot = 90f;
+
+>>>>>>> Stashed changes
         Quaternion newRot = Quaternion.Euler(newXRot, newYRot, 0);
         transform.rotation = Quaternion.Slerp(transform.rotation, newRot, Time.deltaTime * aRotationResetSpeed);
     }

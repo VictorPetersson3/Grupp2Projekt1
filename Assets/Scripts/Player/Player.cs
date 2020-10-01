@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float myJumpForce = 10f;
     [SerializeField]
-    private float myRotationResetSpeed = 5f;
+    private float myRotationResetSpeed = 2f;
     [SerializeField]
     private float myFlipRotationSpeed = 100f;
     [SerializeField]
@@ -51,8 +51,12 @@ public class Player : MonoBehaviour
     private Vector2 myAirMovement = new Vector2(1, 0);
     private int myPointsIndex = -1;
     private float mySplineT = -1;
+<<<<<<< Updated upstream
     private float myCurrentSpeed;
     Quaternion myOriginalRotation;
+=======
+    private float myCurrentSpeed; 
+>>>>>>> Stashed changes
 
     private void Start()
     {
@@ -64,7 +68,6 @@ public class Player : MonoBehaviour
         myPlayerCollision = GetComponentInChildren<PlayerCollision>();
         myCameraShake = myCamera.GetComponent<CameraShake>();
         myCurrentSpeed = myBaseSpeed;
-        myOriginalRotation = transform.rotation;
 
         if (mySplineManager == null)
         {
@@ -106,10 +109,15 @@ public class Player : MonoBehaviour
             }
             return;
         }
+<<<<<<< Updated upstream
         else
         {
             AirMovement(myGravity, ref myAirMovement);
         }
+=======
+        
+        AirMovement(myGravity, ref myAirMovement);
+>>>>>>> Stashed changes
 
         if (myIsJumping)
         {
@@ -117,7 +125,11 @@ public class Player : MonoBehaviour
         }
         else
         {
+<<<<<<< Updated upstream
             myPlayerAir.AirRotation(myRotationResetSpeed, myOriginalRotation);
+=======
+            myPlayerAir.AirRotation(myRotationResetSpeed);
+>>>>>>> Stashed changes
         }
 
         if (myAirMovement.y < 0)
@@ -139,6 +151,13 @@ public class Player : MonoBehaviour
         myOldPoints = myCurrentPoints;
         myCurrentPoints = null;
         mySplineT = 0;
+    }
+
+    public void AirMovement(float aGravity, ref Vector2 aAirMovement)
+    {
+        Vector2 currentMove = Time.deltaTime * aAirMovement;
+        transform.position = new Vector3(transform.position.x + currentMove.x, transform.position.y + currentMove.y, transform.position.z);
+        aAirMovement = new Vector2(aAirMovement.x, aAirMovement.y - (aGravity * Time.deltaTime));
     }
 
     public void AirMovement(float aGravity, ref Vector2 aAirMovement)
