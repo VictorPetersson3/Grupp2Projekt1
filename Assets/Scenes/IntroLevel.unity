@@ -14341,7 +14341,7 @@ PrefabInstance:
     - target: {fileID: 5420436019006238655, guid: 7da3ea5a058678b41bf621c437b2ea8b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -15
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 5420436019006238655, guid: 7da3ea5a058678b41bf621c437b2ea8b,
         type: 3}
@@ -60780,7 +60780,7 @@ PrefabInstance:
     - target: {fileID: 2286925318002640876, guid: 33aee5f7f631c684badad8ceadb544d0,
         type: 3}
       propertyPath: myJumpForce
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2286925318002640876, guid: 33aee5f7f631c684badad8ceadb544d0,
         type: 3}
@@ -60841,6 +60841,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.469
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425220997712744947, guid: 33aee5f7f631c684badad8ceadb544d0,
+        type: 3}
+      propertyPath: myLandingRotationSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425220997712744947, guid: 33aee5f7f631c684badad8ceadb544d0,
+        type: 3}
+      propertyPath: myGroundedRotationSpeed
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1966501951, guid: 33aee5f7f631c684badad8ceadb544d0, type: 3}

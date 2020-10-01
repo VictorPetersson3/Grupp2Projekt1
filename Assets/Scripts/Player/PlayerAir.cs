@@ -10,7 +10,7 @@ public class PlayerAir : MonoBehaviour
         float newYRot = 90f;
 
         Quaternion newRot = Quaternion.Euler(newXRot, newYRot, 0);
-        transform.rotation = Quaternion.Slerp(anOriginalRotation, newRot, Time.deltaTime * aRotationResetSpeed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, newRot, Time.deltaTime * aRotationResetSpeed);
     }
 
     public void Backflip(float aFlipRotationSpeed)

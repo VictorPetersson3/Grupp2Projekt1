@@ -4,7 +4,8 @@
 public class PlayerSpline : MonoBehaviour
 {
     [SerializeField]
-    private float myGroundedRotationSpeed = 10f;
+    private float myGroundedRotationSpeed = 1f;
+
     public bool SplineMovement(Vector2[] aCurrentPoints, float aCurrentSpeed, ref int aPointsIndex, ref float aSplineT)
     {
         if (aCurrentPoints.Length > aPointsIndex + 1)
