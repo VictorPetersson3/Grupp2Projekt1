@@ -232,6 +232,16 @@ public class Path
         return evenlySpacedPoints.ToArray();
     }
 
+    public Vector2 GetFirstPoint()
+    {
+        return points[0];
+    }
+
+    public Vector2 GetLastPoint()
+    {
+        return points[points.Count - 1];
+    }
+
     private void AutoSetAllAffectedControlPoints(int updatedAnchorIndex)
     {
         for (int i = updatedAnchorIndex - 3; i <= updatedAnchorIndex + 3; i += 3)

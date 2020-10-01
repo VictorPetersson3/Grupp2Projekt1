@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
 
-//[RequireComponent(typeof(PlayerSpline))]
-//[RequireComponent(typeof(PlayerJump))]
-//[RequireComponent(typeof(PlayerAir))]
-//[RequireComponent(typeof(SplineManager))]
-//[RequireComponent(typeof(PlayerInput))]
-//[RequireComponent(typeof(PlayerCollision))]
-//[RequireComponent(typeof(PlayerDeath))]
+[RequireComponent(typeof(PlayerSpline))]
+[RequireComponent(typeof(PlayerJump))]
+[RequireComponent(typeof(PlayerAir))]
+[RequireComponent(typeof(SplineManager))]
+[RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(PlayerCollision))]
+[RequireComponent(typeof(PlayerDeath))]
 public class Player : MonoBehaviour
 {
     [SerializeField]
     private SplineManager mySplineManager = null;
     [SerializeField]
-    private Camera myCamera = null;
+    private CameraShake myCamera = null;
     [SerializeField]
     private float myReach = 0.25f;
     [SerializeField]
@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float myJumpForce = 10f;
     [SerializeField]
-    private float myRotationResetSpeed = 2f;
+    private float myRotationResetSpeed = 5f;
     [SerializeField]
     private float myFlipRotationSpeed = 100f;
     [SerializeField]
@@ -40,34 +40,33 @@ public class Player : MonoBehaviour
     private PlayerInput myPlayerInput;
     private PlayerCollision myPlayerCollision;
     private PlayerDeath myPlayerDeath;
-    private CameraShake myCameraShake;
+    private PlayerBobbing myPlayerBobbing;
 
     private bool myGrounded = false;
     private bool myTooCloseToOldSpline = false;
     private bool myIsJumping;
+    private bool myIsQuitting;
     private bool myHasCollided = false;
     private Vector2[] myCurrentPoints;
     private Vector2[] myOldPoints;
     private Vector2 myAirMovement = new Vector2(1, 0);
     private int myPointsIndex = -1;
     private float mySplineT = -1;
-<<<<<<< Updated upstream
-    private float myCurrentSpeed;
-    Quaternion myOriginalRotation;
-=======
     private float myCurrentSpeed; 
->>>>>>> Stashed changes
+    private Quaternion myOriginalRotation;
 
     private void Start()
     {
         myPlayerSpline = GetComponent<PlayerSpline>();
         myPlayerJump = GetComponent<PlayerJump>();
-        myPlayerAir = GetComponentInChildren<PlayerAir>();
+        myPlayerAir = GetComponent<PlayerAir>();
         myPlayerInput = GetComponent<PlayerInput>();
         myPlayerDeath = GetComponent<PlayerDeath>();
         myPlayerCollision = GetComponentInChildren<PlayerCollision>();
-        myCameraShake = myCamera.GetComponent<CameraShake>();
+        myPlayerBobbing = GetComponent<PlayerBobbing>();
+
         myCurrentSpeed = myBaseSpeed;
+        myOriginalRotation = transform.rotation;
 
         if (mySplineManager == null)
         {
@@ -83,18 +82,26 @@ public class Player : MonoBehaviour
     private void Update()
     {
         myIsJumping = myPlayerInput.IsJumping();
+        myIsQuitting = myPlayerInput.IsQuitting();
         myHasCollided = myPlayerCollision.HasCollided();
+
+        if (myIsQuitting)
+        {
+            Application.Quit();
+        }
 
         if (myHasCollided)
         {
-            myCameraShake.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
+            myCamera.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
             myPlayerDeath.Die();
+            mySplineManager.ResetAllSplines();
             ResetSpline();
         }
 
         if (myGrounded)
-        {
-
+        {    
+            myPlayerBobbing.Bob();
+            
             if (myIsJumping)
             {
                 myPlayerJump.Jump(myCurrentPoints, myPointsIndex, myJumpForce, myCurrentSpeed, ref myAirMovement);
@@ -102,22 +109,15 @@ public class Player : MonoBehaviour
                 return;
             }
 
-            if (!myPlayerSpline.SplineMovement(myCurrentPoints, myCurrentSpeed, ref myPointsIndex, ref mySplineT))
+            if (!myPlayerSpline.SplineMovement(myCurrentPoints, myCurrentSpeed, ref myPointsIndex, ref mySplineT, myGravity))
             {
-                myPlayerSpline.ReleaseSpline(myCurrentPoints, myCurrentSpeed, ref myAirMovement);
+                myPlayerSpline.ReleaseSpline(myCurrentPoints, myCurrentSpeed, ref myAirMovement, myPointsIndex);
                 ResetSpline();
             }
             return;
         }
-<<<<<<< Updated upstream
-        else
-        {
-            AirMovement(myGravity, ref myAirMovement);
-        }
-=======
         
-        AirMovement(myGravity, ref myAirMovement);
->>>>>>> Stashed changes
+        myPlayerAir.AirMovement(myGravity, ref myAirMovement);
 
         if (myIsJumping)
         {
@@ -125,18 +125,14 @@ public class Player : MonoBehaviour
         }
         else
         {
-<<<<<<< Updated upstream
-            myPlayerAir.AirRotation(myRotationResetSpeed, myOriginalRotation);
-=======
-            myPlayerAir.AirRotation(myRotationResetSpeed);
->>>>>>> Stashed changes
+            myPlayerAir.ResetRotation(myOriginalRotation, myRotationResetSpeed);
         }
 
         if (myAirMovement.y < 0)
         {
             if (myPlayerSpline.AttemptToCatchSpline(mySplineManager, myReach, ref myTooCloseToOldSpline, ref myPointsIndex, ref myCurrentPoints, ref myOldPoints))
             {
-                myCameraShake.TriggerShake(myShakeDurationSplines, myShakeMagnitudeSplines);
+                myCamera.TriggerShake(myShakeDurationSplines, myShakeMagnitudeSplines);
                 myGrounded = true;
                 mySplineT = 0;
             }
@@ -151,19 +147,6 @@ public class Player : MonoBehaviour
         myOldPoints = myCurrentPoints;
         myCurrentPoints = null;
         mySplineT = 0;
-    }
-
-    public void AirMovement(float aGravity, ref Vector2 aAirMovement)
-    {
-        Vector2 currentMove = Time.deltaTime * aAirMovement;
-        transform.position = new Vector3(transform.position.x + currentMove.x, transform.position.y + currentMove.y, transform.position.z);
-        aAirMovement = new Vector2(aAirMovement.x, aAirMovement.y - (aGravity * Time.deltaTime));
-    }
-
-    public void AirMovement(float aGravity, ref Vector2 aAirMovement)
-    {
-        Vector2 currentMove = Time.deltaTime * aAirMovement;
-        transform.position = new Vector3(transform.position.x + currentMove.x, transform.position.y + currentMove.y, transform.position.z);
-        aAirMovement = new Vector2(aAirMovement.x, aAirMovement.y - (aGravity * Time.deltaTime));
+        myPlayerSpline.ResetAngleVariables();
     }
 }
