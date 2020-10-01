@@ -115,8 +115,10 @@ public class Player : MonoBehaviour
         {
             myPlayerAir.Backflip(myFlipRotationSpeed);
         }
-
-        AirRotation(myRotationResetSpeed, myOriginalRotation);
+        else
+        {
+            myPlayerAir.AirRotation(myRotationResetSpeed, myOriginalRotation);
+        }
 
         if (myAirMovement.y < 0)
         {
@@ -144,14 +146,5 @@ public class Player : MonoBehaviour
         Vector2 currentMove = Time.deltaTime * aAirMovement;
         transform.position = new Vector3(transform.position.x + currentMove.x, transform.position.y + currentMove.y, transform.position.z);
         aAirMovement = new Vector2(aAirMovement.x, aAirMovement.y - (aGravity * Time.deltaTime));
-    }
-
-    public void AirRotation(float aRotationResetSpeed, Quaternion anOriginalRotation)
-    {
-        //float newXRot = 45f;
-        //float newYRot = 90f;
-
-        //Quaternion newRot = Quaternion.Euler(newXRot, newYRot, 0);
-        transform.rotation = Quaternion.Slerp(transform.rotation, anOriginalRotation, Time.deltaTime * aRotationResetSpeed);
     }
 }

@@ -60785,7 +60785,7 @@ PrefabInstance:
     - target: {fileID: 2286925318002640876, guid: 33aee5f7f631c684badad8ceadb544d0,
         type: 3}
       propertyPath: myRotationResetSpeed
-      value: 10
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3052415391689767046, guid: 33aee5f7f631c684badad8ceadb544d0,
         type: 3}
@@ -60836,6 +60836,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7315485567750182091, guid: 33aee5f7f631c684badad8ceadb544d0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.469
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1966501951, guid: 33aee5f7f631c684badad8ceadb544d0, type: 3}
