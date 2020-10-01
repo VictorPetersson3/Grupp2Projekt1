@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Player))]
+//[RequireComponent(typeof(Player))]
 public class PlayerSpline : MonoBehaviour
 {
     [SerializeField]
@@ -55,6 +55,7 @@ public class PlayerSpline : MonoBehaviour
             lookPos.z = 0;
             Quaternion rotation = Quaternion.LookRotation(lookPos);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * myGroundedRotationSpeed);
+            transform.GetChild(0).rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * myGroundedRotationSpeed);
         }
     }
 
