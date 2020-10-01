@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
     private PlayerInput myPlayerInput;
     private PlayerCollision myPlayerCollision;
     private PlayerDeath myPlayerDeath;
+    private PlayerBobbing myPlayerBobbing;
 
     private bool myGrounded = false;
     private bool myTooCloseToOldSpline = false;
@@ -61,6 +62,7 @@ public class Player : MonoBehaviour
         myPlayerInput = GetComponent<PlayerInput>();
         myPlayerDeath = GetComponent<PlayerDeath>();
         myPlayerCollision = GetComponentInChildren<PlayerCollision>();
+        myPlayerBobbing = GetComponent<PlayerBobbing>();
 
         myCurrentSpeed = myBaseSpeed;
         myOriginalRotation = transform.rotation;
@@ -96,6 +98,8 @@ public class Player : MonoBehaviour
                 ResetSpline();
                 return;
             }
+
+            myPlayerBobbing.Bob();
 
             if (!myPlayerSpline.SplineMovement(myCurrentPoints, myCurrentSpeed, ref myPointsIndex, ref mySplineT, myGravity))
             {
