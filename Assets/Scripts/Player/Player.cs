@@ -35,6 +35,9 @@ public class Player : MonoBehaviour
     private PlayerDeath myPlayerDeath;
     private PlayerBobbing myPlayerBobbing;
 
+    // Particles
+    private SandParticleManager mySandParticleManager;
+
     private bool myGrounded = false;
     private bool myTooCloseToOldSpline = false;
     private bool myIsJumping;
@@ -57,6 +60,9 @@ public class Player : MonoBehaviour
         myPlayerDeath = GetComponent<PlayerDeath>();
         myPlayerCollision = GetComponentInChildren<PlayerCollision>();
         myPlayerBobbing = GetComponent<PlayerBobbing>();
+
+        // Particles
+        mySandParticleManager = GetComponentInChildren<SandParticleManager>();
 
         myCurrentSpeed = myBaseSpeed;
         myOriginalRotation = transform.rotation;
@@ -94,7 +100,9 @@ public class Player : MonoBehaviour
         if (myGrounded)
         {    
             myPlayerBobbing.Bob();
-            
+            mySandParticleManager.CreateSandParticle();
+            mySandParticleManager.CreateSandParticle();
+
             if (myIsJumping)
             {
                 myPlayerJump.Jump(myCurrentPoints, myPointsIndex, myJumpForce, myCurrentSpeed, ref myAirMovement);
