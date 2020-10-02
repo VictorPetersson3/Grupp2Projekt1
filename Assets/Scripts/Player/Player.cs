@@ -152,6 +152,7 @@ public class Player : MonoBehaviour
     {
         Vector2 currentMove = Time.deltaTime * aAirMovement;
         transform.position = new Vector3(transform.position.x + currentMove.x, transform.position.y + currentMove.y, transform.position.z);
+        transform.GetChild(0).position = transform.position;
         aAirMovement = new Vector2(aAirMovement.x, aAirMovement.y - (aGravity * Time.deltaTime));
     }
 }

@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &813717492257421326
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5857452476580859024}
+  m_Layer: 0
+  m_Name: CenterPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5857452476580859024
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813717492257421326}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.933, z: 0.012}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 3052415391689767046}
+  m_Father: {fileID: 1607898315252366860}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1607898315252366862
 GameObject:
   m_ObjectHideFlags: 0
@@ -34,7 +65,7 @@ Transform:
   m_LocalPosition: {x: -6.2410293, y: 3.813, z: 0.015088703}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 3052415391689767046}
+  - {fileID: 5857452476580859024}
   - {fileID: 7315485567750182091}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -137,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81286a9367ad3f240bb221f0c0660c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myArt: {fileID: 3052415391689767046}
+  myArt: {fileID: 0}
   myBobStrength: 0.07
   myBobSpeed: 5
 --- !u!1 &4393361978208579874
@@ -164,11 +195,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4393361978208579874}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.933, z: -0.012}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7036787973156475023}
-  m_Father: {fileID: 1607898315252366860}
+  m_Father: {fileID: 5857452476580859024}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5489558035379585290
@@ -247,7 +278,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 390ecc535d9c91744966e27a2cac078c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 390ecc535d9c91744966e27a2cac078c,
         type: 3}
@@ -262,7 +293,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 390ecc535d9c91744966e27a2cac078c,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 390ecc535d9c91744966e27a2cac078c,
         type: 3}

@@ -21,6 +21,7 @@ public class PlayerSpline : MonoBehaviour
         if (aSplineT >= 1f)
         {
             transform.position = someCurrentPoints[aPointsIndex + 1];
+            transform.GetChild(0).position = transform.position;
             aSplineT -= 1f;
             aPointsIndex++;
             if (aPointsIndex + 1 < someCurrentPoints.Length)
@@ -43,6 +44,7 @@ public class PlayerSpline : MonoBehaviour
         }
 
         transform.position = Vector2.Lerp(someCurrentPoints[aPointsIndex], someCurrentPoints[aPointsIndex + 1], aSplineT);
+        transform.GetChild(0).position = transform.position;
 
         return true;
     }
@@ -159,6 +161,7 @@ public class PlayerSpline : MonoBehaviour
             }
 
             transform.position = closestPoint;
+            transform.GetChild(0).position = transform.position;
             return true;
         }
 

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Security.Cryptography;
+using UnityEngine;
 
 //[RequireComponent(typeof(Player))]
 public class PlayerAir : MonoBehaviour
