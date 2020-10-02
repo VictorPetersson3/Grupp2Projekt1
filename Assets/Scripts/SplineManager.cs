@@ -22,7 +22,7 @@ public class SplineManager : MonoBehaviour
 
     private void Update()
     {
-        //SetSplineActivate();
+        SetSplineActivate();
     }
 
     public Vector2 GetClosestPoint(Vector2 aPlayerPosition, ref int aPointsIndex, ref Vector2[] aPoints)

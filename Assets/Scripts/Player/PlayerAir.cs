@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Player))]
 public class PlayerAir : MonoBehaviour
 {
     public void AirMovement(float aGravity, ref Vector2 aAirMovement)

@@ -13,15 +13,12 @@ public class SceneSelect : MonoBehaviour
         {
             QuittingTheGame();
         }
-
     }
 
     public void StartingTheGame()
     {
-
         Debug.Log("Laddar \"IntroLevel\"");
         SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1));
-
     }
 
     public void QuittingTheGame()
