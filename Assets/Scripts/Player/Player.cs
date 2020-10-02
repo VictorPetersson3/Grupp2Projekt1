@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
     {
         myPlayerSpline = GetComponent<PlayerSpline>();
         myPlayerJump = GetComponent<PlayerJump>();
-        myPlayerAir = GetComponentInChildren<PlayerAir>();
+        myPlayerAir = GetComponent<PlayerAir>();
         myPlayerInput = GetComponent<PlayerInput>();
         myPlayerDeath = GetComponent<PlayerDeath>();
         myPlayerCollision = GetComponentInChildren<PlayerCollision>();
@@ -115,7 +115,7 @@ public class Player : MonoBehaviour
             return;
         }
         
-        AirMovement(myGravity, ref myAirMovement);
+        myPlayerAir.AirMovement(myGravity, ref myAirMovement);
 
         if (myIsJumping)
         {
@@ -146,13 +146,5 @@ public class Player : MonoBehaviour
         myCurrentPoints = null;
         mySplineT = 0;
         myPlayerSpline.ResetAngleVariables();
-    }
-
-    public void AirMovement(float aGravity, ref Vector2 aAirMovement)
-    {
-        Vector2 currentMove = Time.deltaTime * aAirMovement;
-        transform.position = new Vector3(transform.position.x + currentMove.x, transform.position.y + currentMove.y, transform.position.z);
-        transform.GetChild(0).position = transform.position;
-        aAirMovement = new Vector2(aAirMovement.x, aAirMovement.y - (aGravity * Time.deltaTime));
     }
 }
