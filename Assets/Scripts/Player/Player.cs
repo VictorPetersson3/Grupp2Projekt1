@@ -94,7 +94,7 @@ public class Player : MonoBehaviour
         {
             myCamera.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
             myPlayerDeath.Die();
-            mySplineManager.ResetAllSplines();
+            //mySplineManager.ResetAllSplines();
             ResetSpline();
         }
 
