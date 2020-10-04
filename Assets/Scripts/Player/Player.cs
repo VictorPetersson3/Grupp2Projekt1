@@ -125,11 +125,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-<<<<<<< Updated upstream
             myPlayerAir.AirRotation(myRotationResetSpeed);
-=======
-            myPlayerAir.AirRotation(myOriginalRotation, myRotationResetSpeed);
->>>>>>> Stashed changes
         }
 
         if (myAirMovement.y < 0)
