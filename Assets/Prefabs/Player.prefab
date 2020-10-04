@@ -31,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1607898315252366862}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -6.2410293, y: 3.813, z: 0.015088703}
+  m_LocalPosition: {x: -5.998, y: 4.008, z: 0.015}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2463456878676605632}
@@ -137,15 +137,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81286a9367ad3f240bb221f0c0660c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< Updated upstream
-  myArt: {fileID: 0}
+  myArtPlaceHolder: {fileID: 0}
   myBobStrength: 0.07
   myBobSpeed: 5
-=======
-  myFeetPivot: {fileID: 0}
-  myBobStrength: 0.25
-  myBobSpeed: 2
->>>>>>> Stashed changes
 --- !u!1 &4393361978208579874
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,13 +163,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4393361978208579874}
-<<<<<<< Updated upstream
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-=======
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.019000005, y: -0.881, z: 0}
->>>>>>> Stashed changes
+  m_LocalPosition: {x: 0, y: -0.893, z: 0.008}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7036787973156475023}
@@ -294,7 +283,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 390ecc535d9c91744966e27a2cac078c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 390ecc535d9c91744966e27a2cac078c,
         type: 3}
