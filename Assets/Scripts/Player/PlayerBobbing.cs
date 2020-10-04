@@ -3,15 +3,15 @@
 public class PlayerBobbing : MonoBehaviour
 {
     [SerializeField]
-    private Transform myArt = null;
+    private Transform myArtPlaceHolder = null;
     [SerializeField]
-    private float myBobStrength = 0.25f;
+    private float myBobStrength = 0.1f;
     [SerializeField]
-    private float myBobSpeed = 2f;
+    private float myBobSpeed = 5f;
 
     private void Start()
     {
-        if (myArt == null)
+        if (myArtPlaceHolder == null)
         {
             Debug.LogError("PlayerBobbing misses an art reference!");
         }
@@ -19,8 +19,8 @@ public class PlayerBobbing : MonoBehaviour
 
     public void Bob()
     {
-        Vector3 floatY = myArt.transform.localPosition;
+        Vector3 floatY = myArtPlaceHolder.transform.localPosition;
         floatY.y = (Mathf.Sin(Time.time * myBobSpeed) * myBobStrength + myBobStrength);
-        myArt.transform.localPosition = floatY;
+        myArtPlaceHolder.transform.localPosition = floatY;
     }
 }

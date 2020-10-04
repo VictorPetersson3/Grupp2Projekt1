@@ -11,6 +11,7 @@ public class PlayerAir : MonoBehaviour
         aAirMovement = new Vector2(aAirMovement.x, aAirMovement.y - (aGravity * Time.deltaTime));
     }
 
+<<<<<<< Updated upstream
     public void AirRotation(float aRotationResetSpeed)
     {
         float newXRot = 35f;
@@ -23,5 +24,15 @@ public class PlayerAir : MonoBehaviour
     public void Backflip(float aFlipRotationSpeed)
     {
          transform.Rotate(Vector3.left, aFlipRotationSpeed * Time.deltaTime);
+=======
+    public void AirRotation(Quaternion aOriginalRotation, float aRotationResetSpeed)
+    {
+        float newRotX = 25f;
+        float newRotY = 90f;
+        Quaternion newRot = Quaternion.Euler(newRotX, newRotY, 0);
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, newRot, Time.deltaTime * aRotationResetSpeed);
+        transform.GetChild(0).rotation = Quaternion.Slerp(transform.GetChild(0).rotation, newRot, Time.deltaTime * aRotationResetSpeed);
+>>>>>>> Stashed changes
     }
 }

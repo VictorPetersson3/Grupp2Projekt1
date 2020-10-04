@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float myGravity = 1f;
     [SerializeField]
-    private float myBaseSpeed = 1f;
+    private float myBaseSpeed = 40f;
     [SerializeField]
     private float myJumpForce = 10f;
     [SerializeField]
@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
     private PlayerCollision myPlayerCollision;
     private PlayerDeath myPlayerDeath;
     private PlayerBobbing myPlayerBobbing;
+    private PlayerBackflip myPlayerBackflip;
 
     private bool myGrounded = false;
     private bool myTooCloseToOldSpline = false;
@@ -63,6 +64,7 @@ public class Player : MonoBehaviour
         myPlayerDeath = GetComponent<PlayerDeath>();
         myPlayerCollision = GetComponentInChildren<PlayerCollision>();
         myPlayerBobbing = GetComponent<PlayerBobbing>();
+        myPlayerBackflip = GetComponentInChildren<PlayerBackflip>();
 
         myCurrentSpeed = myBaseSpeed;
 
@@ -119,11 +121,15 @@ public class Player : MonoBehaviour
 
         if (myIsJumping)
         {
-            myPlayerAir.Backflip(myFlipRotationSpeed);
+            myPlayerBackflip.Backflip(myFlipRotationSpeed);
         }
         else
         {
+<<<<<<< Updated upstream
             myPlayerAir.AirRotation(myRotationResetSpeed);
+=======
+            myPlayerAir.AirRotation(myOriginalRotation, myRotationResetSpeed);
+>>>>>>> Stashed changes
         }
 
         if (myAirMovement.y < 0)
