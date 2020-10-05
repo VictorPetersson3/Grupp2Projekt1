@@ -2,18 +2,26 @@
 
 public class PlayerJump : MonoBehaviour
 {
-    public void Jump(Vector2[] aCurrentPoints, int aPointsIndex, float aJumpForce, float aSpeed, ref Vector2 aAirMovement)
+    const float myDivideValue = 10;
+
+    public void Jump(Vector2[] aCurrentPoints, int aPointsIndex, float aJumpForce, float aSpeed, ref Vector2 anAirMovement)
     {
         if (aPointsIndex < aCurrentPoints.Length)
         {
-            aAirMovement = aCurrentPoints[aPointsIndex + 1] - aCurrentPoints[aPointsIndex];
+            anAirMovement = aCurrentPoints[aPointsIndex + 1] - aCurrentPoints[aPointsIndex];
         }
         else
         {
-            aAirMovement = aCurrentPoints[aCurrentPoints.Length] - aCurrentPoints[aCurrentPoints.Length - 1];
+            anAirMovement = aCurrentPoints[aCurrentPoints.Length] - aCurrentPoints[aCurrentPoints.Length - 1];
         }
 
-        aAirMovement = aAirMovement.normalized * aSpeed / 10;
-        aAirMovement = new Vector2(aAirMovement.x, aAirMovement.y + aJumpForce);
+        anAirMovement = anAirMovement.normalized * aSpeed / myDivideValue;
+        anAirMovement = new Vector2(anAirMovement.x, anAirMovement.y + aJumpForce);
+    }
+
+    public void Bounce(float aJumpForce, float aSpeed, ref Vector2 anAirMovement)
+    {
+        anAirMovement = anAirMovement.normalized * aSpeed / myDivideValue;
+        anAirMovement = new Vector2(anAirMovement.x, anAirMovement.y + aJumpForce);
     }
 }

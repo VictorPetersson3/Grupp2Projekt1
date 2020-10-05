@@ -94,7 +94,7 @@ public class Player : MonoBehaviour
             }
             else
             {
-                myPlayerJump.Jump(myCurrentPoints, myPointsIndex, myJumpForce, myCurrentSpeed, ref myAirMovement);
+                myPlayerJump.Bounce(myJumpForce, myCurrentSpeed, ref myAirMovement);
             }
 
             myPlayerCollision.ResetCollided();
