@@ -82,6 +82,16 @@ public class PathCreator : MonoBehaviour
         myBoostSpheres[1] = null;
     }
 
+    public bool HasBoost()
+    {
+        return myHasBoost;
+    }
+
+    public Vector2 GetBoost()
+    {
+        return new Vector2(myBoostStart, myBoostEnd);
+    }
+
     public void CreatePath()
     {
         path = new Path(transform.position);
