@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-//[RequireComponent(typeof(Player))]
 public class PlayerSpline : MonoBehaviour
 {
     [SerializeField]
@@ -12,13 +11,20 @@ public class PlayerSpline : MonoBehaviour
     private float myCurrentAngle = 0;
     private bool myFirstCheck = true;
 
-    public bool SplineMovement(Vector2[] someCurrentPoints, float aCurrentSpeed, ref int aPointsIndex, ref float aSplineT, float aGravity)
+    public bool SplineMovement(Vector2[] someCurrentPoints, float aCurrentSpeed, ref int aPointsIndex, ref float aSplineT, float aGravity, Vector2 aBoost)
     {
+        Debug.Log("Boost " + aBoost);
+
+        if (IndexWithinBoost(aPointsIndex, aBoost))
+        {
+            Debug.Log("BOOOOOOSTIING");
+        }
+
         LookAtNextPoint(someCurrentPoints, aPointsIndex);
         float currentMove = Time.deltaTime * aCurrentSpeed;
         aSplineT += currentMove;
 
-        if (aSplineT >= 1f)
+        while (aSplineT >= 1f)
         {
             transform.position = someCurrentPoints[aPointsIndex + 1];
 
@@ -31,16 +37,16 @@ public class PlayerSpline : MonoBehaviour
                     return false;
                 }
             }
+            else
+            {
+                return false;
+            }
         }
-        else if ((myFirstCheck) && (aPointsIndex + 1 < someCurrentPoints.Length) && (aSplineT < 1f))
+
+        if (myFirstCheck && (aPointsIndex + 1 < someCurrentPoints.Length))
         {
             myOldAngle = myCurrentAngle;
             myCurrentAngle = GetAngle(someCurrentPoints[aPointsIndex], someCurrentPoints[aPointsIndex + 1]);
-        }
-
-        if (aPointsIndex + 1 >= someCurrentPoints.Length)
-        {
-            return false;
         }
 
         transform.position = Vector2.Lerp(someCurrentPoints[aPointsIndex], someCurrentPoints[aPointsIndex + 1], aSplineT);
@@ -148,9 +154,9 @@ public class PlayerSpline : MonoBehaviour
         return sameSpline;
     }
 
-    public bool AttemptToCatchSpline(SplineManager aSplineManager, float aReach, ref bool aTooCloseToOldSpline, ref int aPointsIndex, ref Vector2[] someCurrentPoints, ref Vector2[] someOldPoints)
+    public bool AttemptToCatchSpline(SplineManager aSplineManager, float aReach, ref bool aTooCloseToOldSpline, ref int aPointsIndex, ref Vector2[] someCurrentPoints, ref Vector2[] someOldPoints, ref Vector2 aBoost)
     {
-        Vector2 closestPoint = aSplineManager.GetClosestPoint(transform.position, ref aPointsIndex, ref someCurrentPoints);
+        Vector2 closestPoint = aSplineManager.GetClosestPoint(transform.position, ref aPointsIndex, ref someCurrentPoints, ref aBoost);
 
         if (Vector2.Distance(transform.position, closestPoint) <= aReach)
         {
@@ -167,6 +173,21 @@ public class PlayerSpline : MonoBehaviour
         {
             aTooCloseToOldSpline = false;
         }
+        return false;
+    }
+
+    private bool IndexWithinBoost(int anIndex, Vector2 aBoost)
+    {
+        if (aBoost == Vector2.zero)
+        {
+            return false;
+        }
+
+        if (anIndex <= aBoost.x && anIndex >= aBoost.y)
+        {
+            return true;
+        }
+
         return false;
     }
 }

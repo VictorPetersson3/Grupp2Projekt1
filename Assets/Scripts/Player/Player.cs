@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
     private Vector2[] myCurrentPoints;
     private Vector2[] myOldPoints;
     private Vector2 myAirMovement = new Vector2(1, 0);
+    private Vector2 myBoost = Vector2.zero;
     private int myPointsIndex = -1;
     private float mySplineT = -1;
     private float myCurrentSpeed; 
@@ -89,6 +90,7 @@ public class Player : MonoBehaviour
             myPlayerDeath.Die();
             mySplineManager.ResetAllSplines();
             ResetSpline();
+            myPlayerCollision.ResetCollided();
         }
 
         if (myGrounded)
@@ -102,7 +104,7 @@ public class Player : MonoBehaviour
                 return;
             }
 
-            if (!myPlayerSpline.SplineMovement(myCurrentPoints, myCurrentSpeed, ref myPointsIndex, ref mySplineT, myGravity))
+            if (!myPlayerSpline.SplineMovement(myCurrentPoints, myCurrentSpeed, ref myPointsIndex, ref mySplineT, myGravity, myBoost))
             {
                 myPlayerSpline.ReleaseSpline(myCurrentPoints, myCurrentSpeed, ref myAirMovement, myPointsIndex);
                 ResetSpline();
@@ -123,7 +125,7 @@ public class Player : MonoBehaviour
 
         if (myAirMovement.y < 0)
         {
-            if (myPlayerSpline.AttemptToCatchSpline(mySplineManager, myReach, ref myTooCloseToOldSpline, ref myPointsIndex, ref myCurrentPoints, ref myOldPoints))
+            if (myPlayerSpline.AttemptToCatchSpline(mySplineManager, myReach, ref myTooCloseToOldSpline, ref myPointsIndex, ref myCurrentPoints, ref myOldPoints, ref myBoost))
             {
                 myCamera.TriggerShake(myShakeDurationSplines, myShakeMagnitudeSplines);
                 myGrounded = true;
@@ -141,5 +143,6 @@ public class Player : MonoBehaviour
         myCurrentPoints = null;
         mySplineT = 0;
         myPlayerSpline.ResetAngleVariables();
+        myBoost = Vector2.zero;
     }
 }

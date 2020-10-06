@@ -25,7 +25,7 @@ public class SplineManager : MonoBehaviour
         SetSplineActivate();
     }
 
-    public Vector2 GetClosestPoint(Vector2 aPlayerPosition, ref int aPointsIndex, ref Vector2[] aPoints)
+    public Vector2 GetClosestPoint(Vector2 aPlayerPosition, ref int aPointsIndex, ref Vector2[] aPoints, ref Vector2 aBoost)
     {
         Vector2 closestPoint = Vector2.negativeInfinity;
         int closestIndex = 0;
@@ -40,6 +40,11 @@ public class SplineManager : MonoBehaviour
                 closestPoint = closestPointInIteratedSpline;
                 aPoints = iteratedSplinesPoints;
                 closestIndex = aPointsIndex;
+                if (pathCreators[i].HasBoost())
+                {
+                    Debug.Log("Spline has boost");
+                    aBoost = pathCreators[i].GetBoost();
+                }
             }
         }
 

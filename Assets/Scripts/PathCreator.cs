@@ -10,6 +10,11 @@ public class PathCreator : MonoBehaviour
     private int myBoostEnd = 0;
     [SerializeField]
     private GameObject myBoostSpherePrefab = null;
+    
+    [SerializeField, HideInInspector]
+    private bool myHasBoost;
+    [SerializeField, HideInInspector]
+    private GameObject[] myBoostSpheres;
 
     public Color anchorCol = Color.red;
     public Color controlCol = Color.white;
@@ -18,10 +23,7 @@ public class PathCreator : MonoBehaviour
     public float anchorDiameter = .1f;
     public float controlDiameter = .075f;
     public bool displayControlPoints = true;
-
-    private bool myHasBoost = false;
-    private GameObject[] myBoostSpheres;
-
+    
     private void OnValidate()
     {
         UpdateBoost();
@@ -64,13 +66,13 @@ public class PathCreator : MonoBehaviour
     {
         myHasBoost = true;
         myBoostSpheres = new GameObject[2];
-        myBoostSpheres[0] = GameObject.Instantiate(myBoostSpherePrefab, transform);
-        myBoostSpheres[1] = GameObject.Instantiate(myBoostSpherePrefab, transform);
+        myBoostSpheres[0] = Instantiate(myBoostSpherePrefab, transform);
+        myBoostSpheres[1] = Instantiate(myBoostSpherePrefab, transform);
     }
 
     public void DeleteBoost()
     {
-        if (!myHasBoost || myBoostSpheres.Length < 1 || myBoostSpheres[0] == null)
+        if (!myHasBoost)
         {
             return;
         }
@@ -84,6 +86,7 @@ public class PathCreator : MonoBehaviour
 
     public bool HasBoost()
     {
+        Debug.Log(this + " " + myHasBoost);
         return myHasBoost;
     }
 
