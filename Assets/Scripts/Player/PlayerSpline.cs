@@ -7,11 +7,21 @@ public class PlayerSpline : MonoBehaviour
     [SerializeField]
     private float myBuffer = -0.1f;
     [SerializeField]
-    private float myBoostStrength = 50;
+    private float myBoostStrength = 50f;
+    [SerializeField]
+    private float mySlopeAcceleration = 1f;
+    [SerializeField]
+    private float mySlopeDeceleration = 1f;
+    [SerializeField]
+    private float myMaxSpeed = 100f;
+    [SerializeField]
+    private float myMinSpeed = 10f;
 
     private float myOldAngle = 0;
     private float myCurrentAngle = 0;
     private bool myFirstCheck = true;
+
+    const int myFlatAngle = 90;
 
     public bool SplineMovement(Vector2[] someCurrentPoints, ref float aCurrentSpeed, ref int aPointsIndex, ref float aSplineT, float aGravity, Vector2 aBoost)
     {
@@ -19,6 +29,16 @@ public class PlayerSpline : MonoBehaviour
         {
             aCurrentSpeed += Time.deltaTime * myBoostStrength;
         }
+
+        float accMultiplier = mySlopeAcceleration;
+
+        if (myCurrentAngle > 90)
+        {
+            accMultiplier = mySlopeDeceleration;
+        }
+        
+        aCurrentSpeed -= (myCurrentAngle - myFlatAngle) * Time.deltaTime * accMultiplier;
+        aCurrentSpeed = Mathf.Clamp(aCurrentSpeed, myMinSpeed, myMaxSpeed);
 
         LookAtNextPoint(someCurrentPoints, aPointsIndex);
         float currentMove = Time.deltaTime * aCurrentSpeed;
@@ -110,6 +130,7 @@ public class PlayerSpline : MonoBehaviour
         myFirstCheck = true;
     }
 
+    //Down=0, Right=90, Up=180, Left=270
     private float GetAngle(Vector2 aPosition, Vector2 anotherPosition)
     {
         Vector2 delta = anotherPosition - aPosition;

@@ -38,7 +38,7 @@ public class PathCreator : MonoBehaviour
 
         path.UpdateBoost(myBoostStart, myBoostEnd);
 
-        if (myBoostStart <= 0 || myBoostEnd <= 0)
+        if (myBoostStart < 0 || myBoostEnd < 0)
         {
             myBoostSpheres[0].transform.position = new Vector3(path.GetFirstPoint().x, path.GetFirstPoint().y, 0);
             myBoostSpheres[1].transform.position = new Vector3(path.GetFirstPoint().x, path.GetFirstPoint().y, 0);
@@ -72,14 +72,11 @@ public class PathCreator : MonoBehaviour
 
     public void DeleteBoost()
     {
-        if (!myHasBoost)
-        {
-            return;
-        }
-
         myHasBoost = false;
         DestroyImmediate(myBoostSpheres[0]);
         DestroyImmediate(myBoostSpheres[1]);
+        myBoostSpheres[0] = null;
+        myBoostSpheres[1] = null;
     }
 
     public bool HasBoost()

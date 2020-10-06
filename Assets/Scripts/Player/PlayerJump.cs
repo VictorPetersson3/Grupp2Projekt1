@@ -16,4 +16,9 @@ public class PlayerJump : MonoBehaviour
         aAirMovement = aAirMovement.normalized * aSpeed / 10;
         aAirMovement = new Vector2(aAirMovement.x, aAirMovement.y + aJumpForce);
     }
+
+    public void Bounce(ref Vector2 aAirMovement, float aJumpForce)
+    {
+        aAirMovement = new Vector2(aAirMovement.x, aJumpForce);
+    }
 }
