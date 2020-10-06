@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-//[RequireComponent(typeof(Player))]
 public class PlayerJump : MonoBehaviour
 {
     public void Jump(Vector2[] aCurrentPoints, int aPointsIndex, float aJumpForce, float aSpeed, ref Vector2 aAirMovement)
