@@ -2,6 +2,9 @@
 
 public class PlayerDeath : MonoBehaviour
 {
+    [SerializeField]
+    private GameManager myGameManager = null;
+
     private Vector3 myOriginalPosition;
     private Quaternion myOriginalRotation;
 
@@ -15,5 +18,6 @@ public class PlayerDeath : MonoBehaviour
     {
         transform.position = myOriginalPosition;
         transform.rotation = myOriginalRotation;
+        myGameManager.ResetObstacles();
     }
 }
