@@ -42,7 +42,6 @@ public class SplineManager : MonoBehaviour
                 closestIndex = aPointsIndex;
                 if (pathCreators[i].HasBoost())
                 {
-                    Debug.Log("Spline has boost");
                     aBoost = pathCreators[i].GetBoost();
                 }
             }

@@ -5,19 +5,19 @@ public class PlayerSpline : MonoBehaviour
     [SerializeField]
     private float myGroundedRotationSpeed = 10f;
     [SerializeField]
-    private float buffer = -0.1f;
+    private float myBuffer = -0.1f;
+    [SerializeField]
+    private float myBoostStrength = 50;
 
     private float myOldAngle = 0;
     private float myCurrentAngle = 0;
     private bool myFirstCheck = true;
 
-    public bool SplineMovement(Vector2[] someCurrentPoints, float aCurrentSpeed, ref int aPointsIndex, ref float aSplineT, float aGravity, Vector2 aBoost)
+    public bool SplineMovement(Vector2[] someCurrentPoints, ref float aCurrentSpeed, ref int aPointsIndex, ref float aSplineT, float aGravity, Vector2 aBoost)
     {
-        Debug.Log("Boost " + aBoost);
-
         if (IndexWithinBoost(aPointsIndex, aBoost))
         {
-            Debug.Log("BOOOOOOSTIING");
+            aCurrentSpeed += Time.deltaTime * myBoostStrength;
         }
 
         LookAtNextPoint(someCurrentPoints, aPointsIndex);
@@ -95,7 +95,7 @@ public class PlayerSpline : MonoBehaviour
         aGravity *= -1;
         float delta = splineMovement.y - aGravity;
 
-        if ((splineMovement.y < aGravity) && (delta < buffer))
+        if ((splineMovement.y < aGravity) && (delta < myBuffer))
         {
             return true;
         }
@@ -183,7 +183,7 @@ public class PlayerSpline : MonoBehaviour
             return false;
         }
 
-        if (anIndex <= aBoost.x && anIndex >= aBoost.y)
+        if (anIndex >= aBoost.x && anIndex <= aBoost.y)
         {
             return true;
         }

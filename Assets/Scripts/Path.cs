@@ -4,7 +4,6 @@ using UnityEngine;
 [System.Serializable]
 public class Path
 {
-
     [SerializeField, HideInInspector]
     List<Vector2> points;
     [SerializeField, HideInInspector]
@@ -14,8 +13,6 @@ public class Path
     
     private int myBoostStart = 0;
     private int myBoostEnd = 0;
-
-    private GameObject[] myBoostSpheres;
 
     public void UpdateBoost(int aBoostStart, int aBoostEnd)
     {

@@ -12,7 +12,6 @@ public class MeshCreator : MonoBehaviour
     public float spacing = 1;
     public float meshHeigth = 1;
     public float meshWidth = 1f;
-    //[HideInInspector]
     public bool previewGeneratedMesh;
     public float uvTiling = 1;
     public Material material;
@@ -117,8 +116,6 @@ public class MeshCreator : MonoBehaviour
 
         int textureRepeat = Mathf.RoundToInt(uvTiling * points.Length * spacing * 0.5f);
         return newGameObject;
-
-
     }
 
 }

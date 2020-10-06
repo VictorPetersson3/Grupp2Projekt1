@@ -80,13 +80,10 @@ public class PathCreator : MonoBehaviour
         myHasBoost = false;
         DestroyImmediate(myBoostSpheres[0]);
         DestroyImmediate(myBoostSpheres[1]);
-        myBoostSpheres[0] = null;
-        myBoostSpheres[1] = null;
     }
 
     public bool HasBoost()
     {
-        Debug.Log(this + " " + myHasBoost);
         return myHasBoost;
     }
 

@@ -88,6 +88,7 @@ public class Player : MonoBehaviour
         {
             myCamera.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
             myPlayerDeath.Die();
+            myCurrentSpeed = myBaseSpeed;
             mySplineManager.ResetAllSplines();
             ResetSpline();
             myPlayerCollision.ResetCollided();
@@ -104,7 +105,7 @@ public class Player : MonoBehaviour
                 return;
             }
 
-            if (!myPlayerSpline.SplineMovement(myCurrentPoints, myCurrentSpeed, ref myPointsIndex, ref mySplineT, myGravity, myBoost))
+            if (!myPlayerSpline.SplineMovement(myCurrentPoints, ref myCurrentSpeed, ref myPointsIndex, ref mySplineT, myGravity, myBoost))
             {
                 myPlayerSpline.ReleaseSpline(myCurrentPoints, myCurrentSpeed, ref myAirMovement, myPointsIndex);
                 ResetSpline();
