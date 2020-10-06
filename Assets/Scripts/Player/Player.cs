@@ -89,18 +89,16 @@ public class Player : MonoBehaviour
             myPlayerCollision.ResetCollided();
             myCamera.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
 
-            if (myGrounded)
-            {
-                myPlayerDeath.Die();
-                myCurrentSpeed = myBaseSpeed;
-                mySplineManager.ResetAllSplines();
-                ResetSpline();
-            }
-            else
+            if (!myGrounded && myAirMovement.y < 0)
             {
                 myPlayerJump.Bounce(ref myAirMovement, myJumpForce);
                 return;
             }
+
+            myPlayerDeath.Die();
+            myCurrentSpeed = myBaseSpeed;
+            mySplineManager.ResetAllSplines();
+            ResetSpline();
         }
 
         if (myGrounded)
