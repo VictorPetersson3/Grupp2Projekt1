@@ -11,6 +11,22 @@ public class Path
     bool isClosed;
     [SerializeField, HideInInspector]
     bool autoSetControlPoints;
+    
+    private int myBoostStart = 0;
+    private int myBoostEnd = 0;
+
+    private GameObject[] myBoostSpheres;
+
+    public void UpdateBoost(int aBoostStart, int aBoostEnd)
+    {
+        myBoostStart = aBoostStart;
+        myBoostEnd = aBoostEnd;
+    }
+
+    public Vector2 GetBoost()
+    {
+        return new Vector2(myBoostStart, myBoostEnd);
+    }
 
     public Path(Vector2 centre)
     {
@@ -309,5 +325,4 @@ public class Path
     {
         return (i + points.Count) % points.Count;
     }
-
 }

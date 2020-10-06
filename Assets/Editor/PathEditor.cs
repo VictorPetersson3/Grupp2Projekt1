@@ -22,6 +22,12 @@ public class PathEditor : Editor
         base.OnInspectorGUI();
 
         EditorGUI.BeginChangeCheck();
+        if (GUILayout.Button("Update Boost"))
+        {
+            Undo.RecordObject(myCreator, "Update Boost");
+            myCreator.UpdateBoost();
+        }
+
         if (GUILayout.Button("DELETE and start over"))
         {
             Undo.RecordObject(myCreator, "DELETE and start over");
@@ -52,6 +58,7 @@ public class PathEditor : Editor
     {
         Input();
         Draw();
+        myCreator.UpdateBoost();
     }
 
     private void Input()
