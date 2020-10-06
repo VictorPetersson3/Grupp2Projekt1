@@ -8,6 +8,8 @@ public class PathCreator : MonoBehaviour
     private int myBoostStart = 0;
     [SerializeField]
     private int myBoostEnd = 0;
+    [SerializeField]
+    private GameObject myBoostSpherePrefab = null;
 
     public Color anchorCol = Color.red;
     public Color controlCol = Color.white;
@@ -16,6 +18,8 @@ public class PathCreator : MonoBehaviour
     public float anchorDiameter = .1f;
     public float controlDiameter = .075f;
     public bool displayControlPoints = true;
+
+    private bool myHasBoost = false;
     private GameObject[] myBoostSpheres;
 
     private void OnValidate()
@@ -25,16 +29,17 @@ public class PathCreator : MonoBehaviour
 
     public void UpdateBoost()
     {
+        if (!myHasBoost)
+        {
+            return;
+        }
+
         path.UpdateBoost(myBoostStart, myBoostEnd);
 
         if (myBoostStart <= 0 || myBoostEnd <= 0)
         {
-            if (myBoostSpheres.Length > 0)
-            {
-                myBoostSpheres[0].transform.position = new Vector3(path.GetFirstPoint().x, path.GetFirstPoint().y, 0);
-                myBoostSpheres[1].transform.position = new Vector3(path.GetFirstPoint().x, path.GetFirstPoint().y, 0);
-            }
-
+            myBoostSpheres[0].transform.position = new Vector3(path.GetFirstPoint().x, path.GetFirstPoint().y, 0);
+            myBoostSpheres[1].transform.position = new Vector3(path.GetFirstPoint().x, path.GetFirstPoint().y, 0);
             return;
         }
 
@@ -51,16 +56,30 @@ public class PathCreator : MonoBehaviour
             return;
         }
 
-        if (myBoostSpheres.Length < 1)
-        {
-            myBoostSpheres = new GameObject[2];
-            Debug.Log("boostSpheres length: " + myBoostSpheres.Length);
-            myBoostSpheres[0] = GameObject.Instantiate(GameObject.CreatePrimitive(PrimitiveType.Sphere), transform);
-            myBoostSpheres[1] = GameObject.Instantiate(GameObject.CreatePrimitive(PrimitiveType.Sphere), transform);
-        }
-
         myBoostSpheres[0].transform.position = new Vector3(points[myBoostStart].x, points[myBoostStart].y, 0);
         myBoostSpheres[1].transform.position = new Vector3(points[myBoostEnd].x, points[myBoostEnd].y, 0);
+    }
+
+    public void AddBoost()
+    {
+        myHasBoost = true;
+        myBoostSpheres = new GameObject[2];
+        myBoostSpheres[0] = GameObject.Instantiate(myBoostSpherePrefab, transform);
+        myBoostSpheres[1] = GameObject.Instantiate(myBoostSpherePrefab, transform);
+    }
+
+    public void DeleteBoost()
+    {
+        if (!myHasBoost || myBoostSpheres.Length < 1 || myBoostSpheres[0] == null)
+        {
+            return;
+        }
+
+        myHasBoost = false;
+        DestroyImmediate(myBoostSpheres[0]);
+        DestroyImmediate(myBoostSpheres[1]);
+        myBoostSpheres[0] = null;
+        myBoostSpheres[1] = null;
     }
 
     public void CreatePath()

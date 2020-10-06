@@ -54,6 +54,10 @@ MonoBehaviour:
     - {x: 5.0354557, y: 0.77825683}
     isClosed: 0
     autoSetControlPoints: 0
+  myBoostStart: 0
+  myBoostEnd: 0
+  myBoostSpherePrefab: {fileID: 4435274726517814285, guid: d13fca1447c5b514fb8cc1ee5ef39107,
+    type: 3}
   anchorCol: {r: 1, g: 0, b: 0, a: 1}
   controlCol: {r: 1, g: 1, b: 1, a: 1}
   segmentCol: {r: 0, g: 1, b: 0, a: 1}
@@ -87,7 +91,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 0a059ceacbcd1d342b6c7dfe23401f53, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

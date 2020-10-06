@@ -22,10 +22,16 @@ public class PathEditor : Editor
         base.OnInspectorGUI();
 
         EditorGUI.BeginChangeCheck();
-        if (GUILayout.Button("Update Boost"))
+        if (GUILayout.Button("Add Boost"))
         {
-            Undo.RecordObject(myCreator, "Update Boost");
-            myCreator.UpdateBoost();
+            Undo.RecordObject(myCreator, "Add Boost");
+            myCreator.AddBoost();
+        }
+
+        if (GUILayout.Button("Delete Boost"))
+        {
+            Undo.RecordObject(myCreator, "Delete Boost");
+            myCreator.DeleteBoost();
         }
 
         if (GUILayout.Button("DELETE and start over"))
