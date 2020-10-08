@@ -36,6 +36,9 @@ public class Player : MonoBehaviour
     private PlayerBobbing myPlayerBobbing;
     private PlayerBackflip myPlayerBackflip;
 
+    // Particles
+    private SandParticleManager mySandParticleManager;
+
     private bool myGrounded = false;
     private bool myTooCloseToOldSpline = false;
     private bool myIsJumping;
@@ -59,6 +62,9 @@ public class Player : MonoBehaviour
         myPlayerCollision = GetComponentInChildren<PlayerCollision>();
         myPlayerBobbing = GetComponent<PlayerBobbing>();
         myPlayerBackflip = GetComponentInChildren<PlayerBackflip>();
+
+        // Particles
+        mySandParticleManager = GetComponentInChildren<SandParticleManager>();
 
         myCurrentSpeed = myBaseSpeed;
 
@@ -104,7 +110,8 @@ public class Player : MonoBehaviour
         if (myGrounded)
         {    
             myPlayerBobbing.Bob();
-            
+            mySandParticleManager.CreateSandParticle(3);
+
             if (myIsJumping)
             {
                 myPlayerJump.Jump(myCurrentPoints, myPointsIndex, myJumpForce, myCurrentSpeed, ref myAirMovement);
