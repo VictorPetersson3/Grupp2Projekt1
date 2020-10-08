@@ -7262,7 +7262,7 @@ GameObject:
   - component: {fileID: 1092152035}
   m_Layer: 0
   m_Name: ParticleManager
-  m_TagString: Untagged
+  m_TagString: SandParticleManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7275,7 +7275,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1092152033}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.13, z: -0.23}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1965046937}
@@ -7296,8 +7296,6 @@ MonoBehaviour:
   mySandParticle: {fileID: 4716511318155048838, guid: 49f3a27a789474b4486702e0e8005576,
     type: 3}
   mySandParticles: []
-  myOffsetX: 0.25
-  myOffsetY: 0.2
 --- !u!43 &1442081954
 Mesh:
   m_ObjectHideFlags: 0

@@ -25,6 +25,7 @@ public class SandParticle : MonoBehaviour
     // Getting rotation
     private Vector3 myRotation;
     private Transform myPlayerTransform;
+    private SandParticleManager mySandParticleManager;
 
     [HideInInspector]
     public bool myIsDead = false;
@@ -36,7 +37,8 @@ public class SandParticle : MonoBehaviour
 
         // Rotation
         myPlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        //transform.eulerAngles = myPlayerTransform.eulerAngles;
+
+        mySandParticleManager = GameObject.FindGameObjectWithTag("SandParticleManager").GetComponent<SandParticleManager>();
 
         // Render
         myMaterial = GetComponent<MeshRenderer>().material;
@@ -49,10 +51,12 @@ public class SandParticle : MonoBehaviour
     private void Update()
     {
         CheckIfDead();
+        mySandParticleManager.ChangeSpawnOffsetY();
+        mySandParticleManager.ChangeSpawnOffsetX();
         ApplyForce();
         ApplyGravity();
         IncreaseSize();
-        DecreaseTransparency();
+        IncreaseTransparency();
     }
 
     private void CheckIfDead()
@@ -69,7 +73,7 @@ public class SandParticle : MonoBehaviour
         myTotalLifeTime = Random.Range(myMinLifeTime, myMaxLifeTime);
     }
 
-    private void DecreaseTransparency()
+    private void IncreaseTransparency()
     {
         if (myNewColor.a > 0.1f)
         {
@@ -91,21 +95,12 @@ public class SandParticle : MonoBehaviour
         float newXForce = Random.Range(myMinXForce, myMaxXForce);
         float newYForce = Random.Range(myMinYForce, myMaxYForce);
 
-        if (myRotation.x > 10)
+        if (myRotation.x < -5)
         {
-            // Going Downhill
-            transform.position = new Vector3(transform.position.x - (newXForce * Time.deltaTime), transform.position.y + (newYForce * Time.deltaTime * 2), transform.position.z);
-        }
-        if (myRotation.x < -10)
-        {
-            // Going upphill
             transform.position = new Vector3(transform.position.x - (newXForce * Time.deltaTime), transform.position.y + (newYForce * Time.deltaTime), transform.position.z);
+            return;
         }
-        if (myRotation.x < 10 && myRotation.x > -10)
-        {
-            // Kind of plain ground
-            transform.position = new Vector3(transform.position.x - (newXForce * Time.deltaTime), transform.position.y, transform.position.z);
-        }
+        transform.position = new Vector3(transform.position.x - (newXForce * Time.deltaTime), transform.position.y + (newYForce * Time.deltaTime * 2), transform.position.z);
     }
 
     private void IncreaseSize()

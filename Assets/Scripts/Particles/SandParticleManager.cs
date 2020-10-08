@@ -7,10 +7,9 @@ public class SandParticleManager : MonoBehaviour
     private GameObject mySandParticle = null;
     [SerializeField]
     private List<GameObject> mySandParticles = new List<GameObject>();
-    [SerializeField]
-    private float myOffsetX = 1f;
-    [SerializeField]
-    private float myOffsetY = 1f;
+ 
+    private float myOffsetX = 0.25f;
+    private float myOffsetY = 0.5f;
 
     void Update()
     {
@@ -35,5 +34,29 @@ public class SandParticleManager : MonoBehaviour
 
         GameObject particle = Instantiate(mySandParticle, newPosition, Quaternion.identity);
         mySandParticles.Add(particle);
+    }
+
+    public void ChangeSpawnOffsetY()
+    {
+        if (myOffsetY == 0.2f)
+        {
+            myOffsetY = 0.1f;
+        }
+        if (myOffsetY == 0.1f)
+        {
+            myOffsetY = 0.2f;
+        }
+    }
+
+    public void ChangeSpawnOffsetX()
+    {
+        if (myOffsetX == 0.25f)
+        {
+            myOffsetX = 0.4f;
+        }
+        if (myOffsetX == 0.4f)
+        {
+            myOffsetX = 0.25f;
+        }
     }
 }
