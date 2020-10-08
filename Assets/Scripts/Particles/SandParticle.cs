@@ -4,18 +4,18 @@ public class SandParticle : MonoBehaviour
 {
     // Lifetime
     private float myMinLifeTime = 0.3f;
-    private float myMaxLifeTime = 0.7f;
+    private float myMaxLifeTime = 0.6f;
     private float myTotalLifeTime = 0f;
     private float myLifeTime = 0f;
 
     // Physics
-    private float myGravity = 6f;
-    private float myMaxYForce = 2f;
-    private float myMinYForce = 1.5f;
+    private float myGravity = 4f;
+    private float myMaxYForce = 7f;
+    private float myMinYForce = 1f;
 
     // Color and size
     private float myDecreseOpacity = 0.02f;
-    private Vector3 myScaleChange = new Vector3(0.4f, 0.4f, 0);
+    private Vector3 myScaleChange = new Vector3(0.5f, 0.5f, 0);
     private Material myMaterial;
     private Color myOriginalColor;
     private Color myNewColor;
@@ -49,10 +49,15 @@ public class SandParticle : MonoBehaviour
     private void Update()
     {
         CheckIfDead();
-        ApplyForce();
-        ApplyGravity();
         IncreaseSize();
         IncreaseTransparency();
+
+        if (myLifeTime >= myTotalLifeTime / Random.Range(2, 4))
+        {
+            ApplyGravity();
+            return;
+        }
+        ApplyForce();
     }
 
     private void CheckIfDead()
@@ -80,7 +85,7 @@ public class SandParticle : MonoBehaviour
 
     private void ApplyGravity()
     {
-        if (myLifeTime >= myTotalLifeTime / 2)
+        if (myLifeTime >= myTotalLifeTime / 3)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y - (myGravity * Time.deltaTime), transform.position.z);
         }
@@ -92,13 +97,9 @@ public class SandParticle : MonoBehaviour
 
         if (myRotation.x < -5)
         {
-            mySandParticleManager.ChangeSpawnOffsetY();
-            mySandParticleManager.ChangeSpawnOffsetX();
             transform.position = new Vector3(transform.position.x, transform.position.y + (newYForce * Time.deltaTime), transform.position.z);
             return;
         }
-        mySandParticleManager.ChangeSpawnOffsetY();
-        mySandParticleManager.ChangeSpawnOffsetX();
         transform.position = new Vector3(transform.position.x, transform.position.y + (newYForce * Time.deltaTime * 2), transform.position.z);
     }
 
