@@ -1,9 +1,27 @@
-﻿using System.Collections;
+﻿     using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class UI : MonoBehaviour
+public class UserInterfaceScript : MonoBehaviour
 {
+    public GameObject myScoreText;
+    public static int myCogsCollected;
+    public static int myTotalCogsToCollect;
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+
+    void Update()
+    {
+        myScoreText.GetComponent<Text>().text = myCogsCollected + "/" + myTotalCogsToCollect;
+    }
+    
+    
     /*Skriver pseudokod så länge,
      * i väntan på att jag vet vilka
      * element som bör användas osv*/
@@ -32,18 +50,7 @@ public class UI : MonoBehaviour
 
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //Tryck ESC - Pause()
-    }
-
+    
 
     void Pause()
     {
