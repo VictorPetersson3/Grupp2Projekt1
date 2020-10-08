@@ -11,13 +11,11 @@ public class SandParticle : MonoBehaviour
     // Physics
     private float myGravity = 6f;
     private float myMaxYForce = 2f;
-    private float myMaxXForce = 3f;
     private float myMinYForce = 1.5f;
-    private float myMinXForce = 0.75f;
 
     // Color and size
     private float myDecreseOpacity = 0.02f;
-    private Vector3 myScaleChange = new Vector3(0.3f, 0.3f, 0);
+    private Vector3 myScaleChange = new Vector3(0.4f, 0.4f, 0);
     private Material myMaterial;
     private Color myOriginalColor;
     private Color myNewColor;
@@ -51,8 +49,6 @@ public class SandParticle : MonoBehaviour
     private void Update()
     {
         CheckIfDead();
-        //mySandParticleManager.ChangeSpawnOffsetY();
-        //mySandParticleManager.ChangeSpawnOffsetX();
         ApplyForce();
         ApplyGravity();
         IncreaseSize();
@@ -92,19 +88,18 @@ public class SandParticle : MonoBehaviour
 
     private void ApplyForce()
     {
-        float newXForce = Random.Range(myMinXForce, myMaxXForce);
         float newYForce = Random.Range(myMinYForce, myMaxYForce);
 
         if (myRotation.x < -5)
         {
             mySandParticleManager.ChangeSpawnOffsetY();
             mySandParticleManager.ChangeSpawnOffsetX();
-            transform.position = new Vector3(transform.position.x - (newXForce * Time.deltaTime), transform.position.y + (newYForce * Time.deltaTime), transform.position.z);
+            transform.position = new Vector3(transform.position.x, transform.position.y + (newYForce * Time.deltaTime), transform.position.z);
             return;
         }
         mySandParticleManager.ChangeSpawnOffsetY();
         mySandParticleManager.ChangeSpawnOffsetX();
-        transform.position = new Vector3(transform.position.x - (newXForce * Time.deltaTime), transform.position.y + (newYForce * Time.deltaTime * 2), transform.position.z);
+        transform.position = new Vector3(transform.position.x, transform.position.y + (newYForce * Time.deltaTime * 2), transform.position.z);
     }
 
     private void IncreaseSize()

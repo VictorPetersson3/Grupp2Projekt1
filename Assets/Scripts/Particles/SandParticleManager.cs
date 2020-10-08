@@ -28,8 +28,7 @@ public class SandParticleManager : MonoBehaviour
 
     public void CreateSandParticle()
     {
-        float multiplier = 2f;
-        float newX = Random.Range(transform.position.x - myOffsetX, transform.position.x - myOffsetX * multiplier);
+        float newX = Random.Range(transform.position.x, transform.position.x - myOffsetX);
         float newY = Random.Range(transform.position.y, transform.position.y + myOffsetY);
         Vector3 newPosition = new Vector3(newX, newY, 0);
 
@@ -39,10 +38,9 @@ public class SandParticleManager : MonoBehaviour
 
     public void CreateSandParticle(int aTimes)
     {
-        float multiplier = 2f; 
         for (int i = 0; i < aTimes; i++)
         {
-            float newX = Random.Range(transform.position.x - myOffsetX, transform.position.x - myOffsetX * multiplier);
+            float newX = Random.Range(transform.position.x, transform.position.x - myOffsetX);
             float newY = Random.Range(transform.position.y, transform.position.y + myOffsetY);
             Vector3 newPosition = new Vector3(newX, newY, 0);
 
