@@ -100,8 +100,7 @@ public class Player : MonoBehaviour
         if (myGrounded)
         {    
             myPlayerBobbing.Bob();
-            mySandParticleManager.CreateSandParticle();
-            mySandParticleManager.CreateSandParticle();
+            mySandParticleManager.CreateSandParticle(3);
 
             if (myIsJumping)
             {

@@ -51,8 +51,8 @@ public class SandParticle : MonoBehaviour
     private void Update()
     {
         CheckIfDead();
-        mySandParticleManager.ChangeSpawnOffsetY();
-        mySandParticleManager.ChangeSpawnOffsetX();
+        //mySandParticleManager.ChangeSpawnOffsetY();
+        //mySandParticleManager.ChangeSpawnOffsetX();
         ApplyForce();
         ApplyGravity();
         IncreaseSize();
@@ -97,9 +97,13 @@ public class SandParticle : MonoBehaviour
 
         if (myRotation.x < -5)
         {
+            mySandParticleManager.ChangeSpawnOffsetY();
+            mySandParticleManager.ChangeSpawnOffsetX();
             transform.position = new Vector3(transform.position.x - (newXForce * Time.deltaTime), transform.position.y + (newYForce * Time.deltaTime), transform.position.z);
             return;
         }
+        mySandParticleManager.ChangeSpawnOffsetY();
+        mySandParticleManager.ChangeSpawnOffsetX();
         transform.position = new Vector3(transform.position.x - (newXForce * Time.deltaTime), transform.position.y + (newYForce * Time.deltaTime * 2), transform.position.z);
     }
 
