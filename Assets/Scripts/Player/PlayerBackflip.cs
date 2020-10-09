@@ -20,7 +20,6 @@ public class PlayerBackflip : MonoBehaviour
 
     public float GetBackflipScore()
     {
-        Debug.Log("Get backflip score");
         float returnValue = myBackflipScore;
         myBackflipScore = 0;
         if (returnValue > myMaxTrickBoostTime)
