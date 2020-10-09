@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 7775170082975414533}
   - component: {fileID: 6966543263186623406}
   - component: {fileID: 4187244042984590750}
-  - component: {fileID: 1181051519596355128}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -142,18 +141,6 @@ MonoBehaviour:
   myArtPlaceHolder: {fileID: 7036787973156475023}
   myBobStrength: 0.07
   myBobSpeed: 5
---- !u!114 &1181051519596355128
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1607898315252366862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 432af752b34006648a40324088b23868, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4393361978208579874
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,6 +247,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2463456878676605632}
+  - component: {fileID: 7822241200539805061}
   m_Layer: 0
   m_Name: CenterPivot
   m_TagString: Untagged
@@ -282,6 +270,18 @@ Transform:
   m_Father: {fileID: 1607898315252366860}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7822241200539805061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7074563405385688800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 432af752b34006648a40324088b23868, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7362549884136126308
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -26,13 +27,14 @@ public class Player : MonoBehaviour
     private float myShakeDurationSplines = 10f;
     [SerializeField]
     private float myShakeMagnitudeSplines = 5f;
+    [SerializeField]
+    private GameManager myGameManager = null;
 
     private PlayerSpline myPlayerSpline;
     private PlayerJump myPlayerJump;
     private PlayerAir myPlayerAir;
     private PlayerInput myPlayerInput;
     private PlayerCollision myPlayerCollision;
-    private PlayerDeath myPlayerDeath;
     private PlayerBobbing myPlayerBobbing;
     private PlayerBackflip myPlayerBackflip;
 
@@ -47,7 +49,8 @@ public class Player : MonoBehaviour
     private Vector2 myBoost = Vector2.zero;
     private int myPointsIndex = -1;
     private float mySplineT = -1;
-    private float myCurrentSpeed; 
+    private float myCurrentSpeed;
+    private Vector3 myOriginalPosition;
 
     private void Start()
     {
@@ -55,12 +58,12 @@ public class Player : MonoBehaviour
         myPlayerJump = GetComponent<PlayerJump>();
         myPlayerAir = GetComponent<PlayerAir>();
         myPlayerInput = GetComponent<PlayerInput>();
-        myPlayerDeath = GetComponent<PlayerDeath>();
         myPlayerCollision = GetComponentInChildren<PlayerCollision>();
         myPlayerBobbing = GetComponent<PlayerBobbing>();
         myPlayerBackflip = GetComponentInChildren<PlayerBackflip>();
 
         myCurrentSpeed = myBaseSpeed;
+        myOriginalPosition = transform.position;
 
         if (mySplineManager == null)
         {
@@ -95,8 +98,8 @@ public class Player : MonoBehaviour
                 return;
             }
 
-            myPlayerDeath.Die();
-            myCurrentSpeed = myBaseSpeed;
+            myGameManager.GameOver(SceneManager.GetActiveScene());
+            transform.position = myOriginalPosition;
             mySplineManager.ResetAllSplines();
             ResetSpline();
         }
