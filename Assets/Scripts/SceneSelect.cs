@@ -20,7 +20,7 @@ public class SceneSelect : MonoBehaviour
     public void StartingTheGame()
     {
         Debug.Log("Laddar \"IntroLevel\"");
-        SceneManager.LoadScene(0);
+        myGameManager.PlayGame();
     }
 
     public void QuittingTheGame()
