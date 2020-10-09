@@ -179,17 +179,27 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if (myPlayerSpline.AttemptToCatchSpline(mySplineManager, myReach, ref myTooCloseToOldSpline, ref myPointsIndex, ref myCurrentPoints, ref myOldPoints, ref myBoostVector))
+        if (!myPlayerSpline.AttemptToCatchSpline(mySplineManager, myReach, ref myTooCloseToOldSpline, ref myPointsIndex, ref myCurrentPoints, ref myOldPoints, ref myBoostVector))
         {
-            if (myPlayerAir.WillCrash(myPlayerSpline.GetAngle(myCurrentPoints[myPointsIndex], myCurrentPoints[myPointsIndex + 1])))
+            return;
+        }
+
+        if (myPointsIndex + 1 >= myCurrentPoints.Length)
+        {
+            if (myPlayerAir.WillCrash(myPlayerSpline.GetAngle(myCurrentPoints[myPointsIndex - 1], myCurrentPoints[myPointsIndex])))
             {
                 Crash();
-            }
-            else
-            {
-                CatchSpline();
+                return;
             }
         }
+            
+        else if (myPlayerAir.WillCrash(myPlayerSpline.GetAngle(myCurrentPoints[myPointsIndex], myCurrentPoints[myPointsIndex + 1])))
+        {
+            Crash();
+            return;
+        }
+
+        CatchSpline();
     }
 
     private void CatchSpline()

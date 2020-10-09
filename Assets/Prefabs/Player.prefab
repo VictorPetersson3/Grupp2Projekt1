@@ -57,7 +57,7 @@ MonoBehaviour:
   myCamera: {fileID: 0}
   myReach: 0.33333334
   myGravity: 11
-  myBaseSpeed: 70
+  myStartSpeed: 80
   myJumpForce: 7
   myShakeDurationRocks: 5
   myShakeMagnitudeRocks: 5
