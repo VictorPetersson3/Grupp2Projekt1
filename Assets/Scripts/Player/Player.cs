@@ -31,7 +31,6 @@ public class Player : MonoBehaviour
     private PlayerAir myPlayerAir;
     private PlayerInput myPlayerInput;
     private PlayerCollision myPlayerCollision;
-    private PlayerDeath myPlayerDeath;
     private PlayerBobbing myPlayerBobbing;
     private PlayerBackflip myPlayerBackflip;
 
