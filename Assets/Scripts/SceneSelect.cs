@@ -20,10 +20,6 @@ public class SceneSelect : MonoBehaviour
     public void StartingTheGame()
     {
         Debug.Log("Laddar \"IntroLevel\"");
-<<<<<<< HEAD
-=======
-        //SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1));
->>>>>>> Develop
         myGameManager.PlayGame();
     }
 

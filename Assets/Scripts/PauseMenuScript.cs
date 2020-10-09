@@ -14,11 +14,13 @@ public class PauseMenuScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Time.timeScale = 0;
+            //Aktivera paus-skärmen.
             //GetComponent<Canvas>;
-            if (Input.GetKey(KeyCode.Escape))
+            Time.timeScale = 0;
+            
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 Time.timeScale = 1;
             }
