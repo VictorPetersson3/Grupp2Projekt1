@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float myGravity = 1f;
     [SerializeField]
-    private float myBaseSpeed = 40f;
+    private float myStartSpeed = 40f;
     [SerializeField]
     private float myJumpForce = 10f;
     [Header("Camera Shake")]
@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
         myPlayerBackflip = GetComponentInChildren<PlayerBackflip>();
         mySandParticleManager = GetComponentInChildren<SandParticleManager>();
 
-        myUnmodifiedSpeed = myBaseSpeed;
+        myUnmodifiedSpeed = myStartSpeed;
 
         if (mySplineManager == null)
         {
@@ -155,7 +155,7 @@ public class Player : MonoBehaviour
     {
         myPlayerDeath.Die();
         myAirMovement = Vector2.right;
-        myUnmodifiedSpeed = myBaseSpeed;
+        myUnmodifiedSpeed = myStartSpeed;
         myTrickBoost = 0f;
         mySplineManager.ResetAllSplines();
         ResetSpline();
@@ -174,21 +174,29 @@ public class Player : MonoBehaviour
             myPlayerAir.AirRotation();
         }
 
-        if (myAirMovement.y < 0)
+        if (myAirMovement.y > 0)
         {
-            if (myPlayerSpline.AttemptToCatchSpline(mySplineManager, myReach, ref myTooCloseToOldSpline, ref myPointsIndex, ref myCurrentPoints, ref myOldPoints, ref myBoostVector))
-            {
-                if (myPlayerAir.WillCrash(myPlayerSpline.GetAngle(myCurrentPoints[myPointsIndex], myCurrentPoints[myPointsIndex + 1])))
-                {
-                    Crash();
-                    return;
-                }
+            return;
+        }
 
-                myTrickBoost += myPlayerBackflip.GetBackflipScore();
-                myCamera.TriggerShake(myShakeDurationSplines, myShakeMagnitudeSplines);
-                myGrounded = true;
-                mySplineT = 0;
+        if (myPlayerSpline.AttemptToCatchSpline(mySplineManager, myReach, ref myTooCloseToOldSpline, ref myPointsIndex, ref myCurrentPoints, ref myOldPoints, ref myBoostVector))
+        {
+            if (myPlayerAir.WillCrash(myPlayerSpline.GetAngle(myCurrentPoints[myPointsIndex], myCurrentPoints[myPointsIndex + 1])))
+            {
+                Crash();
+            }
+            else
+            {
+                CatchSpline();
             }
         }
+    }
+
+    private void CatchSpline()
+    {
+        myTrickBoost += myPlayerBackflip.GetBackflipScore();
+        myCamera.TriggerShake(myShakeDurationSplines, myShakeMagnitudeSplines);
+        myGrounded = true;
+        mySplineT = 0;
     }
 }
