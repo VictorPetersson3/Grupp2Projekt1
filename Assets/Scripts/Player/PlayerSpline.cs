@@ -152,7 +152,7 @@ public class PlayerSpline : MonoBehaviour
     }
 
     //Down=0, Right=90, Up=180, Left=270
-    private float GetAngle(Vector2 aPosition, Vector2 anotherPosition)
+    public float GetAngle(Vector2 aPosition, Vector2 anotherPosition)
     {
         Vector2 delta = anotherPosition - aPosition;
         float angleRadians = Mathf.Atan2(delta.y, delta.x);

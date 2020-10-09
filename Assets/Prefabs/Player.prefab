@@ -55,15 +55,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mySplineManager: {fileID: 0}
   myCamera: {fileID: 0}
-  myReach: 0.05
-  myGravity: 2
-  myBaseSpeed: 10
-  myJumpForce: 1.5
-  myRotationResetSpeed: 5
-  myFlipRotationSpeed: 100
-  myShakeDurationRocks: 15
-  myShakeMagnitudeRocks: 10
-  myShakeDurationSplines: 10
+  myReach: 0.33333334
+  myGravity: 11
+  myBaseSpeed: 70
+  myJumpForce: 7
+  myShakeDurationRocks: 5
+  myShakeMagnitudeRocks: 5
+  myShakeDurationSplines: 5
   myShakeMagnitudeSplines: 5
 --- !u!114 &1607898314831972098
 MonoBehaviour:
@@ -78,13 +76,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myGroundedRotationSpeed: 10
-  myBuffer: -0.1
-  myBoostStrength: 50
-  mySlopeAcceleration: 1
-  mySlopeDeceleration: 1
-  myMaxSpeed: 100
-  myMinSpeed: 10
-  myTrickBoostStrength: 50
+  myAngleBuffer: -0.1
+  myGroundBoostStrength: 50
+  mySlopeAcceleration: 0.1
+  mySlopeDeceleration: 0.01
+  myMaxUnmodifiedSpeed: 150
+  myMinUnmodifiedSpeed: 80
+  myTrickBoostStrength: 100
+  myTrickBoostMax: 100
 --- !u!114 &1607898314831972099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,6 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49ceba3b670d05742b1f7b177a6da76c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myRotationResetSpeed: 1
+  myCrashAngleTolerance: 45
 --- !u!114 &7775170082975414533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,7 +162,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 432af752b34006648a40324088b23868, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myFlipRotationSpeed: 130
   myBackflipBoostTimeMultiplier: 0.5
+  myMaxTrickBoostTime: 10
 --- !u!1 &4393361978208579874
 GameObject:
   m_ObjectHideFlags: 0
