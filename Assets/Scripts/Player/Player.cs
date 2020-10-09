@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     private float myShakeDurationSplines = 10f;
     [SerializeField]
     private float myShakeMagnitudeSplines = 5f;
+	
     private SandParticleManager mySandParticleManager;
     private PlayerSpline myPlayerSpline;
     private PlayerJump myPlayerJump;
