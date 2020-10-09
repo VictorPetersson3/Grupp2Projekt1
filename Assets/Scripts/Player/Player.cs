@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+	[SerializeField]
+    private GameManager myGameManager = null;
     [SerializeField]
     private SplineManager mySplineManager = null;
     [SerializeField]
@@ -12,11 +14,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float myGravity = 1f;
     [SerializeField]
-    private float myBaseSpeed = 40f;
-    [SerializeField]
-    private float myJumpForce = 10f;
-    [SerializeField]
-    private float myRotationResetSpeed = 1.5f;
+    private float myStartSpeed = 40f;
     [Header("Camera Shake")]
     [SerializeField]
     private float myShakeDurationRocks = 15f;
@@ -26,8 +24,15 @@ public class Player : MonoBehaviour
     private float myShakeDurationSplines = 10f;
     [SerializeField]
     private float myShakeMagnitudeSplines = 5f;
-    [SerializeField]
-    private GameManager myGameManager = null;
+	
+    private SandParticleManager mySandParticleManager;
+    private PlayerSpline myPlayerSpline;
+    private PlayerJump myPlayerJump;
+    private PlayerAir myPlayerAir;
+    private PlayerInput myPlayerInput;
+    private PlayerCollision myPlayerCollision;
+    private PlayerBobbing myPlayerBobbing;
+    private PlayerBackflip myPlayerBackflip;
 
     private bool myGrounded = false;
     private bool myTooCloseToOldSpline = false;
@@ -43,14 +48,7 @@ public class Player : MonoBehaviour
     private float myTrickBoost = 0f;
     private float myTotalSpeed = 0f;
 
-    private SandParticleManager mySandParticleManager;
-    private PlayerSpline myPlayerSpline;
-    private PlayerJump myPlayerJump;
-    private PlayerAir myPlayerAir;
-    private PlayerInput myPlayerInput;
-    private PlayerCollision myPlayerCollision;
-    private PlayerBobbing myPlayerBobbing;
-    private PlayerBackflip myPlayerBackflip;
+    private const int myGroundParticleAmount = 3;
 
     private void Start()
     {
@@ -63,7 +61,7 @@ public class Player : MonoBehaviour
         myPlayerBackflip = GetComponentInChildren<PlayerBackflip>();
         mySandParticleManager = GetComponentInChildren<SandParticleManager>();
 
-        myUnmodifiedSpeed = myBaseSpeed;
+        myUnmodifiedSpeed = myStartSpeed;
 
         if (mySplineManager == null)
         {
@@ -126,11 +124,11 @@ public class Player : MonoBehaviour
     private void Grounded()
     {
         myPlayerBobbing.Bob();
-        mySandParticleManager.CreateSandParticle(3);
+        mySandParticleManager.CreateSandParticle(myGroundParticleAmount);
 
         if (myIsJumping)
         {
-            myPlayerJump.Jump(myCurrentPoints, myPointsIndex, myJumpForce, myTotalSpeed, ref myAirMovement);
+            myPlayerJump.Jump(myCurrentPoints, myPointsIndex, myTotalSpeed, ref myAirMovement);
             ResetSpline();
             return;
         }
@@ -146,7 +144,7 @@ public class Player : MonoBehaviour
     {
         if (!myGrounded && myAirMovement.y < 0)
         {
-            myPlayerJump.Bounce(ref myAirMovement, myJumpForce);
+            myPlayerJump.Bounce(ref myAirMovement);
             return true;
         }
         return false;
@@ -156,10 +154,11 @@ public class Player : MonoBehaviour
     {
         myGameManager.GameOver(SceneManager.GetSceneAt(1));
         myAirMovement = Vector2.right;
-        myUnmodifiedSpeed = myBaseSpeed;
+        myUnmodifiedSpeed = myStartSpeed;
         myTrickBoost = 0f;
         mySplineManager.ResetAllSplines();
         ResetSpline();
+        myPlayerBackflip.ResetScore();
     }
 
     private void Air()
@@ -172,18 +171,42 @@ public class Player : MonoBehaviour
         }
         else
         {
-            myPlayerAir.AirRotation(myRotationResetSpeed);
+            myPlayerAir.AirRotation();
         }
 
-        if (myAirMovement.y < 0)
+        if (myAirMovement.y > 0)
         {
-            if (myPlayerSpline.AttemptToCatchSpline(mySplineManager, myReach, ref myTooCloseToOldSpline, ref myPointsIndex, ref myCurrentPoints, ref myOldPoints, ref myBoostVector))
+            return;
+        }
+
+        if (!myPlayerSpline.AttemptToCatchSpline(mySplineManager, myReach, ref myTooCloseToOldSpline, ref myPointsIndex, ref myCurrentPoints, ref myOldPoints, ref myBoostVector))
+        {
+            return;
+        }
+
+        if (myPointsIndex + 1 >= myCurrentPoints.Length)
+        {
+            if (myPlayerBackflip.WillCrash(myCurrentPoints[myPointsIndex] - myCurrentPoints[myPointsIndex - 1]))
             {
-                myTrickBoost += myPlayerBackflip.GetBackflipScore();
-                myCamera.TriggerShake(myShakeDurationSplines, myShakeMagnitudeSplines);
-                myGrounded = true;
-                mySplineT = 0;
+                Crash();
+                return;
             }
         }
+        
+        else if (myPlayerBackflip.WillCrash(myCurrentPoints[myPointsIndex + 1] - myCurrentPoints[myPointsIndex]))
+        {
+            Crash();
+            return;
+        }
+
+        CatchSpline();
+    }
+
+    private void CatchSpline()
+    {
+        myTrickBoost += myPlayerBackflip.GetBackflipScore();
+        myCamera.TriggerShake(myShakeDurationSplines, myShakeMagnitudeSplines);
+        myGrounded = true;
+        mySplineT = 0;
     }
 }
