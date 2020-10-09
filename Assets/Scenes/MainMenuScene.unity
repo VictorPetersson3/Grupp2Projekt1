@@ -532,9 +532,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1055545671}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4dc95ee77ef6f44083794e98e4b0e18, type: 3}
+  m_Script: {fileID: 11500000, guid: e72bbe181a46369408a943580ba2105f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myObstacleParent: {fileID: 0}
+  myObstacles: []
+  myPlayer: {fileID: 1607898315252366861, guid: 33aee5f7f631c684badad8ceadb544d0,
+    type: 3}
 --- !u!4 &1055545673
 Transform:
   m_ObjectHideFlags: 0
@@ -547,7 +551,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1249790882
 GameObject:
@@ -703,7 +707,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1055545672}
-        m_MethodName: StartingTheGame
+        m_MethodName: PlayGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -843,7 +847,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1055545672}
+      - m_Target: {fileID: 0}
         m_MethodName: QuittingTheGame
         m_Mode: 1
         m_Arguments:
@@ -1118,7 +1122,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2082128750
 GameObject:

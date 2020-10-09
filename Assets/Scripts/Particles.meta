@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Scripts/Particles.meta
 guid: ba094ee322cea38488c368f5e44d7991
 folderAsset: yes
+=======
+guid: 3f39ae436f4abd346948750feb3e637c
+>>>>>>> feature/GameManager:Assets/Scenes/GameManagerScene.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

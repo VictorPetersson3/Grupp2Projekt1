@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneSelect : MonoBehaviour
 {
+    GameManager myGameManager = null;
+    
     void Update()
     {
         if (Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.Space))
