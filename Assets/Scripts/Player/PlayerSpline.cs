@@ -103,7 +103,7 @@ public class PlayerSpline : MonoBehaviour
             lookPos.z = 0;
             Quaternion rotation = Quaternion.LookRotation(lookPos);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * myGroundedRotationSpeed);
-            transform.GetChild(0).rotation = Quaternion.Slerp(transform.GetChild(0).rotation, rotation, Time.deltaTime * myGroundedRotationSpeed);
+            //transform.GetChild(0).rotation = Quaternion.Slerp(transform.GetChild(0).rotation, rotation, Time.deltaTime * myGroundedRotationSpeed);
         }
     }
 
