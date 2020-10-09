@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+	[SerializeField]
+    private GameManager myGameManager = null;
     [SerializeField]
     private SplineManager mySplineManager = null;
     [SerializeField]
@@ -21,7 +24,6 @@ public class Player : MonoBehaviour
     private float myShakeDurationSplines = 10f;
     [SerializeField]
     private float myShakeMagnitudeSplines = 5f;
-
     private SandParticleManager mySandParticleManager;
     private PlayerSpline myPlayerSpline;
     private PlayerJump myPlayerJump;
@@ -54,7 +56,6 @@ public class Player : MonoBehaviour
         myPlayerJump = GetComponent<PlayerJump>();
         myPlayerAir = GetComponent<PlayerAir>();
         myPlayerInput = GetComponent<PlayerInput>();
-        myPlayerDeath = GetComponent<PlayerDeath>();
         myPlayerCollision = GetComponentInChildren<PlayerCollision>();
         myPlayerBobbing = GetComponent<PlayerBobbing>();
         myPlayerBackflip = GetComponentInChildren<PlayerBackflip>();
@@ -151,7 +152,7 @@ public class Player : MonoBehaviour
 
     private void Crash()
     {
-        myPlayerDeath.Die();
+        myGameManager.GameOver(SceneManager.GetSceneAt(1));
         myAirMovement = Vector2.right;
         myUnmodifiedSpeed = myStartSpeed;
         myTrickBoost = 0f;
