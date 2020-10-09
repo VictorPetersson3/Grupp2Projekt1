@@ -20,18 +20,22 @@ public class PlayerBackflip : MonoBehaviour
 
     public float GetBackflipScore()
     {
-        if (myBackflipScore < 180)
-        {
-            myBackflipScore = 0;
-            return 0;
-        }
+        float returnValue = 0f;
 
-        float returnValue = myBackflipScore * myBackflipBoostTimeMultiplier;
+        while (myBackflipScore > 180)
+        {
+            returnValue += 360;
+            myBackflipScore -= 360;
+        }
+        
         myBackflipScore = 0;
+        returnValue *= myBackflipBoostTimeMultiplier;
+
         if (returnValue > myMaxTrickBoostTime)
         {
             returnValue = myMaxTrickBoostTime;
         }
+
         return returnValue;
     }
 }
