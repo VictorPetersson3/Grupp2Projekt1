@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class Path
+public class Paths
 {
     [SerializeField, HideInInspector]
     List<Vector2> points;
@@ -25,7 +25,7 @@ public class Path
         return new Vector2(myBoostStart, myBoostEnd);
     }
 
-    public Path(Vector2 centre)
+    public Paths(Vector2 centre)
     {
         points = new List<Vector2>
         {
