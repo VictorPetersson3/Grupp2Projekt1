@@ -15,12 +15,18 @@ public class PlayerBackflip : MonoBehaviour
     {
         float rotation = myFlipRotationSpeed * Time.deltaTime;
         transform.Rotate(Vector3.left, rotation);
-        myBackflipScore += Time.deltaTime * myBackflipBoostTimeMultiplier;
+        myBackflipScore += rotation;
     }
 
     public float GetBackflipScore()
     {
-        float returnValue = myBackflipScore;
+        if (myBackflipScore < 180)
+        {
+            myBackflipScore = 0;
+            return 0;
+        }
+
+        float returnValue = myBackflipScore * myBackflipBoostTimeMultiplier;
         myBackflipScore = 0;
         if (returnValue > myMaxTrickBoostTime)
         {
