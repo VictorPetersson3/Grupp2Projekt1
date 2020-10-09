@@ -9,16 +9,16 @@ public class SceneSelect : MonoBehaviour
         {
             StartingTheGame();
         }
-        if (Input.GetKey("escape"))
+        /*if (Input.GetKey("escape"))
         {
             QuittingTheGame();
-        }
+        }*/
     }
 
     public void StartingTheGame()
     {
         Debug.Log("Laddar \"IntroLevel\"");
-        SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1));
+        SceneManager.LoadScene(0);
     }
 
     public void QuittingTheGame()

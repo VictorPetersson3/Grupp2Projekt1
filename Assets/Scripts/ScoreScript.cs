@@ -11,5 +11,6 @@ public class ScoreScript : MonoBehaviour
         myCogSound.Play();
         UserInterfaceScript.myCogsCollected += 1;
         Destroy(gameObject);
+        
     }
 }
