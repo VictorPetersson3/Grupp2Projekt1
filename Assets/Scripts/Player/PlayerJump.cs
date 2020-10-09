@@ -2,7 +2,10 @@
 
 public class PlayerJump : MonoBehaviour
 {
-    public void Jump(Vector2[] aCurrentPoints, int aPointsIndex, float aJumpForce, float aTotalSpeed, ref Vector2 aAirMovement)
+    [SerializeField]
+    private float myJumpForce = 7f;
+
+    public void Jump(Vector2[] aCurrentPoints, int aPointsIndex, float aTotalSpeed, ref Vector2 aAirMovement)
     {
         if (aPointsIndex < aCurrentPoints.Length)
         {
@@ -14,11 +17,11 @@ public class PlayerJump : MonoBehaviour
         }
 
         aAirMovement = aAirMovement.normalized * aTotalSpeed / 10;
-        aAirMovement = new Vector2(aAirMovement.x, aAirMovement.y + aJumpForce);
+        aAirMovement = new Vector2(aAirMovement.x, aAirMovement.y + myJumpForce);
     }
 
-    public void Bounce(ref Vector2 aAirMovement, float aJumpForce)
+    public void Bounce(ref Vector2 aAirMovement)
     {
-        aAirMovement = new Vector2(aAirMovement.x, aJumpForce);
+        aAirMovement = new Vector2(aAirMovement.x, myJumpForce);
     }
 }

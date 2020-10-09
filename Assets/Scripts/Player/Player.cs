@@ -12,8 +12,6 @@ public class Player : MonoBehaviour
     private float myGravity = 1f;
     [SerializeField]
     private float myStartSpeed = 40f;
-    [SerializeField]
-    private float myJumpForce = 10f;
     [Header("Camera Shake")]
     [SerializeField]
     private float myShakeDurationRocks = 15f;
@@ -129,7 +127,7 @@ public class Player : MonoBehaviour
 
         if (myIsJumping)
         {
-            myPlayerJump.Jump(myCurrentPoints, myPointsIndex, myJumpForce, myTotalSpeed, ref myAirMovement);
+            myPlayerJump.Jump(myCurrentPoints, myPointsIndex, myTotalSpeed, ref myAirMovement);
             ResetSpline();
             return;
         }
@@ -145,7 +143,7 @@ public class Player : MonoBehaviour
     {
         if (!myGrounded && myAirMovement.y < 0)
         {
-            myPlayerJump.Bounce(ref myAirMovement, myJumpForce);
+            myPlayerJump.Bounce(ref myAirMovement);
             return true;
         }
         return false;
@@ -187,14 +185,14 @@ public class Player : MonoBehaviour
 
         if (myPointsIndex + 1 >= myCurrentPoints.Length)
         {
-            if (myPlayerAir.WillCrash(myCurrentPoints[myPointsIndex - 1] - myCurrentPoints[myPointsIndex]))
+            if (myPlayerAir.WillCrash(myCurrentPoints[myPointsIndex] - myCurrentPoints[myPointsIndex - 1]))
             {
                 Crash();
                 return;
             }
         }
         
-        else if (myPlayerAir.WillCrash(myCurrentPoints[myPointsIndex] - myCurrentPoints[myPointsIndex + 1]))
+        else if (myPlayerAir.WillCrash(myCurrentPoints[myPointsIndex + 1] - myCurrentPoints[myPointsIndex]))
         {
             Crash();
             return;

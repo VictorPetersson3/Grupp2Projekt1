@@ -31,7 +31,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1607898315252366862}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.006170607, y: 0.7070799, z: -0.0061706076, w: 0.7070798}
   m_LocalPosition: {x: -5.998, y: 4.008, z: 0.015}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -58,7 +58,6 @@ MonoBehaviour:
   myReach: 0.33333334
   myGravity: 11
   myStartSpeed: 80
-  myJumpForce: 7
   myShakeDurationRocks: 5
   myShakeMagnitudeRocks: 5
   myShakeDurationSplines: 5
@@ -96,6 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1939534ccaa90b84fb8e2f99dbe23880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myJumpForce: 7
 --- !u!114 &4126189745435438907
 MonoBehaviour:
   m_ObjectHideFlags: 0
