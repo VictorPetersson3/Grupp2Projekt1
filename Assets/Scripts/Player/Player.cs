@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     private float myJumpForce = 10f;
     [SerializeField]
     private float myRotationResetSpeed = 1.5f;
+    [Header("Camera Shake")]
     [SerializeField]
     private float myShakeDurationRocks = 15f;
     [SerializeField]

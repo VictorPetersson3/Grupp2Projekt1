@@ -13,9 +13,10 @@ public class PlayerSpline : MonoBehaviour
     [SerializeField]
     private float mySlopeDeceleration = 1f;
     [SerializeField]
-    private float myMaxSpeed = 100f;
+    private float myMaxUnmodifiedSpeed = 100f;
     [SerializeField]
-    private float myMinSpeed = 10f;
+    private float myMinUnmodifiedSpeed = 10f;
+    [Header("Trick Boost")]
     [SerializeField]
     private float myTrickBoostStrength = 100f;
     [SerializeField]
@@ -37,7 +38,7 @@ public class PlayerSpline : MonoBehaviour
         }
         
         anUnmodifiedSpeed -= (myCurrentAngle - myFlatAngle) * accMultiplier;
-        anUnmodifiedSpeed = Mathf.Clamp(anUnmodifiedSpeed, myMinSpeed, myMaxSpeed);
+        anUnmodifiedSpeed = Mathf.Clamp(anUnmodifiedSpeed, myMinUnmodifiedSpeed, myMaxUnmodifiedSpeed);
 
         aTotalSpeed = anUnmodifiedSpeed;
 
