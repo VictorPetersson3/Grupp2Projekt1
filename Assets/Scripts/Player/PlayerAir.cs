@@ -21,7 +21,7 @@ public class PlayerAir : MonoBehaviour
         Quaternion newRot = Quaternion.Euler(newRotX, newRotY, 0);
 
         transform.rotation = Quaternion.Slerp(transform.rotation, newRot, Time.deltaTime * myRotationResetSpeed);
-        //transform.GetChild(0).rotation = Quaternion.Slerp(transform.GetChild(0).rotation, newRot, Time.deltaTime * myRotationResetSpeed);
+        transform.GetChild(0).rotation = Quaternion.Slerp(transform.GetChild(0).rotation, newRot, Time.deltaTime * myRotationResetSpeed);
     }
 
     public bool WillCrash(Vector2 aGroundVector)
