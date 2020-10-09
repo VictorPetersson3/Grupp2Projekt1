@@ -38,4 +38,9 @@ public class PlayerBackflip : MonoBehaviour
 
         return returnValue;
     }
+
+    public void ResetScore()
+    {
+        myBackflipScore = 0f;
+    }
 }

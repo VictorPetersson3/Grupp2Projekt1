@@ -159,6 +159,7 @@ public class Player : MonoBehaviour
         myTrickBoost = 0f;
         mySplineManager.ResetAllSplines();
         ResetSpline();
+        myPlayerBackflip.ResetScore();
     }
 
     private void Air()
@@ -186,14 +187,14 @@ public class Player : MonoBehaviour
 
         if (myPointsIndex + 1 >= myCurrentPoints.Length)
         {
-            if (myPlayerAir.WillCrash(myPlayerSpline.GetAngle(myCurrentPoints[myPointsIndex - 1], myCurrentPoints[myPointsIndex])))
+            if (myPlayerAir.WillCrash(myCurrentPoints[myPointsIndex - 1] - myCurrentPoints[myPointsIndex]))
             {
                 Crash();
                 return;
             }
         }
-            
-        else if (myPlayerAir.WillCrash(myPlayerSpline.GetAngle(myCurrentPoints[myPointsIndex], myCurrentPoints[myPointsIndex + 1])))
+        
+        else if (myPlayerAir.WillCrash(myCurrentPoints[myPointsIndex] - myCurrentPoints[myPointsIndex + 1]))
         {
             Crash();
             return;

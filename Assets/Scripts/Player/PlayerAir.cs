@@ -24,22 +24,14 @@ public class PlayerAir : MonoBehaviour
         transform.GetChild(0).rotation = Quaternion.Slerp(transform.GetChild(0).rotation, newRot, Time.deltaTime * myRotationResetSpeed);
     }
 
-    public bool WillCrash(float aGroundAngle)
+    public bool WillCrash(Vector2 aGroundVector)
     {
-        //GetAngle() counts the angle going counter clockwise. transform.rotation does it clockwise. 
-        //Thats why we do the (90 - x) for the player angle to get them to match up.
-        float playerAngle = 90 - transform.rotation.eulerAngles.x;
+        Vector3 playerVector = transform.rotation.eulerAngles;
+        playerVector.y -= 90;
+        Vector3 groundvector3 = new Vector3(aGroundVector.x, aGroundVector.y, 0);
+        float angle = Vector3.SignedAngle(playerVector, groundvector3, Vector3.forward);
 
-        while (playerAngle > 360)
-        {
-            playerAngle -= 360;
-        }
-        while (playerAngle < 0)
-        {
-            playerAngle += 360;
-        }
-
-        if (Mathf.Abs(aGroundAngle - playerAngle) > myCrashAngleTolerance)
+        if (180 - Mathf.Abs(angle) > myCrashAngleTolerance)
         {
             return true;
         }
