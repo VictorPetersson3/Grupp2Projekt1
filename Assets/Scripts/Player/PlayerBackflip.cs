@@ -1,11 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerBackflip : MonoBehaviour
 {
-    public void Backflip(float aFlipRotationSpeed)
+    [SerializeField]
+    private float myFlipRotationSpeed = 130f;
+    [SerializeField]
+    private float myBackflipBoostTimeMultiplier = 0.5f;
+    [SerializeField]
+    private float myMaxTrickBoostTime = 10f;
+
+    private float myBackflipScore = 0f;
+
+    public void Backflip()
     {
-        transform.Rotate(Vector3.left, aFlipRotationSpeed * Time.deltaTime);
+        float rotation = myFlipRotationSpeed * Time.deltaTime;
+        transform.Rotate(Vector3.left, rotation);
+        myBackflipScore += Time.deltaTime * myBackflipBoostTimeMultiplier;
+    }
+
+    public float GetBackflipScore()
+    {
+        float returnValue = myBackflipScore;
+        myBackflipScore = 0;
+        if (returnValue > myMaxTrickBoostTime)
+        {
+            returnValue = myMaxTrickBoostTime;
+        }
+        return returnValue;
     }
 }

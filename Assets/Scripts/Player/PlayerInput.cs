@@ -21,4 +21,14 @@ public class PlayerInput : MonoBehaviour
 
         return false;
     }
+
+    public bool IsResetting()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            return true;
+        }
+
+        return false;
+    }
 }
