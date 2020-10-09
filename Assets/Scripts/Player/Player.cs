@@ -186,14 +186,14 @@ public class Player : MonoBehaviour
 
         if (myPointsIndex + 1 >= myCurrentPoints.Length)
         {
-            if (myPlayerAir.WillCrash(myCurrentPoints[myPointsIndex] - myCurrentPoints[myPointsIndex - 1]))
+            if (myPlayerBackflip.WillCrash(myCurrentPoints[myPointsIndex] - myCurrentPoints[myPointsIndex - 1]))
             {
                 Crash();
                 return;
             }
         }
         
-        else if (myPlayerAir.WillCrash(myCurrentPoints[myPointsIndex + 1] - myCurrentPoints[myPointsIndex]))
+        else if (myPlayerBackflip.WillCrash(myCurrentPoints[myPointsIndex + 1] - myCurrentPoints[myPointsIndex]))
         {
             Crash();
             return;
