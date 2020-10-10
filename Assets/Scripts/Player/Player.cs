@@ -152,13 +152,13 @@ public class Player : MonoBehaviour
 
     private void Crash()
     {
-        myGameManager.GameOver(SceneManager.GetSceneAt(1));
-        myAirMovement = Vector2.right;
-        myUnmodifiedSpeed = myStartSpeed;
-        myTrickBoost = 0f;
-        mySplineManager.ResetAllSplines();
-        ResetSpline();
-        myPlayerBackflip.ResetScore();
+        //myGameManager.GameOver(SceneManager.GetSceneAt(1));
+        //myAirMovement = Vector2.right;
+        //myUnmodifiedSpeed = myStartSpeed;
+        //myTrickBoost = 0f;
+        //mySplineManager.ResetAllSplines();
+        //ResetSpline();
+        //myPlayerBackflip.ResetScore();
     }
 
     private void Air()

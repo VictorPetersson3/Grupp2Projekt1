@@ -19,8 +19,8 @@ public class GameManager : MonoBehaviour
     private Transform myObstacleParent = null;
     [SerializeField]
     private BoxCollider[] myObstacles;
-    [SerializeField]
-    private Player myPlayer = null;
+    //[SerializeField]
+    //private Player myPlayer = null;
 
     private void Start()
     {
