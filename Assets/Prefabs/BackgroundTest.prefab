@@ -206,7 +206,7 @@ GameObject:
   m_Component:
   - component: {fileID: 458378888566844901}
   - component: {fileID: 6237105398531184936}
-  - component: {fileID: 260358152}
+  - component: {fileID: 2089618873}
   m_Layer: 0
   m_Name: clouds
   m_TagString: Untagged
@@ -222,7 +222,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 765260060161888369}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.05, y: 0, z: 0}
+  m_LocalPosition: {x: 0.1, y: 0, z: 0}
   m_LocalScale: {x: 0.4484104, y: 0.4484104, z: 0.4484104}
   m_Children: []
   m_Father: {fileID: 2177187619226062414}
@@ -278,7 +278,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &260358152
+--- !u!114 &2089618873
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -291,7 +291,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myCamera: {fileID: 0}
-  myParallaxEffectMultiplier: {x: 0.9, y: 0.99}
+  myParallaxEffectMultiplier: {x: 0.8, y: 0.99}
   myInfiniteVertical: 0
   myInfiniteHorizontal: 1
 --- !u!1 &843663061258395734
@@ -615,8 +615,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.2301, y: 2.2301, z: 2.2301}
   m_Children:
-  - {fileID: 5607092227870583804}
   - {fileID: 817904419114670946}
+  - {fileID: 5607092227870583804}
   - {fileID: 458378888566844901}
   - {fileID: 830553050303538712}
   - {fileID: 2602911611495014262}
@@ -659,7 +659,7 @@ Transform:
   m_LocalScale: {x: 0.4484104, y: 0.4484104, z: 0.4484104}
   m_Children: []
   m_Father: {fileID: 2177187619226062414}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2524722614806105013
 SpriteRenderer:
@@ -855,7 +855,7 @@ Transform:
   m_LocalScale: {x: 0.4484104, y: 0.4484104, z: 0.4484104}
   m_Children: []
   m_Father: {fileID: 2177187619226062414}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2617626257153090373
 SpriteRenderer:
