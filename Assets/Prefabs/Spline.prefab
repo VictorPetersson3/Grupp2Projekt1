@@ -58,6 +58,8 @@ MonoBehaviour:
   myBoostEnd: 0
   myBoostSpherePrefab: {fileID: 4435274726517814285, guid: d13fca1447c5b514fb8cc1ee5ef39107,
     type: 3}
+  myHasBoost: 0
+  myBoostSpheres: []
   anchorCol: {r: 1, g: 0, b: 0, a: 1}
   controlCol: {r: 1, g: 1, b: 1, a: 1}
   segmentCol: {r: 0, g: 1, b: 0, a: 1}
@@ -124,9 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21f91de7a78c0fd40be0c992203d7daf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spacing: 0.106
+  spacing: 1
   meshHeigth: 0.1
-  meshWidth: 0.11
+  meshWidth: 1
   previewGeneratedMesh: 1
   uvTiling: 3
   material: {fileID: 2100000, guid: 0a059ceacbcd1d342b6c7dfe23401f53, type: 2}

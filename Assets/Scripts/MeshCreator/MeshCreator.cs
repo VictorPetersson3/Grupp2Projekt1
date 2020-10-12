@@ -19,7 +19,7 @@ public class MeshCreator : MonoBehaviour
 
     public void UpdateMesh()
     {
-        Path path = GetComponent<PathCreator>().path;
+        Paths path = GetComponent<PathCreator>().path;
         Vector2[] points = path.CalculateEvenlySpacedPoints(spacing);
         previewMesh = CreateMesh(points, path.IsClosed);
         GetComponent<MeshFilter>().mesh = previewMesh; 
@@ -98,7 +98,7 @@ public class MeshCreator : MonoBehaviour
 
     private GameObject CreateGameObject(string name)
     {
-        Path path = GetComponent<PathCreator>().path;
+        Paths path = GetComponent<PathCreator>().path;
         Vector2[] points = path.CalculateEvenlySpacedPoints(spacing);
         GameObject newGameObject;
         
