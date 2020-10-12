@@ -10,7 +10,8 @@ public enum SceneIndexes
     LEVELTHREE = 4,
     PAUSE = 5,
     GAME_OVER = 6,
-    FINISHED = 7
+    FINISHED = 7,
+    LOADING = 8
 }
 
 public class GameManager : MonoBehaviour
