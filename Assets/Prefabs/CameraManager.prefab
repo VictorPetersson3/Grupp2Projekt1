@@ -393,3 +393,5 @@ MonoBehaviour:
   myTarget: {fileID: 0}
   myTrackX: 1
   myTrackY: 1
+  myOffsetX: 10
+  myOffsetY: 0

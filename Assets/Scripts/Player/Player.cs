@@ -37,7 +37,8 @@ public class Player : MonoBehaviour
     private bool myGrounded = false;
     private bool myTooCloseToOldSpline = false;
     private bool myIsJumping;
-    private bool myHasCollided = false;
+    private int myScore = 0;
+    private CollisionData myCollisionData;
     private Vector2[] myCurrentPoints;
     private Vector2[] myOldPoints;
     private Vector2 myAirMovement = Vector2.right;
@@ -48,7 +49,11 @@ public class Player : MonoBehaviour
     private float myTrickBoost = 0f;
     private float myTotalSpeed = 0f;
 
-    private const int myGroundParticleAmount = 3;
+    // Particles
+    private const int myGroundParticleAmount = 8;
+
+    // Power-Ups
+    private bool myMagnet = false;
 
     private void Start()
     {
@@ -87,17 +92,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        myHasCollided = myPlayerCollision.HasCollided();
-        if (myHasCollided)
-        {
-            myPlayerCollision.ResetCollided();
-            myCamera.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
-            if (!Bounce())
-            {
-                Crash();
-                return;
-            }
-        }
+        Collision();
 
         myIsJumping = myPlayerInput.IsJumping();
         if (myGrounded)
@@ -140,9 +135,26 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void Collision()
+    {
+        myCollisionData = myPlayerCollision.ReturnCollisionData();
+        myCollisionData.Print();
+        if (myCollisionData.GetHasCollided())
+        {
+            myCollisionData.SetHasCollided(false);
+
+            if (!Bounce() && myCollisionData.GetTag() == "Rock")
+            {
+                myCamera.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
+                Crash();
+                return;
+            }
+        }
+    }
+
     private bool Bounce()
     {
-        if (!myGrounded && myAirMovement.y < 0)
+        if (!myGrounded && myAirMovement.y < 0 && myCollisionData.GetTag() == "Rock")
         {
             myPlayerJump.Bounce(ref myAirMovement);
             return true;
@@ -152,13 +164,15 @@ public class Player : MonoBehaviour
 
     private void Crash()
     {
-        myGameManager.GameOver(SceneManager.GetSceneAt(1));
+        mySandParticleManager.DestroyAllSandParticles();
+        myGameManager.GameOver(myGameManager.GetActiveScene());
         myAirMovement = Vector2.right;
         myUnmodifiedSpeed = myStartSpeed;
         myTrickBoost = 0f;
         mySplineManager.ResetAllSplines();
         ResetSpline();
         myPlayerBackflip.ResetScore();
+
     }
 
     private void Air()
@@ -200,6 +214,26 @@ public class Player : MonoBehaviour
         }
 
         CatchSpline();
+    }
+
+    public void IncreaseScore()
+    {
+        myScore++;
+    }
+
+    public int GetScore()
+    {
+        return myScore;
+    }
+
+    public bool GetMagnet()
+    {
+        return myMagnet;
+    }
+
+    public void SetMagnet(bool aValue)
+    {
+        myMagnet = aValue;
     }
 
     private void CatchSpline()
