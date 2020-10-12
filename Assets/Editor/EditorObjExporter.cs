@@ -163,8 +163,8 @@ public class EditorObjExporter : ScriptableObject
         Scene currentScene = SceneManager.GetActiveScene();
         string sceneName = currentScene.name;
         Debug.Log(sceneName);
-        if (!CreateTargetFolder())
-            return;
+        //if (!CreateTargetFolder())
+            //return;
 
         Transform[] selection = Selection.GetTransforms(SelectionMode.Editable | SelectionMode.ExcludePrefab);
 
