@@ -127,6 +127,7 @@ public class Player : MonoBehaviour
 
     private void Grounded()
     {
+        myCameraFollow.UpdateYOffset(0);
         myPlayerBobbing.Bob();
         mySandParticleManager.CreateSandParticle(myGroundParticleAmount);
 
@@ -165,6 +166,7 @@ public class Player : MonoBehaviour
     private void Air()
     {
         myPlayerAir.AirMovement(myGravity, ref myAirMovement);
+        myCameraFollow.UpdateYOffset(myAirMovement.y);
 
         if (myIsJumping)
         {
