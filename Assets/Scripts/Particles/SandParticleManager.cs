@@ -26,6 +26,16 @@ public class SandParticleManager : MonoBehaviour
         }
     }
 
+    public void DestroyAllSandParticles()
+    {
+        for (int i = mySandParticles.Count - 1; i >= 0; i--)
+        {
+            GameObject currentObject = mySandParticles[i];
+            mySandParticles.RemoveAt(i);
+            Destroy(currentObject);
+        }
+    }
+
     public void CreateSandParticle()
     {
         float newX = Random.Range(transform.position.x, transform.position.x - myOffsetX);
