@@ -5,11 +5,21 @@ public class SandParticleManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject mySandParticle = null;
-    [SerializeField]
+
     private List<GameObject> mySandParticles = new List<GameObject>();
+    private GameObject mySandParticlesContainer = null;
  
     private float myOffsetX = 0.25f;
     private float myOffsetY = 0.5f;
+
+    private void Start()
+    {
+        mySandParticlesContainer = GameObject.FindGameObjectWithTag("SandParticles");
+        if (mySandParticlesContainer == null)
+        {
+            Debug.LogError("Error, you need a SandParticleContainer.");
+        }
+    }
 
     void Update()
     {
@@ -42,7 +52,7 @@ public class SandParticleManager : MonoBehaviour
         float newY = Random.Range(transform.position.y, transform.position.y + myOffsetY);
         Vector3 newPosition = new Vector3(newX, newY, 0);
 
-        GameObject particle = Instantiate(mySandParticle, newPosition, Quaternion.identity);
+        GameObject particle = Instantiate(mySandParticle, newPosition, Quaternion.identity, mySandParticlesContainer.transform);
         mySandParticles.Add(particle);
     }
 
@@ -54,7 +64,7 @@ public class SandParticleManager : MonoBehaviour
             float newY = Random.Range(transform.position.y, transform.position.y + myOffsetY);
             Vector3 newPosition = new Vector3(newX, newY, 0);
 
-            GameObject particle = Instantiate(mySandParticle, newPosition, Quaternion.identity);
+            GameObject particle = Instantiate(mySandParticle, newPosition, Quaternion.identity, mySandParticlesContainer.transform);
             mySandParticles.Add(particle);
         }
     }
