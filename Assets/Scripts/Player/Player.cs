@@ -145,23 +145,26 @@ public class Player : MonoBehaviour
     private void Collision()
     {
         myCollisionData = myPlayerCollision.ReturnCollisionData();
-        myCollisionData.Print();
         if (myCollisionData.GetHasCollided())
         {
             myCollisionData.SetHasCollided(false);
 
-            if (!Bounce() && myCollisionData.GetTag() == "Rock")
+            if (myCollisionData.GetTag() == "Rock")
             {
-                myCamera.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
-                Crash();
-                return;
+                if (!Bounce())
+                {
+                    myCameraShake.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
+                    Crash();
+                    return;
+                }
             }
         }
     }
 
     private bool Bounce()
     {
-        if (!myGrounded && myAirMovement.y < 0 && myCollisionData.GetTag() == "Rock")
+        Debug.Log(myAirMovement.y);
+        if (!myGrounded && myAirMovement.y < 0)
         {
             myPlayerJump.Bounce(ref myAirMovement);
             return true;
