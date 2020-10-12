@@ -96,18 +96,6 @@ public class Player : MonoBehaviour
             return;
         }
 
-        myHasCollided = myPlayerCollision.HasCollided();
-        if (myHasCollided)
-        {
-            myPlayerCollision.ResetCollided();
-            myCameraShake.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
-            if (!Bounce())
-            {
-                Crash();
-                return;
-            }
-        }
-
         Collision();
 
         myIsJumping = myPlayerInput.IsJumping();
@@ -245,17 +233,6 @@ public class Player : MonoBehaviour
     {
         return myScore;
     }
-
-    public void IncreaseScore()
-    {
-        myScore++;
-    }
-
-    public int GetScore()
-    {
-        return myScore;
-    }
-
     public bool GetMagnet()
     {
         return myMagnet;
