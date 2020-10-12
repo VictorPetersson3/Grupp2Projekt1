@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 5905455457331655457}
   - component: {fileID: 865381020020007272}
   - component: {fileID: 1661078750133732265}
-  - component: {fileID: 3444816270451464230}
+  - component: {fileID: 808712323497880555}
   m_Layer: 0
   m_Name: ScoreText
   m_TagString: Untagged
@@ -250,7 +250,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 0/0
---- !u!114 &3444816270451464230
+--- !u!114 &808712323497880555
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
