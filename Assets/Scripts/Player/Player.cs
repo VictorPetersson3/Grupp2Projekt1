@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private SplineManager mySplineManager = null;
     [SerializeField]
-    private CameraShake myCamera = null;
+    private CameraFollow myCameraFollow = null;
     [SerializeField]
     private float myReach = 0.25f;
     [SerializeField]
@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     private PlayerCollision myPlayerCollision;
     private PlayerBobbing myPlayerBobbing;
     private PlayerBackflip myPlayerBackflip;
+    private CameraShake myCameraShake = null;
 
     private bool myGrounded = false;
     private bool myTooCloseToOldSpline = false;
@@ -60,6 +61,7 @@ public class Player : MonoBehaviour
         myPlayerBobbing = GetComponent<PlayerBobbing>();
         myPlayerBackflip = GetComponentInChildren<PlayerBackflip>();
         mySandParticleManager = GetComponentInChildren<SandParticleManager>();
+        myCameraShake = myCameraFollow.gameObject.GetComponentInChildren<CameraShake>();
 
         myUnmodifiedSpeed = myStartSpeed;
 
@@ -68,10 +70,12 @@ public class Player : MonoBehaviour
             Debug.LogError(this + " has no splineManager!");
             return;
         }
-        if (myCamera == null)
+        if (myCameraFollow == null)
         {
-            Debug.LogError(this + " has no camera!");
+            Debug.LogError(this + " has no camera follow!");
         }
+
+        myCameraFollow.SetPlayerSpeeds(myPlayerSpline.GetMinMaxSpeeds().x, myPlayerSpline.GetMinMaxSpeeds().y);
     }
 
     private void Update()
@@ -91,7 +95,7 @@ public class Player : MonoBehaviour
         if (myHasCollided)
         {
             myPlayerCollision.ResetCollided();
-            myCamera.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
+            myCameraShake.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
             if (!Bounce())
             {
                 Crash();
@@ -138,6 +142,8 @@ public class Player : MonoBehaviour
             myPlayerSpline.ReleaseSpline(myCurrentPoints, myTotalSpeed, ref myAirMovement, myPointsIndex);
             ResetSpline();
         }
+
+        myCameraFollow.CameraZoom(myTotalSpeed);
     }
 
     private bool Bounce()
@@ -200,7 +206,7 @@ public class Player : MonoBehaviour
     private void CatchSpline()
     {
         myTrickBoost += myPlayerBackflip.GetBackflipScore();
-        myCamera.TriggerShake(myShakeDurationSplines, myShakeMagnitudeSplines);
+        myCameraShake.TriggerShake(myShakeDurationSplines, myShakeMagnitudeSplines);
         myGrounded = true;
         mySplineT = 0;
     }

@@ -5,30 +5,35 @@ public class CameraFollow : MonoBehaviour
     [SerializeField]
     private Transform myTarget = null;
     [SerializeField]
-    private bool myTrackX = true;
+    private float myOffsetMin = 10f;
     [SerializeField]
-    private bool myTrackY = true;
+    private float myOffsetMax = 20f;
     [SerializeField]
-    private float myOffsetX = 0f;
+    private float myClosestZoom = -15f;
     [SerializeField]
-    private float myOffsetY = 0f;
+    private float myFurthestZoom = -30f;
+
+    private float myMinPlayerSpeed;
+    private float myMaxPlayerSpeed;
+    private float myPercent;
+    private float myOffset;
 
     void LateUpdate()
     {
-        float newX = transform.position.x;
-        float newY = transform.position.y;
-        float newZ = transform.position.z;
+        Vector3 targetPos = myTarget.position;
+        targetPos.x = myTarget.position.x + Mathf.Lerp(myOffsetMin, myOffsetMax, myPercent);
+        targetPos.z = Mathf.Lerp(myClosestZoom, myFurthestZoom, myPercent);
+        transform.position = targetPos;
+    }
 
-        if (myTrackX)
-        {
-            newX = myTarget.position.x + myOffsetX;
-        }
+    public void SetPlayerSpeeds(float aMinSpeed, float aMaxSpeed)
+    {
+        myMinPlayerSpeed = aMinSpeed;
+        myMaxPlayerSpeed = aMaxSpeed;
+    }
 
-        if (myTrackY)
-        {
-            newY = myTarget.position.y + myOffsetY;
-        }
-
-        transform.position = new Vector3(newX, newY, newZ);
+    public void CameraZoom(float aSpeed)
+    {
+        myPercent = (aSpeed - myMinPlayerSpeed) / (myMaxPlayerSpeed - myMinPlayerSpeed);
     }
 }
