@@ -7,7 +7,7 @@ public class PlayerJump : MonoBehaviour
 
     public void Jump(Vector2[] aCurrentPoints, int aPointsIndex, float aTotalSpeed, ref Vector2 aAirMovement)
     {
-        if (aPointsIndex < aCurrentPoints.Length)
+        if (aPointsIndex < aCurrentPoints.Length - 1)
         {
             aAirMovement = aCurrentPoints[aPointsIndex + 1] - aCurrentPoints[aPointsIndex];
         }
