@@ -9,33 +9,33 @@ using UnityEngine.SceneManagement;
 
 struct ObjMaterial
 {
-    public string name;
-    public string textureName;
+    public string myName;
+    public string myTextureName;
 }
 
 public class EditorObjExporter : ScriptableObject
 {
-    private static int vertexOffset = 0;
-    private static int normalOffset = 0;
-    private static int uvOffset = 0;
+    private static int myVertexOffset = 0;
+    private static int myNormalOffset = 0;
+    private static int myUvOffset = 0;
 
 
     //User should probably be able to change this. It is currently left as an excercise for
     //the reader.
-    private static string targetFolder = "/ExportedObj";
+    private static string myTargetFolder = "/ExportedObj";
 
 
-    private static string MeshToString(MeshFilter mf, Dictionary<string, ObjMaterial> materialList)
+    private static string MeshToString(MeshFilter aMeshFilter, Dictionary<string, ObjMaterial> aMaterialList)
     {
-        Mesh m = mf.sharedMesh;
-        Material[] mats = mf.GetComponent<Renderer>().sharedMaterials;
+        Mesh m = aMeshFilter.sharedMesh;
+        Material[] mats = aMeshFilter.GetComponent<Renderer>().sharedMaterials;
 
         StringBuilder sb = new StringBuilder();
 
-        sb.Append("g ").Append(mf.name).Append("\n");
+        sb.Append("g ").Append(aMeshFilter.name).Append("\n");
         foreach (Vector3 lv in m.vertices)
         {
-            Vector3 wv = mf.transform.TransformPoint(lv);
+            Vector3 wv = aMeshFilter.transform.TransformPoint(lv);
 
             //This is sort of ugly - inverting x-component since we're in
             //a different coordinate system than "everyone" is "used to".
@@ -45,7 +45,7 @@ public class EditorObjExporter : ScriptableObject
 
         foreach (Vector3 lv in m.normals)
         {
-            Vector3 wv = mf.transform.TransformDirection(lv);
+            Vector3 wv = aMeshFilter.transform.TransformDirection(lv);
 
             sb.Append(string.Format("vn {0} {1} {2}\n", -wv.x, wv.y, wv.z));
         }
@@ -67,14 +67,14 @@ public class EditorObjExporter : ScriptableObject
             {
                 ObjMaterial objMaterial = new ObjMaterial();
 
-                objMaterial.name = mats[material].name;
+                objMaterial.myName = mats[material].name;
 
                 if (mats[material].mainTexture)
-                    objMaterial.textureName = AssetDatabase.GetAssetPath(mats[material].mainTexture);
+                    objMaterial.myTextureName = AssetDatabase.GetAssetPath(mats[material].mainTexture);
                 else
-                    objMaterial.textureName = null;
+                    objMaterial.myTextureName = null;
 
-                materialList.Add(objMaterial.name, objMaterial);
+                aMaterialList.Add(objMaterial.myName, objMaterial);
             }
             catch (ArgumentException)
             {
@@ -87,22 +87,22 @@ public class EditorObjExporter : ScriptableObject
             {
                 //Because we inverted the x-component, we also needed to alter the triangle winding.
                 sb.Append(string.Format("f {1}/{1}/{1} {0}/{0}/{0} {2}/{2}/{2}\n",
-                    triangles[i] + 1 + vertexOffset, triangles[i + 1] + 1 + normalOffset, triangles[i + 2] + 1 + uvOffset));
+                    triangles[i] + 1 + myVertexOffset, triangles[i + 1] + 1 + myNormalOffset, triangles[i + 2] + 1 + myUvOffset));
             }
         }
 
-        vertexOffset += m.vertices.Length;
-        normalOffset += m.normals.Length;
-        uvOffset += m.uv.Length;
+        myVertexOffset += m.vertices.Length;
+        myNormalOffset += m.normals.Length;
+        myUvOffset += m.uv.Length;
 
         return sb.ToString();
     }
 
     private static void Clear()
     {
-        vertexOffset = 0;
-        normalOffset = 0;
-        uvOffset = 0;
+        myVertexOffset = 0;
+        myNormalOffset = 0;
+        myUvOffset = 0;
     }
 
     private static Dictionary<string, ObjMaterial> PrepareFileWrite()
@@ -112,50 +112,36 @@ public class EditorObjExporter : ScriptableObject
         return new Dictionary<string, ObjMaterial>();
     }
 
-    private static void MeshToFile(MeshFilter mf, string folder, string filename)
+    private static void MeshToFile(MeshFilter aMeshFilter, string folder, string aFilename)
     {
         Dictionary<string, ObjMaterial> materialList = PrepareFileWrite();
 
-        using (StreamWriter sw = new StreamWriter(filename + ".obj"))
+        using (StreamWriter sw = new StreamWriter(aFilename + ".obj"))
         {
-            sw.Write("mtllib ./" + filename + ".mtl\n");
-            sw.Write(MeshToString(mf, materialList));
+            sw.Write("mtllib ./" + aFilename + ".mtl\n");
+            sw.Write(MeshToString(aMeshFilter, materialList));
         }
 
        // MaterialsToFile(materialList, folder, filename);
     }
 
-    private static void MeshesToFile(MeshFilter[] mf, string folder, string filename)
+    private static void MeshesToFile(MeshFilter[] aMeshFilter, string folder, string aFilename)
     {
         Dictionary<string, ObjMaterial> materialList = PrepareFileWrite();
 
-        using (StreamWriter sw = new StreamWriter(folder + Path.PathSeparator + filename + ".obj"))
+        using (StreamWriter sw = new StreamWriter(folder + Path.PathSeparator + aFilename + ".obj"))
         {
-            sw.Write("mtllib ./" + filename + ".mtl\n");
+            sw.Write("mtllib ./" + aFilename + ".mtl\n");
 
-            for (int i = 0; i < mf.Length; i++)
+            for (int i = 0; i < aMeshFilter.Length; i++)
             {
-                sw.Write(MeshToString(mf[i], materialList));
+                sw.Write(MeshToString(aMeshFilter[i], materialList));
             }
         }
 
         //MaterialsToFile(materialList, folder, filename);
     }
 
-    //private static bool CreateTargetFolder()
-    //{
-    //    try
-    //    {
-    //        System.IO.Directory.CreateDirectory(targetFolder);
-    //    }
-    //    catch
-    //    {
-    //        EditorUtility.DisplayDialog("Error!", "Failed to create target folder!", "");
-    //        return false;
-    //    }
-
-    //    return true;
-    //}
 
     [MenuItem("Custom/Export/Export all MeshFilters in selection to separate OBJs")]
     static void ExportSelectionToSeparate()
@@ -183,7 +169,7 @@ public class EditorObjExporter : ScriptableObject
             for (int m = 0; m < meshfilter.Length; m++)
             {
                 exportedObjects++;
-                MeshToFile((MeshFilter)meshfilter[m], targetFolder, selection[i].name + "_" + i + "_" + m + "_" + sceneName);
+                MeshToFile((MeshFilter)meshfilter[m], myTargetFolder, selection[i].name + "_" + i + "_" + m + "_" + sceneName);
             }
         }
 
