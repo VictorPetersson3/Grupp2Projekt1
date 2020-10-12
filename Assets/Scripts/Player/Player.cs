@@ -138,7 +138,6 @@ public class Player : MonoBehaviour
     private void Collision()
     {
         myCollisionData = myPlayerCollision.ReturnCollisionData();
-        myCollisionData.Print();
         if (myCollisionData.GetHasCollided())
         {
             myCollisionData.SetHasCollided(false);
@@ -148,6 +147,11 @@ public class Player : MonoBehaviour
                 myCamera.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
                 Crash();
                 return;
+            }
+
+            if (myCollisionData.GetTag() == "Magnet")
+            {
+
             }
         }
     }
