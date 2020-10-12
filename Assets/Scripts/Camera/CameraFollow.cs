@@ -50,11 +50,9 @@ public class CameraFollow : MonoBehaviour
     {
         if (anOffset < 0)
         {
-            Debug.Log("FALLING");
             myOffsetY += anOffset * myOffsetYMultiplier * Time.deltaTime;
             if (myOffsetY < myOffsetYMax)
             {
-                Debug.Log("FALLING MAX");
                 myOffsetY = myOffsetYMax;
             }
 
