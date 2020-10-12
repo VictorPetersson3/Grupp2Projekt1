@@ -10,6 +10,6 @@ public class DeathTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider aCollider)
     {
-        myGameManager.GameOver(SceneManager.GetSceneAt(1));
+        myGameManager.GameOver(myGameManager.GetActiveScene());
     }
 }
