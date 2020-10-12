@@ -109,7 +109,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myRotationResetSpeed: 1
-  myCrashAngleTolerance: 45
 --- !u!114 &7775170082975414533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,6 +280,7 @@ MonoBehaviour:
   myFlipRotationSpeed: 130
   myBackflipBoostTimeMultiplier: 0.5
   myMaxTrickBoostTime: 10
+  myCrashAngleTolerance: 45
 --- !u!1001 &7362549884136126308
 PrefabInstance:
   m_ObjectHideFlags: 0
