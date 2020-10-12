@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System;
+using UnityEngine.SceneManagement;
 
 struct ObjMaterial
 {
@@ -22,7 +22,7 @@ public class EditorObjExporter : ScriptableObject
 
     //User should probably be able to change this. It is currently left as an excercise for
     //the reader.
-    private static string targetFolder = "ExportedObj";
+    private static string targetFolder = "/ExportedObj";
 
 
     private static string MeshToString(MeshFilter mf, Dictionary<string, ObjMaterial> materialList)
@@ -112,65 +112,13 @@ public class EditorObjExporter : ScriptableObject
         return new Dictionary<string, ObjMaterial>();
     }
 
-    //private static void MaterialsToFile(Dictionary<string, ObjMaterial> materialList, string folder, string filename)
-    //{
-    //    using (StreamWriter sw = new StreamWriter(folder + Path.PathSeparator + filename + ".mtl"))
-    //    {
-    //        foreach (KeyValuePair<string, ObjMaterial> kvp in materialList)
-    //        {
-    //            sw.Write("\n");
-    //            sw.Write("newmtl {0}\n", kvp.Key);
-    //            sw.Write("Ka  0.6 0.6 0.6\n");
-    //            sw.Write("Kd  0.6 0.6 0.6\n");
-    //            sw.Write("Ks  0.9 0.9 0.9\n");
-    //            sw.Write("d  1.0\n");
-    //            sw.Write("Ns  0.0\n");
-    //            sw.Write("illum 2\n");
-
-    //            if (kvp.Value.textureName != null)
-    //            {
-    //                string destinationFile = kvp.Value.textureName;
-
-
-    //                int stripIndex = destinationFile.LastIndexOf(Path.PathSeparator);
-
-    //                if (stripIndex >= 0)
-    //                    destinationFile = destinationFile.Substring(stripIndex + 1).Trim();
-
-
-    //                string relativeFile = destinationFile;
-
-    //                destinationFile = folder + Path.PathSeparator + destinationFile;
-
-    //                Debug.Log("Copying texture from " + kvp.Value.textureName + " to " + destinationFile);
-
-    //                try
-    //                {
-    //                    //Copy the source file
-    //                    File.Copy(kvp.Value.textureName, destinationFile);
-    //                }
-    //                catch
-    //                {
-
-    //                }
-
-
-    //                sw.Write("map_Kd {0}", relativeFile);
-    //            }
-
-    //            sw.Write("\n\n\n");
-    //        }
-    //    }
-    //}
-
     private static void MeshToFile(MeshFilter mf, string folder, string filename)
     {
         Dictionary<string, ObjMaterial> materialList = PrepareFileWrite();
 
-        using (StreamWriter sw = new StreamWriter(folder + Path.PathSeparator + filename + ".obj"))
+        using (StreamWriter sw = new StreamWriter(filename + ".obj"))
         {
             sw.Write("mtllib ./" + filename + ".mtl\n");
-
             sw.Write(MeshToString(mf, materialList));
         }
 
@@ -194,24 +142,27 @@ public class EditorObjExporter : ScriptableObject
         //MaterialsToFile(materialList, folder, filename);
     }
 
-    private static bool CreateTargetFolder()
-    {
-        try
-        {
-            System.IO.Directory.CreateDirectory(targetFolder);
-        }
-        catch
-        {
-            EditorUtility.DisplayDialog("Error!", "Failed to create target folder!", "");
-            return false;
-        }
+    //private static bool CreateTargetFolder()
+    //{
+    //    try
+    //    {
+    //        System.IO.Directory.CreateDirectory(targetFolder);
+    //    }
+    //    catch
+    //    {
+    //        EditorUtility.DisplayDialog("Error!", "Failed to create target folder!", "");
+    //        return false;
+    //    }
 
-        return true;
-    }
+    //    return true;
+    //}
 
     [MenuItem("Custom/Export/Export all MeshFilters in selection to separate OBJs")]
     static void ExportSelectionToSeparate()
     {
+        Scene currentScene = SceneManager.GetActiveScene();
+        string sceneName = currentScene.name;
+        Debug.Log(sceneName);
         if (!CreateTargetFolder())
             return;
 
@@ -232,7 +183,7 @@ public class EditorObjExporter : ScriptableObject
             for (int m = 0; m < meshfilter.Length; m++)
             {
                 exportedObjects++;
-                MeshToFile((MeshFilter)meshfilter[m], targetFolder, selection[i].name + "_" + i + "_" + m);
+                MeshToFile((MeshFilter)meshfilter[m], targetFolder, selection[i].name + "_" + i + "_" + m + "_" + sceneName);
             }
         }
 
@@ -242,101 +193,5 @@ public class EditorObjExporter : ScriptableObject
             EditorUtility.DisplayDialog("Objects not exported", "Make sure at least some of your selected objects have mesh filters!", "");
     }
 
-    [MenuItem("Custom/Export/Export whole selection to single OBJ")]
-    static void ExportWholeSelectionToSingle()
-    {
-        if (!CreateTargetFolder())
-            return;
-
-
-        Transform[] selection = Selection.GetTransforms(SelectionMode.Editable | SelectionMode.ExcludePrefab);
-
-        if (selection.Length == 0)
-        {
-            EditorUtility.DisplayDialog("No source object selected!", "Please select one or more target objects", "");
-            return;
-        }
-
-        int exportedObjects = 0;
-
-        ArrayList mfList = new ArrayList();
-
-        for (int i = 0; i < selection.Length; i++)
-        {
-            Component[] meshfilter = selection[i].GetComponentsInChildren(typeof(MeshFilter));
-
-            for (int m = 0; m < meshfilter.Length; m++)
-            {
-                exportedObjects++;
-                mfList.Add(meshfilter[m]);
-            }
-        }
-
-        if (exportedObjects > 0)
-        {
-            MeshFilter[] mf = new MeshFilter[mfList.Count];
-
-            for (int i = 0; i < mfList.Count; i++)
-            {
-                mf[i] = (MeshFilter)mfList[i];
-            }
-
-            string filename = EditorSceneManager.GetActiveScene().name + "_" + exportedObjects;
-
-            int stripIndex = filename.LastIndexOf(Path.PathSeparator);
-
-            if (stripIndex >= 0)
-                filename = filename.Substring(stripIndex + 1).Trim();
-
-            MeshesToFile(mf, targetFolder, filename);
-
-
-            EditorUtility.DisplayDialog("Objects exported", "Exported " + exportedObjects + " objects to " + filename, "");
-        }
-        else
-            EditorUtility.DisplayDialog("Objects not exported", "Make sure at least some of your selected objects have mesh filters!", "");
-    }
-
-
-
-    [MenuItem("Custom/Export/Export each selected to single OBJ")]
-    static void ExportEachSelectionToSingle()
-    {
-        if (!CreateTargetFolder())
-            return;
-
-        Transform[] selection = Selection.GetTransforms(SelectionMode.Editable | SelectionMode.ExcludePrefab);
-
-        if (selection.Length == 0)
-        {
-            EditorUtility.DisplayDialog("No source object selected!", "Please select one or more target objects", "");
-            return;
-        }
-
-        int exportedObjects = 0;
-
-
-        for (int i = 0; i < selection.Length; i++)
-        {
-            Component[] meshfilter = selection[i].GetComponentsInChildren(typeof(MeshFilter));
-
-            MeshFilter[] mf = new MeshFilter[meshfilter.Length];
-
-            for (int m = 0; m < meshfilter.Length; m++)
-            {
-                exportedObjects++;
-                mf[m] = (MeshFilter)meshfilter[m];
-            }
-
-            MeshesToFile(mf, targetFolder, selection[i].name + "_" + i);
-        }
-
-        if (exportedObjects > 0)
-        {
-            EditorUtility.DisplayDialog("Objects exported", "Exported " + exportedObjects + " objects", "");
-        }
-        else
-            EditorUtility.DisplayDialog("Objects not exported", "Make sure at least some of your selected objects have mesh filters!", "");
-    }
 
 }
