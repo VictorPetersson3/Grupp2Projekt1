@@ -10,9 +10,9 @@ public class ParallaxBackground : MonoBehaviour
     [SerializeField]
     private Vector2 myParallaxEffectMultiplier;
     [SerializeField]
-    private bool myInfiniteVertical;
+    private bool myInfiniteVertical = false;
     [SerializeField]
-    private bool myInfiniteHorizontal;
+    private bool myInfiniteHorizontal = false;
 
     private Vector3 myLastCameraPosition;
     private float myTextureUnitSizeX;

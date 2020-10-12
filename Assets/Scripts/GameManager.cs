@@ -97,4 +97,17 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
+    public Scene GetActiveScene()
+    {
+        for (int i = 0; i < SceneManager.sceneCount; ++i)
+        {
+            if (SceneManager.GetSceneAt(i) != SceneManager.GetSceneByName("GameManagerScene"))
+            {
+                return SceneManager.GetSceneAt(i);
+            }
+        }
+
+        return SceneManager.GetSceneAt(0);
+    }
+
 }

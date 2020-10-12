@@ -152,7 +152,7 @@ public class Player : MonoBehaviour
 
     private void Crash()
     {
-        //myGameManager.GameOver(SceneManager.GetSceneAt(1));
+        //myGameManager.GameOver(myGameManager.GetActiveScene());
         //myAirMovement = Vector2.right;
         //myUnmodifiedSpeed = myStartSpeed;
         //myTrickBoost = 0f;

@@ -10,22 +10,16 @@ public class FinishTrigger : MonoBehaviour
     
     private void OnTriggerEnter(Collider aCollider)
     {
-        int countLoaded = SceneManager.sceneCount;
-        Scene[] loadedScenes = new Scene[countLoaded];
-
-        for (int i = 0; i < countLoaded; i++)
+        if (myGameManager.GetActiveScene() == SceneManager.GetSceneByName("Level3"))
         {
-            loadedScenes[i] = SceneManager.GetSceneAt(i);
-        }
-
-        if (loadedScenes[1].name == "Level3")
-        {
-            myGameManager.GameFinished(loadedScenes[1]);
+            myGameManager.GameFinished(myGameManager.GetActiveScene());
         }
         else
         {
-            myGameManager.GameFinished(loadedScenes[1]);
-            //myGameManager.NextLevel(loadedScenes[1]);
+            //GameFinished is only for testing, NextLevel should be used.
+
+            myGameManager.GameFinished(myGameManager.GetActiveScene());
+            //myGameManager.NextLevel(myGameManager.GetActiveScene());
         }
     }
 }
