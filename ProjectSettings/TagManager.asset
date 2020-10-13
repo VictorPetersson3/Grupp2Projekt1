@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Spline
   - GameManager
+  - SandParticleManager
+  - Coin
+  - Rock
   layers:
   - Default
   - TransparentFX

@@ -182,6 +182,7 @@ GameObject:
   - component: {fileID: 5905455457331655457}
   - component: {fileID: 865381020020007272}
   - component: {fileID: 1661078750133732265}
+  - component: {fileID: 808712323497880555}
   m_Layer: 0
   m_Name: ScoreText
   m_TagString: Untagged
@@ -249,6 +250,18 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 0/0
+--- !u!114 &808712323497880555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4859277243853117531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68e5d13080ac97f48b2f7fca16d0dd66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5420436018547269147
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +321,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 52
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -391,7 +404,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myTarget: {fileID: 0}
-  myTrackX: 1
-  myTrackY: 1
-  myOffsetX: 10
-  myOffsetY: 0
+  myOffsetXMin: 10
+  myOffsetXMax: 20
+  myClosestZoom: -25
+  myFurthestZoom: -40
+  myOffsetYMultiplier: 0.1
+  myOffsetYMax: -3

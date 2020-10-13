@@ -4,7 +4,6 @@ public class PlayerAir : MonoBehaviour
 {
     [SerializeField]
     private float myRotationResetSpeed = 1f;
-    
 
     public void AirMovement(float aGravity, ref Vector2 aAirMovement)
     {
@@ -22,6 +21,4 @@ public class PlayerAir : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, newRot, Time.deltaTime * myRotationResetSpeed);
         transform.GetChild(0).rotation = Quaternion.Slerp(transform.GetChild(0).rotation, newRot, Time.deltaTime * myRotationResetSpeed);
     }
-
-    
 }

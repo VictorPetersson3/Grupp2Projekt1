@@ -10,7 +10,8 @@ public enum SceneIndexes
     LEVELTHREE = 4,
     PAUSE = 5,
     GAME_OVER = 6,
-    FINISHED = 7
+    FINISHED = 7,
+    LOADING = 8
 }
 
 public class GameManager : MonoBehaviour
@@ -19,8 +20,6 @@ public class GameManager : MonoBehaviour
     private Transform myObstacleParent = null;
     [SerializeField]
     private BoxCollider[] myObstacles;
-    [SerializeField]
-    private Player myPlayer = null;
 
     private void Start()
     {
@@ -96,4 +95,16 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
+    public Scene GetActiveScene()
+    {
+        for (int i = 0; i < SceneManager.sceneCount; ++i)
+        {
+            if (SceneManager.GetSceneAt(i) != SceneManager.GetSceneByName("GameManagerScene"))
+            {
+                return SceneManager.GetSceneAt(i);
+            }
+        }
+
+        return SceneManager.GetSceneAt(0);
+    }
 }
