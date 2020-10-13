@@ -321,7 +321,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 52
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -404,7 +404,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myTarget: {fileID: 0}
-  myTrackX: 1
-  myTrackY: 1
-  myOffsetX: 10
-  myOffsetY: 0
+  myOffsetXMin: 10
+  myOffsetXMax: 20
+  myClosestZoom: -25
+  myFurthestZoom: -40
+  myOffsetYMultiplier: 0.1
+  myOffsetYMax: -3

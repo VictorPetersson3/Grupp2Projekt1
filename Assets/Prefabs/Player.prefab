@@ -55,8 +55,9 @@ MonoBehaviour:
   myGameManager: {fileID: 5080542214962648757, guid: 00f06ab9a0bca8c42afd674d578bc2ae,
     type: 3}
   mySplineManager: {fileID: 0}
-  myCamera: {fileID: 0}
-  myReach: 0.33333334
+  myCameraShake: {fileID: 0}
+  myCameraFollow: {fileID: 0}
+  myReach: 0.15
   myGravity: 11
   myStartSpeed: 80
   myShakeDurationRocks: 5
@@ -78,8 +79,8 @@ MonoBehaviour:
   myGroundedRotationSpeed: 10
   myAngleBuffer: -0.1
   myGroundBoostStrength: 50
-  mySlopeAcceleration: 0.1
-  mySlopeDeceleration: 0.01
+  mySlopeAcceleration: 0.5
+  mySlopeDeceleration: 2
   myMaxUnmodifiedSpeed: 150
   myMinUnmodifiedSpeed: 80
   myTrickBoostStrength: 100
