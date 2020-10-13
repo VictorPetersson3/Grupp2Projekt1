@@ -23,7 +23,6 @@ public class PlayerMagnet : MonoBehaviour
 
     private void DeactivateMagnet()
     {
-        Debug.Log("Magnet is active!");
         myDuration += Time.deltaTime;
         if (myDuration >= myMaxDuration)
         {

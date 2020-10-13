@@ -38,12 +38,6 @@ public struct CollisionData
     {
         myBoxCollider.enabled = false;
     }
-    public void Print()
-    {
-        Debug.Log("Tag: " + myTag);
-        Debug.Log("Has Collided: " + myHasCollided);
-    }
-
 }
 
 public class PlayerCollision : MonoBehaviour
