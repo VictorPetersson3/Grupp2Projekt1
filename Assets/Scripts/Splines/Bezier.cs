@@ -2,17 +2,17 @@
 
 public static class Bezier
 {
-    public static Vector2 EvaluateQuadratic (Vector2 a, Vector2 b, Vector2 c, float t)
+    public static Vector2 EvaluateQuadratic (Vector2 aA, Vector2 aB, Vector2 aC, float aT)
     {
-        Vector2 p0 = Vector2.Lerp(a, b, t);
-        Vector2 p1 = Vector2.Lerp(b, c, t);
-        return Vector2.Lerp(p0, p1, t);
+        Vector2 p0 = Vector2.Lerp(aA, aB, aT);
+        Vector2 p1 = Vector2.Lerp(aB, aC, aT);
+        return Vector2.Lerp(p0, p1, aT);
     }
 
-    public static Vector2 EvaluateCubic(Vector2 a, Vector2 b, Vector2 c, Vector2 d, float t)
+    public static Vector2 EvaluateCubic(Vector2 aA, Vector2 aB, Vector2 aC, Vector2 aD, float aT)
     {
-        Vector2 p0 = EvaluateQuadratic(a, b, c, t);
-        Vector2 p1 = EvaluateQuadratic(b, c, d, t);
-        return Vector2.Lerp(p0, p1, t);
+        Vector2 p0 = EvaluateQuadratic(aA, aB, aC, aT);
+        Vector2 p1 = EvaluateQuadratic(aB, aC, aD, aT);
+        return Vector2.Lerp(p0, p1, aT);
     }
 }
