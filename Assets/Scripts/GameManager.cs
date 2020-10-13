@@ -20,8 +20,6 @@ public class GameManager : MonoBehaviour
     private Transform myObstacleParent = null;
     [SerializeField]
     private BoxCollider[] myObstacles;
-    //[SerializeField]
-    //private Player myPlayer = null;
 
     private void Start()
     {
@@ -109,5 +107,4 @@ public class GameManager : MonoBehaviour
 
         return SceneManager.GetSceneAt(0);
     }
-
 }

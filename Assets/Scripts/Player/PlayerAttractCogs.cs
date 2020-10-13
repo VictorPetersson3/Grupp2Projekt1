@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerAttractCogs : MonoBehaviour
 {
@@ -15,9 +13,9 @@ public class PlayerAttractCogs : MonoBehaviour
     {
         myCogs = GameObject.FindGameObjectsWithTag("Coin");
     }
+
     private void Update()
     {
-        //foreach(GameObject cog in myCogs)
         for (int i = 0; i < myCogs.Length; i++) 
         {
             Attract(myCogs[i].transform);
