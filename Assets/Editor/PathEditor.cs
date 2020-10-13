@@ -88,7 +88,7 @@ public class PathEditor : Editor
 
         if (guiEvent.type == EventType.MouseDown && guiEvent.button == 1)
         {
-            float minDstToAnchor = myCreator.anchorDiameter * .5f;
+            float minDstToAnchor = myCreator.myAnchorDiameter * .5f;
             int closestAnchorIndex = -1;
 
             for (int i = 0; i < myPath.NumPoints; i += 3)
@@ -137,23 +137,23 @@ public class PathEditor : Editor
         for (int i = 0; i < myPath.NumSegments; i++)
         {
             Vector2[] points = myPath.GetPointsInSegment(i);
-            if (myCreator.displayControlPoints)
+            if (myCreator.myDisplayControlPoints)
             {
                 Handles.color = Color.black;
                 Handles.DrawLine(points[1], points[0]);
                 Handles.DrawLine(points[2], points[3]);
             }
-            Color segmentCol = (i == mySelectedSegmentIndex && Event.current.shift) ? myCreator.selectedSegmentCol : myCreator.segmentCol;
+            Color segmentCol = (i == mySelectedSegmentIndex && Event.current.shift) ? myCreator.mySelectedSegmentCol : myCreator.mySegmentCol;
             Handles.DrawBezier(points[0], points[3], points[1], points[2], segmentCol, null, 2);
         }
 
 
         for (int i = 0; i < myPath.NumPoints; i++)
         {
-            if (i % 3 == 0 || myCreator.displayControlPoints)
+            if (i % 3 == 0 || myCreator.myDisplayControlPoints)
             {
-                Handles.color = (i % 3 == 0) ? myCreator.anchorCol : myCreator.controlCol;
-                float handleSize = (i % 3 == 0) ? myCreator.anchorDiameter : myCreator.controlDiameter;
+                Handles.color = (i % 3 == 0) ? myCreator.myAnchorCol : myCreator.myControlCol;
+                float handleSize = (i % 3 == 0) ? myCreator.myAnchorDiameter : myCreator.myControlDiameter;
                 Vector2 newPos = Handles.FreeMoveHandle(myPath[i], Quaternion.identity, handleSize, Vector2.zero, Handles.CylinderHandleCap);
                 if (myPath[i] != newPos)
                 {

@@ -6,10 +6,9 @@ public class MeshEditor : Editor
 {
     private MeshCreator myCreator;
 
-
     private void OnSceneGUI()
     {
-        if (myCreator.previewGeneratedMesh && Event.current.type == EventType.Repaint)
+        if (myCreator.myPreviewGeneratedMesh && Event.current.type == EventType.Repaint)
         {
             myCreator.UpdateMesh();
         }

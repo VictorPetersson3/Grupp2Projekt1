@@ -16,13 +16,13 @@ public class PathCreator : MonoBehaviour
     [SerializeField, HideInInspector]
     private GameObject[] myBoostSpheres;
 
-    public Color anchorCol = Color.red;
-    public Color controlCol = Color.white;
-    public Color segmentCol = Color.green;
-    public Color selectedSegmentCol = Color.yellow;
-    public float anchorDiameter = .1f;
-    public float controlDiameter = .075f;
-    public bool displayControlPoints = true;
+    public Color myAnchorCol = Color.red;
+    public Color myControlCol = Color.white;
+    public Color mySegmentCol = Color.green;
+    public Color mySelectedSegmentCol = Color.yellow;
+    public float myAnchorDiameter = .1f;
+    public float myControlDiameter = .075f;
+    public bool myDisplayControlPoints = true;
     
     private void OnValidate()
     {
