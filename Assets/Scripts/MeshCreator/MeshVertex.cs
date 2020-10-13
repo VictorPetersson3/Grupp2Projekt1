@@ -1,23 +1,22 @@
 ﻿using UnityEngine;
-using UnityEditor;
 using System;
 
     [Serializable]
     public class MeshVertex
     {
-        public Vector3 position;
-        public Vector3 normal;
-        public Vector2 uv;
+        public Vector3 myPosition;
+        public Vector3 myNormal;
+        public Vector2 myUv;
 
-        public MeshVertex(Vector3 position, Vector3 normal, Vector2 uv)
+        public MeshVertex(Vector3 aPos, Vector3 aNormal, Vector2 aUv)
         {
-            this.position = position;
-            this.normal = normal;
-            this.uv = uv;
+            this.myPosition = aPos;
+            this.myNormal = aNormal;
+            this.myUv = aUv;
         }
 
-        public MeshVertex(Vector3 position, Vector3 normal)
-            : this(position, normal, Vector2.zero)
+        public MeshVertex(Vector3 aPos, Vector3 aNormal)
+            : this(aPos, aNormal, Vector2.zero)
         {
         }
     }
