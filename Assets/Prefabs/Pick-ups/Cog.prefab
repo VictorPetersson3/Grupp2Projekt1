@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d7fbd9e915322e4897024d01043c098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myAttractReach: 8
+  myAttractReach: 6
   myAttractSpeed: 2
 --- !u!1001 &2124102610002410769
 PrefabInstance:
