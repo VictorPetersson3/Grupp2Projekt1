@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Prefabs/Props.meta
 guid: c8f8e9b621ac6d64689703661e163289
+=======
+guid: 8df613611d4c7cc41a0d2678aacc156e
+>>>>>>> Develop:Assets/Graphics/GeneratedHills.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4126189745435438907}
   - component: {fileID: 7775170082975414533}
   - component: {fileID: 4187244042984590750}
+  - component: {fileID: 1711758633111559714}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -137,6 +138,19 @@ MonoBehaviour:
   myArtPlaceHolder: {fileID: 7036787973156475023}
   myBobStrength: 0.07
   myBobSpeed: 5
+--- !u!114 &1711758633111559714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607898315252366862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da3bb110c4847f8468f399a01108244b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myMaxDuration: 2
 --- !u!1 &4393361978208579874
 GameObject:
   m_ObjectHideFlags: 0

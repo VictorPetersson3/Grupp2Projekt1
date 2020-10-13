@@ -3,7 +3,7 @@
 public class PathCreator : MonoBehaviour
 {
     [HideInInspector]
-    public Path path;
+    public Paths path;
     [SerializeField]
     private int myBoostStart = 0;
     [SerializeField]
@@ -91,7 +91,7 @@ public class PathCreator : MonoBehaviour
 
     public void CreatePath()
     {
-        path = new Path(transform.position);
+        path = new Paths(transform.position);
     }
 
     public void StartOver()

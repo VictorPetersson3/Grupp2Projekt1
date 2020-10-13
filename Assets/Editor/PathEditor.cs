@@ -6,7 +6,7 @@ public class PathEditor : Editor
 {
 
     private PathCreator myCreator;
-    private Path myPath
+    private Paths myPath
     {
         get
         {

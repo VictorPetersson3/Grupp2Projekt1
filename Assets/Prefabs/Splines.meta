@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Prefabs/Splines.meta
 guid: d1e5032a43f497a4a8ac4dbb79d98727
+=======
+guid: f377f37b87de95842a7d66deb27c48e6
+>>>>>>> Develop:Assets/Graphics/Meshes/Pick-Ups.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

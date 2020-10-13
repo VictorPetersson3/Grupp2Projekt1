@@ -157,6 +157,11 @@ public class Player : MonoBehaviour
                     return;
                 }
             }
+
+            if (myCollisionData.GetTag() == "Magnet")
+            {
+
+            }
         }
     }
 
