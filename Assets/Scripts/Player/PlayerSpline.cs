@@ -36,7 +36,8 @@ public class PlayerSpline : MonoBehaviour
         {
             accMultiplier = mySlopeDeceleration;
         }
-        
+
+        accMultiplier *= Time.deltaTime;
         anUnmodifiedSpeed -= (myCurrentAngle - myFlatAngle) * accMultiplier;
         anUnmodifiedSpeed = Mathf.Clamp(anUnmodifiedSpeed, myMinUnmodifiedSpeed, myMaxUnmodifiedSpeed);
 
@@ -65,6 +66,11 @@ public class PlayerSpline : MonoBehaviour
 
         while (aSplineT >= 1f)
         {
+            if (aPointsIndex + 1 >= someCurrentPoints.Length)
+            {
+                return false;
+            }
+
             transform.position = someCurrentPoints[aPointsIndex + 1];
 
             aSplineT -= 1f;
@@ -231,5 +237,10 @@ public class PlayerSpline : MonoBehaviour
         }
 
         return false;
+    }
+
+    public Vector2 GetMinMaxSpeeds()
+    {
+        return new Vector2(myMinUnmodifiedSpeed, myTrickBoostMax + myMaxUnmodifiedSpeed);
     }
 }
