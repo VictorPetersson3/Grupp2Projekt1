@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -163,7 +162,6 @@ public class Player : MonoBehaviour
 
     private bool Bounce()
     {
-        Debug.Log(myAirMovement.y);
         if (!myGrounded && myAirMovement.y < 0)
         {
             myPlayerJump.Bounce(ref myAirMovement);
@@ -175,14 +173,7 @@ public class Player : MonoBehaviour
     private void Crash()
     {
         mySandParticleManager.DestroyAllSandParticles();
-        myGameManager.GameOver(SceneManager.GetSceneAt(1));
         myGameManager.GameOver(myGameManager.GetActiveScene());
-        myAirMovement = Vector2.right;
-        myUnmodifiedSpeed = myStartSpeed;
-        myTrickBoost = 0f;
-        mySplineManager.ResetAllSplines();
-        ResetSpline();
-        myPlayerBackflip.ResetScore();
     }
 
     private void Air()
