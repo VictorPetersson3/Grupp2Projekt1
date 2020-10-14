@@ -26,41 +26,49 @@ public class MainMenuScript : MonoBehaviour
         }
     }
 
-    void QuitGame()
+    public void QuitGame()
     {
         Application.Quit();
     }
-    
-    void Credits()
+
+    public void Credits()
     {
         Debug.Log("viewing people who worked on this game and also Dave");
         myMainMenuObjects.SetActive(false);
         myCreditsScreen.SetActive(true);
     }
 
-    void LevelSelect()
+    public void LevelSelect()
     {
         Debug.Log("viewing levels to select");
         myMainMenuObjects.SetActive(false);
         myLevelSelect.SetActive(true);
     }
-    void LevelOne()
+    public void LevelOne()
     {
         Debug.Log("playing level 1");
-        SceneManager.LoadScene(2); //Game manager = scen0, main menu = scen1
+        //vvv FUNKAR INTE RÄTT!!! vvv
+        //SceneManager.LoadScene(2); //Game manager = scen0, main menu = scen1
+
+        SceneManager.UnloadSceneAsync((int)SceneIndexes.MAIN_MENU);
+        SceneManager.LoadSceneAsync((int)SceneIndexes.INTROLEVEL, LoadSceneMode.Additive);
     }
-    void LevelTwo()
+    public void LevelTwo()//<-- Ej inlagd än!!
     {
         Debug.Log("playing level 2");
-        SceneManager.LoadScene(3); //Game manager = scen0, main menu = scen1
+        //SceneManager.LoadScene(3); //Game manager = scen0, main menu = scen1
+        SceneManager.UnloadSceneAsync((int)SceneIndexes.MAIN_MENU);
+        SceneManager.LoadSceneAsync((int)SceneIndexes.LEVELTWO, LoadSceneMode.Additive);
     }
-    void LevelThree()
+    public void LevelThree()//<-- Ej inlagd än!!
     {
         Debug.Log("playing level 2");
-        SceneManager.LoadScene(4); //Game manager = scen0, main menu = scen1
+        //SceneManager.LoadScene(4); //Game manager = scen0, main menu = scen1
+        SceneManager.UnloadSceneAsync((int)SceneIndexes.MAIN_MENU); 
+        SceneManager.LoadSceneAsync((int)SceneIndexes.LEVELTHREE, LoadSceneMode.Additive);
     }
 
-    void BacktoMainMenu()
+    public void BacktoMainMenu()
     {
         Debug.Log("Returning to main menu");
         myCreditsScreen.SetActive(false);
