@@ -31,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1607898315252366862}
   m_LocalRotation: {x: 0.006170607, y: 0.7070799, z: -0.0061706076, w: 0.7070798}
-  m_LocalPosition: {x: -5.998, y: 4.008, z: 0.015}
+  m_LocalPosition: {x: -5.998, y: 4.008, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2463456878676605632}
@@ -55,7 +55,6 @@ MonoBehaviour:
   myGameManager: {fileID: 5080542214962648757, guid: 00f06ab9a0bca8c42afd674d578bc2ae,
     type: 3}
   mySplineManager: {fileID: 0}
-  myCameraShake: {fileID: 0}
   myCameraFollow: {fileID: 0}
   myReach: 0.15
   myGravity: 11
@@ -79,12 +78,12 @@ MonoBehaviour:
   myGroundedRotationSpeed: 10
   myAngleBuffer: -0.1
   myGroundBoostStrength: 50
-  mySlopeAcceleration: 0.5
-  mySlopeDeceleration: 2
+  mySlopeAcceleration: 0.45
+  mySlopeDeceleration: 4
   myMaxUnmodifiedSpeed: 150
   myMinUnmodifiedSpeed: 80
-  myTrickBoostStrength: 100
-  myTrickBoostMax: 100
+  myTrickBoostStrength: 15
+  myTrickBoostMax: 20
 --- !u!114 &1607898314831972099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,7 +294,7 @@ MonoBehaviour:
   myFlipRotationSpeed: 130
   myBackflipBoostTimeMultiplier: 0.5
   myMaxTrickBoostTime: 10
-  myCrashAngleTolerance: 45
+  myCrashAngleTolerance: 90
 --- !u!1001 &7362549884136126308
 PrefabInstance:
   m_ObjectHideFlags: 0
