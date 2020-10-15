@@ -9,6 +9,9 @@ TagManager:
   - SandParticleManager
   - Coin
   - Rock
+  - SandParticles
+  - Magnet
+  - SoundContainer
   layers:
   - Default
   - TransparentFX
