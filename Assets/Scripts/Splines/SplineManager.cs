@@ -99,12 +99,4 @@ public class SplineManager : MonoBehaviour
             }
         }
     }
-
-    public void ResetAllSplines()
-    {
-        for (int i = 0; i < mySplines.Length; i++)
-        {
-            mySplines[i].SetActive(true);
-        }
-    }
 }
