@@ -128,6 +128,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3149516405281033961, guid: 00f06ab9a0bca8c42afd674d578bc2ae,
+        type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5080542214962648756, guid: 00f06ab9a0bca8c42afd674d578bc2ae,
         type: 3}
       propertyPath: m_LocalPosition.x
