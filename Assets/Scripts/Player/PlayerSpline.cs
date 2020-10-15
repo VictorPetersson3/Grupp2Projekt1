@@ -202,19 +202,38 @@ public class PlayerSpline : MonoBehaviour
         return sameSpline;
     }
 
-    float DistancePtLine(Vector2 aStartPos, Vector2 anEndPos, Vector2 aPoint)
+    //float DistancePtLine(Vector2 aStartPos, Vector2 anEndPos, Vector2 aPoint)
+    //{
+    //    Vector2 direction = anEndPos - aStartPos;
+    //    Vector2 pa = aStartPos - aPoint;
+    //    Vector2 c = direction * (Vector2.Dot(pa, direction) / Vector2.Dot(direction, direction));
+    //    Vector2 d = pa - c;
+    //    Debug.DrawLine();
+    //    return Mathf.Sqrt(Vector2.Dot(d, d));
+    //}
+
+    // Distance to point (p) from line segment (end points a b)
+    float DistanceLineSegmentPoint(Vector3 aStartPos, Vector3 anEndPos, Vector3 aPoint)
     {
-        Vector2 direction = anEndPos - aStartPos;
-        Vector2 pa = aStartPos - aPoint;
-        Vector2 c = direction * (Vector2.Dot(pa, direction) / Vector2.Dot(direction, direction));
-        Vector2 d = pa - c;
-        return Mathf.Sqrt(Vector2.Dot(d, d));
+        // If a == b line segment is a point and will cause a divide by zero in the line segment test.
+        // Instead return distance from a
+        if (aStartPos == anEndPos)
+            return Vector3.Distance(aStartPos, aPoint);
+
+        // Line segment to point distance equation
+        Vector3 ba = anEndPos - aStartPos;
+        Vector3 pa = aStartPos - aPoint;
+        Debug.DrawLine(aStartPos, anEndPos);
+        Debug.DrawLine(aPoint + Vector3.up, aPoint + Vector3.down);
+        Debug.DrawLine(aPoint + Vector3.left, aPoint + Vector3.right);
+        return (pa - ba * (Vector3.Dot(pa, ba) / Vector3.Dot(ba, ba))).magnitude;
     }
+
 
     public bool AttemptToCatchSpline(SplineManager aSplineManager, float aReach, ref bool aTooCloseToOldSpline, ref int aPointsIndex, ref Vector2[] someCurrentPoints, ref Vector2[] someOldPoints, ref Vector2 aBoost, Vector3 anOldPos)
     {
         Vector2 closestPoint = aSplineManager.GetClosestPoint(transform.position, ref aPointsIndex, ref someCurrentPoints, ref aBoost);
-        float distanceToPoint = DistancePtLine(anOldPos, transform.position, closestPoint);
+        float distanceToPoint = DistanceLineSegmentPoint(anOldPos, transform.position, closestPoint);
 
         if (distanceToPoint <= aReach)
         {
