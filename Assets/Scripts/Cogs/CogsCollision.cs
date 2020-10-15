@@ -18,6 +18,7 @@ public class CogsCollision : MonoBehaviour
     }
     private void OnCollisionEnter(Collision aCollision)
     {
+        myPlayer.IncreaseScore();
         Instantiate(myCogSound, mySoundContainer.transform);
         Destroy(gameObject);
     }
