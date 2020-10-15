@@ -136,12 +136,12 @@ public class MusicManagerScript : MonoBehaviour
     }
 
 
-    void PlayMenuMusic ()
+    public void PlayMenuMusic ()
     {
         myMusicSource.Play();
         myFadeUp = true;
     }
-    void StopMenuMusic ()
+    public void StopMenuMusic ()
     {
         myFadeDown = true;
     }

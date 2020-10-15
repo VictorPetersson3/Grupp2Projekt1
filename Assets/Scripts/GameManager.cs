@@ -21,6 +21,21 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private BoxCollider[] myObstacles;
 
+    [SerializeField]
+    private AudioClip myMenuMusicClip;
+
+    [SerializeField]
+    private AudioClip myCoinCollectClip;
+
+    private AudioSource myMusicSource;
+
+    private float myMusicVolume = 1f;
+    [SerializeField]
+    private float myFadeTime = 0.5f;  //sek, ca
+
+    private bool myFadeUp = false;
+    private bool myFadeDown = false;
+
     private void Start()
     {
         if (myObstacleParent == null)
@@ -46,11 +61,59 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadSceneAsync((int)SceneIndexes.MAIN_MENU, LoadSceneMode.Additive);
         }
+        myMusicSource = GetComponent<AudioSource>();
+        if (myMusicSource == null)
+        {
+            myMusicSource = gameObject.AddComponent<AudioSource>();
+        }
+        if (myMusicSource == null)
+        {
+            Debug.LogError("Music Audio source is NULL. ");
+        }
+        else
+        {
+            myMusicVolume = 1f;
+            myMusicSource.clip = myMenuMusicClip;
+        }
+        if (!myMusicSource.isPlaying)
+        {
+            PlayMenuMusic();
+        }
     }
 
     private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            PlayMenuMusic();
+        }
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            StopMenuMusic();
+        }
+
+        if (myFadeUp)
+        {
+            myMusicVolume += Time.deltaTime / myFadeTime;
+            if (myMusicVolume > 1f)
+            {
+                myMusicVolume = 1;
+                myFadeUp = false;
+            }
+            myMusicSource.volume = myMusicVolume;
+        }
+
+        if (myFadeDown)
+        {
+            myMusicVolume -= Time.deltaTime / myFadeTime;
+            if (myMusicVolume <= 0.01f)
+            {
+                myMusicVolume = 0;
+                myMusicSource.Stop();
+                myFadeDown = false;
+            }
+            myMusicSource.volume = myMusicVolume;
+        }
     }
 
     public void MainMenu(Scene aScene)
@@ -106,5 +169,20 @@ public class GameManager : MonoBehaviour
         }
 
         return SceneManager.GetSceneAt(0);
+    }
+
+    public void PlayMenuMusic()
+    {
+        myMusicSource.Play();
+        myFadeUp = true;
+    }
+    public void StopMenuMusic()
+    {
+        myFadeDown = true;
+    }
+
+    void PlayCoinSound()
+    {
+
     }
 }

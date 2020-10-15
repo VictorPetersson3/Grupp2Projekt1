@@ -284,7 +284,6 @@ GameObject:
   m_Component:
   - component: {fileID: 899078344}
   - component: {fileID: 899078343}
-  - component: {fileID: 899078342}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -292,14 +291,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &899078342
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 899078341}
-  m_Enabled: 1
 --- !u!20 &899078343
 Camera:
   m_ObjectHideFlags: 0
@@ -389,6 +380,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myObstacleParent: {fileID: 0}
   myObstacles: []
+  myMenuMusicClip: {fileID: 0}
+  myCoinCollectClip: {fileID: 0}
+  myFadeTime: 0.5
 --- !u!4 &1055545673
 Transform:
   m_ObjectHideFlags: 0
