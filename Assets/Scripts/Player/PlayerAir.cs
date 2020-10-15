@@ -5,11 +5,13 @@ public class PlayerAir : MonoBehaviour
     [SerializeField]
     private float myRotationResetSpeed = 1f;
 
-    public void AirMovement(float aGravity, ref Vector2 aAirMovement)
+    public Vector3 AirMovement(float aGravity, ref Vector2 aAirMovement)
     {
         Vector2 currentMove = Time.deltaTime * aAirMovement;
+        Vector3 oldPosition = transform.position;
         transform.position = new Vector3(transform.position.x + currentMove.x, transform.position.y + currentMove.y, transform.position.z);
         aAirMovement = new Vector2(aAirMovement.x, aAirMovement.y - (aGravity * Time.deltaTime));
+        return oldPosition;
     }
 
     public void AirRotation()

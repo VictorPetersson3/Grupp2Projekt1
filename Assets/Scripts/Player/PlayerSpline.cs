@@ -202,11 +202,21 @@ public class PlayerSpline : MonoBehaviour
         return sameSpline;
     }
 
-    public bool AttemptToCatchSpline(SplineManager aSplineManager, float aReach, ref bool aTooCloseToOldSpline, ref int aPointsIndex, ref Vector2[] someCurrentPoints, ref Vector2[] someOldPoints, ref Vector2 aBoost)
+    float DistancePtLine(Vector2 aStartPos, Vector2 anEndPos, Vector2 aPoint)
+    {
+        Vector2 direction = anEndPos - aStartPos;
+        Vector2 pa = aStartPos - aPoint;
+        Vector2 c = direction * (Vector2.Dot(pa, direction) / Vector2.Dot(direction, direction));
+        Vector2 d = pa - c;
+        return Mathf.Sqrt(Vector2.Dot(d, d));
+    }
+
+    public bool AttemptToCatchSpline(SplineManager aSplineManager, float aReach, ref bool aTooCloseToOldSpline, ref int aPointsIndex, ref Vector2[] someCurrentPoints, ref Vector2[] someOldPoints, ref Vector2 aBoost, Vector3 anOldPos)
     {
         Vector2 closestPoint = aSplineManager.GetClosestPoint(transform.position, ref aPointsIndex, ref someCurrentPoints, ref aBoost);
+        float distanceToPoint = DistancePtLine(anOldPos, transform.position, closestPoint);
 
-        if (Vector2.Distance(transform.position, closestPoint) <= aReach)
+        if (distanceToPoint <= aReach)
         {
             if (aTooCloseToOldSpline && IsOldSpline(someOldPoints, someCurrentPoints))
             {
@@ -216,11 +226,11 @@ public class PlayerSpline : MonoBehaviour
             transform.position = closestPoint;
             return true;
         }
-
-        if (Vector2.Distance(transform.position, closestPoint) > aReach && IsOldSpline(someOldPoints, someCurrentPoints))
+        else if (IsOldSpline(someOldPoints, someCurrentPoints))
         {
             aTooCloseToOldSpline = false;
         }
+
         return false;
     }
 
