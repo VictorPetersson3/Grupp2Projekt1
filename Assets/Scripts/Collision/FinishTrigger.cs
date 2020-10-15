@@ -16,10 +16,7 @@ public class FinishTrigger : MonoBehaviour
         }
         else
         {
-            //GameFinished is only for testing, NextLevel should be used.
-
-            myGameManager.GameFinished(myGameManager.GetActiveScene());
-            //myGameManager.NextLevel(myGameManager.GetActiveScene());
+            myGameManager.NextLevel(myGameManager.GetActiveScene());
         }
     }
 }
