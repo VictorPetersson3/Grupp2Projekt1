@@ -204,13 +204,13 @@ public class PlayerSpline : MonoBehaviour
 
     float DistanceLineSegmentPoint(Vector3 aStartPos, Vector3 anEndPos, Vector3 aPoint)
     {
+        //Debug stuff that Leo wants to save for future fixes please don't remove just yet D:
+        //Debug.DrawLine(aStartPos, anEndPos);
+        //Debug.DrawLine(aPoint + Vector3.up, aPoint + Vector3.down);
+        //Debug.DrawLine(aPoint + Vector3.left, aPoint + Vector3.right);
+
         Vector3 ba = anEndPos - aStartPos;
         Vector3 pa = aStartPos - aPoint;
-        //DEBUG
-        Debug.DrawLine(aStartPos, anEndPos);
-        Debug.DrawLine(aPoint + Vector3.up, aPoint + Vector3.down);
-        Debug.DrawLine(aPoint + Vector3.left, aPoint + Vector3.right);
-        //DEBUG
         return (pa - ba * (Vector3.Dot(pa, ba) / Vector3.Dot(ba, ba))).magnitude;
     }
 
