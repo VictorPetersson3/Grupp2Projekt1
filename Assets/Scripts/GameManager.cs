@@ -81,8 +81,8 @@ public class GameManager : MonoBehaviour
     public void GameOver(Scene aScene)
     {
         SceneManager.UnloadSceneAsync(aScene);
-        //SceneManager.LoadSceneAsync((int)SceneIndexes.MAIN_MENU, LoadSceneMode.Additive);
-        SceneManager.LoadSceneAsync(aScene.name, LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync((int)SceneIndexes.MAIN_MENU, LoadSceneMode.Additive);
+        //SceneManager.LoadSceneAsync(aScene.name, LoadSceneMode.Additive);
     }
 
     public void GameFinished(Scene aScene)
