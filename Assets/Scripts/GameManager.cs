@@ -20,18 +20,16 @@ public class GameManager : MonoBehaviour
     private Transform myObstacleParent = null;
     [SerializeField]
     private BoxCollider[] myObstacles;
-
     [SerializeField]
     private AudioClip myMenuMusicClip;
-
     [SerializeField]
     private AudioClip myCoinCollectClip;
+    [SerializeField]
+    private float myFadeTime = 0.5f;
 
     private AudioSource myMusicSource;
 
     private float myMusicVolume = 1f;
-    [SerializeField]
-    private float myFadeTime = 0.5f;  //sek, ca
 
     private bool myFadeUp = false;
     private bool myFadeDown = false;
@@ -54,14 +52,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     private void Awake()
     {
         if (SceneManager.sceneCount <= 1)
         {
+            myMusicSource = GetComponent<AudioSource>();
             SceneManager.LoadSceneAsync((int)SceneIndexes.MAIN_MENU, LoadSceneMode.Additive);
         }
-        myMusicSource = GetComponent<AudioSource>();
         if (myMusicSource == null)
         {
             myMusicSource = gameObject.AddComponent<AudioSource>();
