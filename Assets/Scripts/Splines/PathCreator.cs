@@ -28,7 +28,14 @@ public class PathCreator : MonoBehaviour
     {
         UpdateBoost();
     }
-
+    public int GetBoostStart()
+    {
+        return myBoostStart;
+    }
+    public int GetBoostEnd()
+    {
+        return myBoostEnd;
+    }
     public void UpdateBoost()
     {
         if (!myHasBoost)
@@ -37,7 +44,6 @@ public class PathCreator : MonoBehaviour
         }
 
         path.UpdateBoost(myBoostStart, myBoostEnd);
-
         if (myBoostStart < 0 || myBoostEnd < 0)
         {
             myBoostSpheres[0].transform.position = new Vector3(path.GetFirstPoint().x, path.GetFirstPoint().y, 0);
@@ -46,7 +52,6 @@ public class PathCreator : MonoBehaviour
         }
 
         Vector2[] points = path.CalculateEvenlySpacedPoints();
-
         if (myBoostStart >= points.Length || myBoostEnd >= points.Length)
         {
             Debug.LogError("Boost outside of spline length!");

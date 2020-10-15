@@ -30,7 +30,7 @@ public class MeshEditor : Editor
         if (GUILayout.Button("Generate 3D Mesh"))
         {
             Undo.RecordObject(myCreator, "Generate 3D Mesh");
-            myCreator.CreateMesh();
+            myCreator.CreateGameObject("SpeedBoost");
         }
     }
 
