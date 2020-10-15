@@ -5,54 +5,79 @@ public class PlayerSpline : MonoBehaviour
     [SerializeField]
     private float myGroundedRotationSpeed = 10f;
     [SerializeField]
-    private float myBuffer = -0.1f;
+    private float myAngleBuffer = -0.1f;
     [SerializeField]
-    private float myBoostStrength = 50f;
+    private float myGroundBoostStrength = 50f;
     [SerializeField]
     private float mySlopeAcceleration = 1f;
     [SerializeField]
     private float mySlopeDeceleration = 1f;
     [SerializeField]
-    private float myMaxSpeed = 100f;
+    private float myMaxUnmodifiedSpeed = 100f;
     [SerializeField]
-    private float myMinSpeed = 10f;
+    private float myMinUnmodifiedSpeed = 10f;
+    [Header("Trick Boost")]
+    [SerializeField]
+    private float myTrickBoostStrength = 100f;
+    [SerializeField]
+    private float myTrickBoostMax = 100f;
 
-    private float myOldAngle = 0;
-    private float myCurrentAngle = 0;
+    private float myOldAngle = 90;
+    private float myCurrentAngle = 90;
     private bool myFirstCheck = true;
 
     const int myFlatAngle = 90;
 
-    public bool SplineMovement(Vector2[] someCurrentPoints, ref float aCurrentSpeed, ref int aPointsIndex, ref float aSplineT, float aGravity, Vector2 aBoost)
+    public bool SplineMovement(Vector2[] someCurrentPoints, ref float anUnmodifiedSpeed, ref int aPointsIndex, ref float aSplineT, float aGravity, Vector2 aBoostVector, ref float aTrickBoost, ref float aTotalSpeed)
     {
-        if (IndexWithinBoost(aPointsIndex, aBoost))
-        {
-            aCurrentSpeed += Time.deltaTime * myBoostStrength;
-        }
-
         float accMultiplier = mySlopeAcceleration;
 
         if (myCurrentAngle > 90)
         {
             accMultiplier = mySlopeDeceleration;
         }
-        
-        aCurrentSpeed -= (myCurrentAngle - myFlatAngle) * Time.deltaTime * accMultiplier;
-        aCurrentSpeed = Mathf.Clamp(aCurrentSpeed, myMinSpeed, myMaxSpeed);
 
-        LookAtNextPoint(someCurrentPoints, aPointsIndex);
-        float currentMove = Time.deltaTime * aCurrentSpeed;
-        aSplineT += currentMove;
+        accMultiplier *= Time.deltaTime;
+        anUnmodifiedSpeed -= (myCurrentAngle - myFlatAngle) * accMultiplier;
+        anUnmodifiedSpeed = Mathf.Clamp(anUnmodifiedSpeed, myMinUnmodifiedSpeed, myMaxUnmodifiedSpeed);
+
+        aTotalSpeed = anUnmodifiedSpeed;
+
+        if (IndexWithinBoost(aPointsIndex, aBoostVector))
+        {
+            aTotalSpeed += myGroundBoostStrength;
+        }
+
+        if (aTrickBoost > 0)
+        {
+            float currentTrickBoost = aTrickBoost * myTrickBoostStrength;
+            if (currentTrickBoost > myTrickBoostMax)
+            {
+                currentTrickBoost = myTrickBoostMax;
+            }
+            aTotalSpeed += currentTrickBoost;
+            aTrickBoost -= Time.deltaTime;
+        }
+        else if (aTrickBoost < 0)
+        {
+            aTrickBoost = 0;
+        }
+        aSplineT += aTotalSpeed * Time.deltaTime;
 
         while (aSplineT >= 1f)
         {
+            if (aPointsIndex + 1 >= someCurrentPoints.Length)
+            {
+                return false;
+            }
+
             transform.position = someCurrentPoints[aPointsIndex + 1];
 
             aSplineT -= 1f;
             aPointsIndex++;
             if (aPointsIndex + 1 < someCurrentPoints.Length)
             {
-                if (!UpdateAngles(someCurrentPoints, aPointsIndex, aCurrentSpeed, aGravity))
+                if (!UpdateAngles(someCurrentPoints, aPointsIndex, aTotalSpeed, aGravity))
                 {
                     return false;
                 }
@@ -62,6 +87,8 @@ public class PlayerSpline : MonoBehaviour
                 return false;
             }
         }
+        
+        LookAtNextPoint(someCurrentPoints, aPointsIndex);
 
         if (myFirstCheck && (aPointsIndex + 1 < someCurrentPoints.Length))
         {
@@ -86,7 +113,7 @@ public class PlayerSpline : MonoBehaviour
         }
     }
 
-    private bool UpdateAngles(Vector2[] someCurrentPoints, int aPointsIndex, float aSpeed, float aGravity)
+    private bool UpdateAngles(Vector2[] someCurrentPoints, int aPointsIndex, float aTotalSpeed, float aGravity)
     {
         myOldAngle = myCurrentAngle;
         myCurrentAngle = GetAngle(someCurrentPoints[aPointsIndex], someCurrentPoints[aPointsIndex + 1]);
@@ -96,7 +123,7 @@ public class PlayerSpline : MonoBehaviour
             myFirstCheck = false;
         }
 
-        if (SplineTooSteep(someCurrentPoints, aPointsIndex, aSpeed, aGravity))
+        if (SplineTooSteep(someCurrentPoints, aPointsIndex, aTotalSpeed, aGravity))
         {
             return false;
         }
@@ -104,18 +131,18 @@ public class PlayerSpline : MonoBehaviour
         return true;
     }
 
-    private bool SplineTooSteep(Vector2[] someCurrentPoints, int aPointsIndex, float aSpeed, float aGravity)
+    private bool SplineTooSteep(Vector2[] someCurrentPoints, int aPointsIndex, float aTotalSpeed, float aGravity)
     {
         if (myOldAngle < myCurrentAngle)
         {
             return false;
         }
 
-        Vector2 splineMovement = (someCurrentPoints[aPointsIndex] - someCurrentPoints[aPointsIndex + 1]) * aSpeed;
+        Vector2 splineMovement = (someCurrentPoints[aPointsIndex] - someCurrentPoints[aPointsIndex + 1]) * aTotalSpeed;
         aGravity *= -1;
         float delta = splineMovement.y - aGravity;
 
-        if ((splineMovement.y < aGravity) && (delta < myBuffer))
+        if ((splineMovement.y < aGravity) && (delta < myAngleBuffer))
         {
             return true;
         }
@@ -131,7 +158,7 @@ public class PlayerSpline : MonoBehaviour
     }
 
     //Down=0, Right=90, Up=180, Left=270
-    private float GetAngle(Vector2 aPosition, Vector2 anotherPosition)
+    public float GetAngle(Vector2 aPosition, Vector2 anotherPosition)
     {
         Vector2 delta = anotherPosition - aPosition;
         float angleRadians = Mathf.Atan2(delta.y, delta.x);
@@ -150,10 +177,10 @@ public class PlayerSpline : MonoBehaviour
         return angleDegrees;
     }
 
-    public void ReleaseSpline(Vector2[] somePoints, float aSpeed, ref Vector2 aAirMovement, int aPointsIndex)
+    public void ReleaseSpline(Vector2[] somePoints, float aTotalSpeed, ref Vector2 aAirMovement, int aPointsIndex)
     {
         aAirMovement = somePoints[aPointsIndex] - somePoints[aPointsIndex - 1];
-        aAirMovement = aAirMovement.normalized * aSpeed / 10;
+        aAirMovement = aAirMovement.normalized * aTotalSpeed / 10;
     }
 
     private bool IsOldSpline(Vector2[] someOldPoints, Vector2[] someCurrentPoints)
@@ -175,11 +202,21 @@ public class PlayerSpline : MonoBehaviour
         return sameSpline;
     }
 
-    public bool AttemptToCatchSpline(SplineManager aSplineManager, float aReach, ref bool aTooCloseToOldSpline, ref int aPointsIndex, ref Vector2[] someCurrentPoints, ref Vector2[] someOldPoints, ref Vector2 aBoost)
+    float DistancePtLine(Vector2 aStartPos, Vector2 anEndPos, Vector2 aPoint)
+    {
+        Vector2 direction = anEndPos - aStartPos;
+        Vector2 pa = aStartPos - aPoint;
+        Vector2 c = direction * (Vector2.Dot(pa, direction) / Vector2.Dot(direction, direction));
+        Vector2 d = pa - c;
+        return Mathf.Sqrt(Vector2.Dot(d, d));
+    }
+
+    public bool AttemptToCatchSpline(SplineManager aSplineManager, float aReach, ref bool aTooCloseToOldSpline, ref int aPointsIndex, ref Vector2[] someCurrentPoints, ref Vector2[] someOldPoints, ref Vector2 aBoost, Vector3 anOldPos)
     {
         Vector2 closestPoint = aSplineManager.GetClosestPoint(transform.position, ref aPointsIndex, ref someCurrentPoints, ref aBoost);
+        float distanceToPoint = DistancePtLine(anOldPos, transform.position, closestPoint);
 
-        if (Vector2.Distance(transform.position, closestPoint) <= aReach)
+        if (distanceToPoint <= aReach)
         {
             if (aTooCloseToOldSpline && IsOldSpline(someOldPoints, someCurrentPoints))
             {
@@ -189,11 +226,11 @@ public class PlayerSpline : MonoBehaviour
             transform.position = closestPoint;
             return true;
         }
-
-        if (Vector2.Distance(transform.position, closestPoint) > aReach && IsOldSpline(someOldPoints, someCurrentPoints))
+        else if (IsOldSpline(someOldPoints, someCurrentPoints))
         {
             aTooCloseToOldSpline = false;
         }
+
         return false;
     }
 
@@ -210,5 +247,10 @@ public class PlayerSpline : MonoBehaviour
         }
 
         return false;
+    }
+
+    public Vector2 GetMinMaxSpeeds()
+    {
+        return new Vector2(myMinUnmodifiedSpeed, myTrickBoostMax + myMaxUnmodifiedSpeed);
     }
 }

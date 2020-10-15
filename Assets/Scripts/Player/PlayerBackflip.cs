@@ -1,11 +1,62 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerBackflip : MonoBehaviour
 {
-    public void Backflip(float aFlipRotationSpeed)
+    [SerializeField]
+    private float myFlipRotationSpeed = 130f;
+    [SerializeField]
+    private float myBackflipBoostTimeMultiplier = 0.5f;
+    [SerializeField]
+    private float myMaxTrickBoostTime = 10f;
+    [SerializeField]
+    private float myCrashAngleTolerance = 45f;
+
+    private float myBackflipScore = 0f;
+
+    public void Backflip()
     {
-        transform.Rotate(Vector3.left, aFlipRotationSpeed * Time.deltaTime);
+        float rotation = myFlipRotationSpeed * Time.deltaTime;
+        transform.Rotate(Vector3.left, rotation);
+        myBackflipScore += rotation;
+    }
+
+    public float GetBackflipScore()
+    {
+        float returnValue = 0f;
+
+        while (myBackflipScore > 180)
+        {
+            returnValue += 360;
+            myBackflipScore -= 360;
+        }
+        
+        myBackflipScore = 0;
+        returnValue *= myBackflipBoostTimeMultiplier;
+
+        if (returnValue > myMaxTrickBoostTime)
+        {
+            returnValue = myMaxTrickBoostTime;
+        }
+
+        return returnValue;
+    }
+
+    public void ResetScore()
+    {
+        myBackflipScore = 0f;
+    }
+
+    public bool WillCrash(Vector2 aGroundVector)
+    {
+        Vector3 playerVector = transform.rotation * -transform.right;
+        Vector3 groundvector3 = new Vector3(aGroundVector.x, aGroundVector.y, 0);
+        float angle = Vector3.Angle(playerVector, groundvector3);
+
+        if (angle > myCrashAngleTolerance)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

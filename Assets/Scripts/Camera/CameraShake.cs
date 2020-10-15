@@ -8,13 +8,16 @@ public class CameraShake : MonoBehaviour
     private float myMultiplier = 0.01f;
     private Vector3 myOriginalPosition;
 
+
     private void OnEnable()
     {
         myOriginalPosition = transform.localPosition;
     }
 
-    void Update()
+    void LateUpdate()
     {
+        Vector3 targetPos;
+
         if (myShakeDuration > 0)
         {
             transform.localPosition = myOriginalPosition + Random.insideUnitSphere * myShakeMagnitude;
@@ -23,7 +26,9 @@ public class CameraShake : MonoBehaviour
         else
         {
             myShakeDuration = 0f;
-            transform.localPosition = myOriginalPosition;
+            targetPos = myOriginalPosition;
+            targetPos.z = transform.localPosition.z;
+            transform.localPosition = targetPos;
         }
     }
 
@@ -31,5 +36,5 @@ public class CameraShake : MonoBehaviour
     {
         myShakeDuration = (aShakeDuration * myMultiplier);
         myShakeMagnitude = (aShakeMagnitude * myMultiplier);
-    }
+    }    
 }
