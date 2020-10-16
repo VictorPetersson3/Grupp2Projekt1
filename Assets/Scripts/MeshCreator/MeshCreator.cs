@@ -9,22 +9,26 @@
 public class MeshCreator : MonoBehaviour
 {
     [Range(0.05f, 1.5f)]
-    public float mySpacing = 1;
-    public float myMeshHeigth = 1;
-    public float myMeshWidth = 1f;
+    private float mySpacing = 1;
+    public float myMeshHeigth = 0.1f;
+    public float myMeshWidth = 0.1f;
     public bool myPreviewGeneratedMesh;
     public float myUvTiling = 1;
     public Material myMaterial;
     Mesh myPreviewMesh;
-
+    private int myBoostStart = 0;
+    private int myBoostEnd = 0;
+    
     public void UpdateMesh()
     {
         Paths path = GetComponent<PathCreator>().path;
         Vector2[] points = path.CalculateEvenlySpacedPoints(mySpacing);
         myPreviewMesh = CreateMesh(points, path.IsClosed);
+
         GetComponent<MeshFilter>().mesh = myPreviewMesh; 
         GetComponent<MeshRenderer>().material = myMaterial;
         int textureRepeat = Mathf.RoundToInt(myUvTiling * points.Length * mySpacing * 0.5f);
+       
     }
     public void CreateMesh()
     {
@@ -94,11 +98,79 @@ public class MeshCreator : MonoBehaviour
 
         return mesh;
     }
-
-    private GameObject CreateGameObject(string aName)
+    Mesh CreateSpeedMesh(Vector2[] somePoints, bool aClosed)
     {
+
+        myBoostStart = GetComponent<PathCreator>().GetBoostStart();
+        myBoostEnd = GetComponent<PathCreator>().GetBoostEnd();
+        Vector3[] vertices = new Vector3[somePoints.Length * 2];
+        Vector3[] reCastVertices = new Vector3[somePoints.Length * 2];
+        Vector2[] uvs = new Vector2[vertices.Length];
+        int numbTriangles = 2 * (somePoints.Length - 1) + ((aClosed) ? 2 : 0);
+        int[] triangles = new int[numbTriangles * 3];
+        int vertexIndex = 0;
+        int triangleIndex = 0;
+
+        for (int i = myBoostStart; i < myBoostEnd; i +=5)
+        {
+            Vector2 forward = Vector2.zero;
+            if (i < somePoints.Length - 1 || aClosed)
+            {
+                forward += somePoints[(i + 1) % somePoints.Length] - somePoints[i];
+            }
+            if (i > 0 || aClosed)
+            {
+                forward += somePoints[i] - somePoints[(i - 1 + somePoints.Length) % somePoints.Length];
+            }
+            forward.Normalize();
+            Vector2 left = new Vector2(-forward.y, forward.x);
+
+            //Create Vertices
+            vertices[vertexIndex] = somePoints[i] + left * myMeshHeigth * 0.5f;
+            vertices[vertexIndex + 1] = somePoints[i] - left * myMeshHeigth * .5f;
+
+            //Adding Z as a changeable variable
+            vertices[vertexIndex].z = myMeshWidth;
+            vertices[vertexIndex + 1].z = -myMeshWidth;
+
+            float pathCompletionPercent = i / (float)(somePoints.Length - 1);
+            float v = 1 - Mathf.Abs(2 * pathCompletionPercent - 1);
+            uvs[vertexIndex] = new Vector2(0, v);
+            uvs[vertexIndex + 1] = new Vector2(1, v);
+            //Updating V to be scaled based on lenght of spline
+            uvs[vertexIndex].y *= myUvTiling * somePoints.Length * mySpacing * 0.5f;
+            uvs[vertexIndex + 1].y *= myUvTiling * somePoints.Length * mySpacing * 0.5f;
+
+            //Create triangles
+            if (i < somePoints.Length - 1 || aClosed)
+            {
+                triangles[triangleIndex] = vertexIndex;
+                triangles[triangleIndex + 1] = (vertexIndex + 2) % vertices.Length;
+                triangles[triangleIndex + 2] = vertexIndex + 1;
+
+                triangles[triangleIndex + 3] = vertexIndex + 1;
+                triangles[triangleIndex + 4] = (vertexIndex + 2) % vertices.Length;
+                triangles[triangleIndex + 5] = (vertexIndex + 3) % vertices.Length;
+            }
+            vertexIndex += 2;
+            triangleIndex += 6;
+        }
+        //write vectors to a new mesh
+        Mesh mesh = new Mesh();
+        mesh.vertices = vertices;
+        mesh.triangles = triangles;
+        mesh.uv = uvs;
+        mesh.RecalculateNormals();
+        mesh.RecalculateTangents();
+
+        return mesh;
+
+    }
+    public GameObject CreateGameObject(string aName)
+    {
+        Debug.Log(" Start: " + myBoostStart + " End: " + myBoostEnd);
         Paths path = GetComponent<PathCreator>().path;
-        Vector2[] points = path.CalculateEvenlySpacedPoints(mySpacing);
+        Vector2[] points = path.CalculateEvenlySpacedPoints();
         GameObject newGameObject;
         
         newGameObject = MeshUtility.Create(aName,
@@ -109,7 +181,7 @@ public class MeshCreator : MonoBehaviour
         newGameObject.isStatic = true;
        
         newGameObject.transform.SetParent(transform);
-        Mesh newMesh = CreateMesh(points, path.IsClosed);
+        Mesh newMesh = CreateSpeedMesh(points, path.IsClosed);
         newGameObject.GetComponent<MeshRenderer>().material = myMaterial;
         newGameObject.GetComponent<MeshFilter>().mesh = newMesh;
 

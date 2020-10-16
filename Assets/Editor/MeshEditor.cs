@@ -27,10 +27,10 @@ public class MeshEditor : Editor
         GUILayout.Label(" ");
         GUILayout.Label("Options to manipulate the mesh on the spline.");
         GUILayout.Label(" ");
-        if (GUILayout.Button("Generate 3D Mesh"))
+        if (GUILayout.Button("Generate 3D SpeedMesh Mesh"))
         {
-            Undo.RecordObject(myCreator, "Generate 3D Mesh");
-            myCreator.CreateMesh();
+            myCreator.CreateGameObject("SpeedBoost");
+            Undo.RecordObject(myCreator, "Generate 3D SpeedMesh Mesh");
         }
     }
 
