@@ -60,13 +60,13 @@ MonoBehaviour:
     type: 3}
   myHasBoost: 0
   myBoostSpheres: []
-  anchorCol: {r: 1, g: 0, b: 0, a: 1}
-  controlCol: {r: 1, g: 1, b: 1, a: 1}
-  segmentCol: {r: 0, g: 1, b: 0, a: 1}
-  selectedSegmentCol: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  anchorDiameter: 0.1
-  controlDiameter: 0.075
-  displayControlPoints: 1
+  myAnchorCol: {r: 1, g: 0, b: 0, a: 1}
+  myControlCol: {r: 1, g: 1, b: 1, a: 1}
+  mySegmentCol: {r: 0, g: 1, b: 0, a: 1}
+  mySelectedSegmentCol: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  myAnchorDiameter: 0.1
+  myControlDiameter: 0.075
+  myDisplayControlPoints: 1
 --- !u!33 &7689339231236597500
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -93,7 +93,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0a059ceacbcd1d342b6c7dfe23401f53, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -126,9 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21f91de7a78c0fd40be0c992203d7daf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spacing: 1
-  meshHeigth: 0.1
-  meshWidth: 1
-  previewGeneratedMesh: 1
-  uvTiling: 3
-  material: {fileID: 2100000, guid: 0a059ceacbcd1d342b6c7dfe23401f53, type: 2}
+  mySpacing: 1
+  myMeshHeigth: 1
+  myMeshWidth: 1
+  myPreviewGeneratedMesh: 0
+  myUvTiling: 1
+  myMaterial: {fileID: 2100000, guid: e0be3308e640b114c8a25f553dfa01b7, type: 2}

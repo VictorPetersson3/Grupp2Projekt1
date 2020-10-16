@@ -55,7 +55,6 @@ MonoBehaviour:
   myGameManager: {fileID: 5080542214962648757, guid: 00f06ab9a0bca8c42afd674d578bc2ae,
     type: 3}
   mySplineManager: {fileID: 0}
-  myCameraShake: {fileID: 0}
   myCameraFollow: {fileID: 0}
   myReach: 0.15
   myGravity: 11
@@ -79,12 +78,12 @@ MonoBehaviour:
   myGroundedRotationSpeed: 10
   myAngleBuffer: -0.1
   myGroundBoostStrength: 50
-  mySlopeAcceleration: 0.5
-  mySlopeDeceleration: 2
+  mySlopeAcceleration: 0.45
+  mySlopeDeceleration: 4
   myMaxUnmodifiedSpeed: 150
   myMinUnmodifiedSpeed: 80
-  myTrickBoostStrength: 100
-  myTrickBoostMax: 100
+  myTrickBoostStrength: 15
+  myTrickBoostMax: 20
 --- !u!114 &1607898314831972099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,7 +294,7 @@ MonoBehaviour:
   myFlipRotationSpeed: 130
   myBackflipBoostTimeMultiplier: 0.5
   myMaxTrickBoostTime: 10
-  myCrashAngleTolerance: 45
+  myCrashAngleTolerance: 90
 --- !u!1001 &7362549884136126308
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -362,7 +361,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: be17ceb0f225c4a498e1eb7e805c5f48, type: 2}
+      objectReference: {fileID: 2100000, guid: be4492300d5048747ac1cfaedb93b03a, type: 2}
     - target: {fileID: 919132149155446097, guid: 390ecc535d9c91744966e27a2cac078c,
         type: 3}
       propertyPath: m_Name
