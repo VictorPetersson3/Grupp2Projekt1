@@ -202,22 +202,22 @@ public class PlayerSpline : MonoBehaviour
         return sameSpline;
     }
 
-    float DistanceLineSegmentPoint(Vector3 aStartPos, Vector3 anEndPos, Vector3 aPoint)
+    public static Vector3 NearestPointOnFiniteLine(Vector3 aStart, Vector3 anEnd, Vector3 aPoint)
     {
-        //Debug stuff that Leo wants to save for future fixes please don't remove just yet D:
-        //Debug.DrawLine(aStartPos, anEndPos);
-        //Debug.DrawLine(aPoint + Vector3.up, aPoint + Vector3.down);
-        //Debug.DrawLine(aPoint + Vector3.left, aPoint + Vector3.right);
-
-        Vector3 ba = anEndPos - aStartPos;
-        Vector3 pa = aStartPos - aPoint;
-        return (pa - ba * (Vector3.Dot(pa, ba) / Vector3.Dot(ba, ba))).magnitude;
+        Vector3 line = (anEnd - aStart);
+        float len = line.magnitude;
+        line.Normalize();
+        Vector3 v = aPoint - aStart;
+        float d = Vector3.Dot(v, line);
+        d = Mathf.Clamp(d, 0f, len);
+        return aStart + line * d;
     }
 
     public bool AttemptToCatchSpline(SplineManager aSplineManager, float aReach, ref bool aTooCloseToOldSpline, ref int aPointsIndex, ref Vector2[] someCurrentPoints, ref Vector2[] someOldPoints, ref Vector2 aBoost, Vector3 anOldPos)
     {
         Vector2 closestPoint = aSplineManager.GetClosestPoint(transform.position, ref aPointsIndex, ref someCurrentPoints, ref aBoost);
-        float distanceToPoint = DistanceLineSegmentPoint(anOldPos, transform.position, closestPoint);
+        Vector3 closestPos = NearestPointOnFiniteLine(anOldPos, transform.position, closestPoint);
+        float distanceToPoint = Vector3.Distance(closestPos, closestPoint);
 
         if (distanceToPoint <= aReach)
         {
