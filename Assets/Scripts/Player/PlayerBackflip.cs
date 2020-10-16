@@ -13,6 +13,11 @@ public class PlayerBackflip : MonoBehaviour
 
     private float myBackflipScore = 0f;
 
+    public float GetMaxTrickBoostTime()
+    {
+        return myMaxTrickBoostTime;
+    }
+
     public void Backflip()
     {
         float rotation = myFlipRotationSpeed * Time.deltaTime;
@@ -32,11 +37,6 @@ public class PlayerBackflip : MonoBehaviour
         
         myBackflipScore = 0;
         returnValue *= myBackflipBoostTimeMultiplier;
-
-        if (returnValue > myMaxTrickBoostTime)
-        {
-            returnValue = myMaxTrickBoostTime;
-        }
 
         return returnValue;
     }
