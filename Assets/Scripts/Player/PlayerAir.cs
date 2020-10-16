@@ -14,12 +14,10 @@ public class PlayerAir : MonoBehaviour
         return oldPosition;
     }
 
-    public void AirRotation(Vector2 aGround)
+    public void AirRotation(Vector2 aDirection)
     {
-        float newRotX = aGround.x;
-        float newRotY = aGround.y;
-        //float newRotX = 0f;
-        //float newRotY = 90f;
+        float newRotX = (Mathf.Atan2(aDirection.x, aDirection.y) * Mathf.Rad2Deg) - 90f; 
+        float newRotY = 90f;
         Quaternion newRot = Quaternion.Euler(newRotX, newRotY, 0);
 
         transform.rotation = Quaternion.Slerp(transform.rotation, newRot, Time.deltaTime * myRotationResetSpeed);

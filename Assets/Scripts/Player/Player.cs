@@ -206,7 +206,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            myPlayerAir.AirRotation(mySplineManager.GetClosestGround(transform.position));
+            myPlayerAir.AirRotation(mySplineManager.GetGroundDirection(transform.position));
         }
 
         if (myAirMovement.y > 0)

@@ -75,6 +75,45 @@ public class SplineManager : MonoBehaviour
         return closestPoint;
     }
 
+    public Vector2 GetGroundDirection(Vector2 aPlayerPosition)
+    {
+        int closestIndex = 0;
+        Vector2 closestPoint = Vector2.negativeInfinity;
+        Vector2[] closestPoints = null;
+
+        for (int i = 0; i < pathCreators.Length; i++)
+        {
+            if (pathCreators[i].isActiveAndEnabled)
+            {
+                int anIndex = 0;
+                Vector2[] iteratedSplinesPoints = pathCreators[i].path.GetMyEvenlySpacedPoints();
+                Vector2 closestPointInIteratedSpline = GetClosestPointInSpline(aPlayerPosition, iteratedSplinesPoints, ref anIndex);
+
+                if (Vector2.Distance(aPlayerPosition, closestPointInIteratedSpline) < Vector2.Distance(aPlayerPosition, closestPoint))
+                {
+                    closestPoint = closestPointInIteratedSpline;
+                    closestPoints = iteratedSplinesPoints;
+                    closestIndex = anIndex;
+                }
+            }
+        }
+
+        Vector2[] groundPoints = new Vector2[2];
+
+        if (closestIndex >= closestPoints.Length - 1)
+        {
+            groundPoints[0] = closestPoints[closestIndex - 1];
+            groundPoints[1] = closestPoints[closestIndex];
+        }
+        else
+        {
+            groundPoints[0] = closestPoints[closestIndex];
+            groundPoints[1] = closestPoints[closestIndex + 1];
+        }
+
+        return groundPoints[1] - groundPoints[0];
+    }
+
     private void SetSplineActivate()
     {
         for (int i = 0; i < pathCreators.Length; i++)
