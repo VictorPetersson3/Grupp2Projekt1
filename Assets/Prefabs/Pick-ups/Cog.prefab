@@ -56,7 +56,6 @@ GameObject:
   - component: {fileID: 6698526898103931628}
   - component: {fileID: 8457263088633766632}
   - component: {fileID: 8594274612051973328}
-  - component: {fileID: 7949656637624578085}
   - component: {fileID: 6089146099059851573}
   m_Layer: 0
   m_Name: Cog
@@ -118,20 +117,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCogSound: {fileID: 5732622563005866235, guid: 29335fbb29202ee4285d6bf755edae9e,
     type: 3}
---- !u!114 &7949656637624578085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7370327526423406476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 608c39b04e07276498a6a5ee89b20d92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myBobStrength: 0.25
-  myBobSpeed: 2
 --- !u!114 &6089146099059851573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,7 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myAttractReach: 3
-  myAttractSpeed: 15
+  myAttractSpeed: 20
 --- !u!1001 &2124102610002410769
 PrefabInstance:
   m_ObjectHideFlags: 0

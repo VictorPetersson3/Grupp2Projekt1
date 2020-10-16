@@ -14,8 +14,8 @@ public class MagnetBobbing : MonoBehaviour
 
     private void Bob()
     {
-        Vector3 newPos = transform.position;
-        newPos.y = transform.position.y + (Mathf.Sin(Time.time * myBobSpeed) * Time.timeScale * myBobStrength / 10f);
-        transform.position = newPos;
+        //Vector3 newPos = transform.position;
+        transform.position = new Vector3(transform.position.x, transform.position.y + (Mathf.Sin(Time.deltaTime * myBobSpeed) * Time.timeScale * myBobStrength), transform.position.z);
+        //transform.position = newPos;
     }
 }
