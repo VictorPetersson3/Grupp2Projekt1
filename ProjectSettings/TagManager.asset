@@ -12,6 +12,8 @@ TagManager:
   - SandParticles
   - Magnet
   - SoundContainer
+  - Top
+  - Left
   layers:
   - Default
   - TransparentFX

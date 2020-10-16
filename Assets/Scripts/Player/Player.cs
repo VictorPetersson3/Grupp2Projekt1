@@ -161,20 +161,16 @@ public class Player : MonoBehaviour
         if (myCollisionData.GetHasCollided())
         {
             myCollisionData.SetHasCollided(false);
-
-            if (myCollisionData.GetTag() == "Rock")
+            if (myCollisionData.GetTag() == "Top")
             {
-                if (!Bounce())
-                {
-                    myCameraShake.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
-                    Crash();
-                    return;
-                }
+                Bounce();
+                return;
             }
-
-            if (myCollisionData.GetTag() == "Magnet")
+            if (myCollisionData.GetTag() == "Left")
             {
-
+                myCameraShake.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
+                Crash();
+                return;
             }
         }
     }
