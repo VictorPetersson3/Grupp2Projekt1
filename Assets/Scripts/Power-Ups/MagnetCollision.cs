@@ -5,7 +5,7 @@ public class MagnetCollision : MonoBehaviour
     private Player myPlayer = null;
     private GameObject mySoundContainer;
     [SerializeField]
-    private GameObject myMagnetSound;
+    private GameObject myMagnetSound = null;
 
     private void Start()
     {
@@ -13,7 +13,11 @@ public class MagnetCollision : MonoBehaviour
         mySoundContainer = GameObject.FindGameObjectWithTag("SoundContainer");
         if (myPlayer == null)
         {
-            Debug.LogError("Error: myPlayer " + myPlayer);
+            Debug.LogError("myPlayer: " + myPlayer);
+        }
+        if (myMagnetSound == null)
+        {
+            Debug.LogError("myMagnetSound: " + myMagnetSound);
         }
     }
 

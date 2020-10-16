@@ -5,7 +5,7 @@ public class CogsCollision : MonoBehaviour
     private Player myPlayer = null;
     private GameObject mySoundContainer;
     [SerializeField]
-    private GameObject myCogSound;
+    private GameObject myCogSound = null;
 
     private void Start()
     {
@@ -13,7 +13,11 @@ public class CogsCollision : MonoBehaviour
         mySoundContainer = GameObject.FindGameObjectWithTag("SoundContainer");
         if (myPlayer == null)
         {
-            Debug.LogError("Error: myPlayer " + myPlayer);
+            Debug.LogError("myPlayer: " + myPlayer);
+        }
+        if (myCogSound == null)
+        {
+            Debug.LogError("myCogSound: " + myCogSound);
         }
     }
     private void OnCollisionEnter(Collision aCollision)
