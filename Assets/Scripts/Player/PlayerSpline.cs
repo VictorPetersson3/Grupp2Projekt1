@@ -7,8 +7,6 @@ public class PlayerSpline : MonoBehaviour
     [SerializeField]
     private float myAngleBuffer = -0.1f;
     [SerializeField]
-    private float myGroundBoostStrength = 50f;
-    [SerializeField]
     private float mySlopeAcceleration = 1f;
     [SerializeField]
     private float mySlopeDeceleration = 1f;
@@ -21,12 +19,25 @@ public class PlayerSpline : MonoBehaviour
     private float myTrickBoostStrength = 100f;
     [SerializeField]
     private float myTrickBoostMax = 100f;
+    [Header("Ground Boost")]
+    [SerializeField]
+    private float myGroundBoostStrength = 50f;
+    [SerializeField]
+    private float myGroundBoostMaxTime = 5f;
 
     private float myOldAngle = 90;
     private float myCurrentAngle = 90;
+    private float myCurrentGroundBoost = 0;
     private bool myFirstCheck = true;
 
     const int myFlatAngle = 90;
+
+#if UNITY_EDITOR
+    private void OnGUI()
+    {
+        GUI.Label(new Rect(0, 180, 250, 20), "Ground Boost: " + myCurrentGroundBoost);
+    }
+#endif
 
     public bool SplineMovement(Vector2[] someCurrentPoints, ref float anUnmodifiedSpeed, ref int aPointsIndex, ref float aSplineT, float aGravity, Vector2 aBoostVector, ref float aTrickBoost, ref float aTotalSpeed)
     {
@@ -45,7 +56,23 @@ public class PlayerSpline : MonoBehaviour
 
         if (IndexWithinBoost(aPointsIndex, aBoostVector))
         {
-            aTotalSpeed += myGroundBoostStrength;
+            myCurrentGroundBoost += Time.deltaTime * 10;
+            if (myCurrentGroundBoost > myGroundBoostMaxTime)
+            {
+                myCurrentGroundBoost = myGroundBoostMaxTime;
+            }
+            aTotalSpeed += myGroundBoostStrength * myCurrentGroundBoost / myGroundBoostMaxTime;
+        }
+
+        else if (myCurrentGroundBoost > 0)
+        {
+            myCurrentGroundBoost -= Time.deltaTime;
+            aTotalSpeed += myGroundBoostStrength * myCurrentGroundBoost / myGroundBoostMaxTime;
+
+            if (myCurrentGroundBoost < 0)
+            {
+                myCurrentGroundBoost = 0;
+            }
         }
 
         if (aTrickBoost > 0)

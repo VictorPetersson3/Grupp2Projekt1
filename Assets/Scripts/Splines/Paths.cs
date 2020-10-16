@@ -13,16 +13,17 @@ public class Paths
     
     private int myBoostStart = 0;
     private int myBoostEnd = 0;
+    private Vector2[] myEvenlySpacedPoints;
+
+    public Vector2[] GetMyEvenlySpacedPoints()
+    {
+        return myEvenlySpacedPoints;
+    }
 
     public void UpdateBoost(int aBoostStart, int aBoostEnd)
     {
         myBoostStart = aBoostStart;
         myBoostEnd = aBoostEnd;
-    }
-
-    public Vector2 GetBoost()
-    {
-        return new Vector2(myBoostStart, myBoostEnd);
     }
 
     public Paths(Vector2 centre)
@@ -242,6 +243,7 @@ public class Paths
             }
         }
 
+        myEvenlySpacedPoints = evenlySpacedPoints.ToArray();
         return evenlySpacedPoints.ToArray();
     }
 

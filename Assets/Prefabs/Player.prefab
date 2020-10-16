@@ -77,13 +77,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myGroundedRotationSpeed: 10
   myAngleBuffer: -0.1
-  myGroundBoostStrength: 50
   mySlopeAcceleration: 0.45
   mySlopeDeceleration: 4
   myMaxUnmodifiedSpeed: 150
   myMinUnmodifiedSpeed: 80
-  myTrickBoostStrength: 15
-  myTrickBoostMax: 20
+  myTrickBoostStrength: 20
+  myTrickBoostMax: 25
+  myGroundBoostStrength: 30
+  myGroundBoostMaxTime: 2.5
 --- !u!114 &1607898314831972099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,7 +294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myFlipRotationSpeed: 130
   myBackflipBoostTimeMultiplier: 0.5
-  myMaxTrickBoostTime: 10
+  myMaxTrickBoostTime: 5
   myCrashAngleTolerance: 90
 --- !u!1001 &7362549884136126308
 PrefabInstance:

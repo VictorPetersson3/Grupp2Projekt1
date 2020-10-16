@@ -18,6 +18,11 @@ public class SplineManager : MonoBehaviour
         {
             mySplines = GameObject.FindGameObjectsWithTag("Spline");
         }
+
+        for (int i = 0; i < pathCreators.Length; i++)
+        {
+            pathCreators[i].path.CalculateEvenlySpacedPoints();
+        }
     }
 
     private void Update()
@@ -34,7 +39,7 @@ public class SplineManager : MonoBehaviour
         {
             if (pathCreators[i].isActiveAndEnabled)
             {
-                Vector2[] iteratedSplinesPoints = pathCreators[i].path.CalculateEvenlySpacedPoints();
+                Vector2[] iteratedSplinesPoints = pathCreators[i].path.GetMyEvenlySpacedPoints();
                 Vector2 closestPointInIteratedSpline = GetClosestPointInSpline(aPlayerPosition, iteratedSplinesPoints, ref aPointsIndex);
 
                 if (Vector2.Distance(aPlayerPosition, closestPointInIteratedSpline) < Vector2.Distance(aPlayerPosition, closestPoint))
