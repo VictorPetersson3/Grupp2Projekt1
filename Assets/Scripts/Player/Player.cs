@@ -89,7 +89,8 @@ public class Player : MonoBehaviour
     {
         if (myPlayerInput.IsQuitting())
         {
-            Application.Quit();
+            //Application.Quit();
+            Debug.Log("Löste problemet yo");
         }
 
         if (myPlayerInput.IsResetting())
