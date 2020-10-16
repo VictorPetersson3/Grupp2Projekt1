@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6223924334490419393}
   - component: {fileID: 8195185166539748363}
   m_Layer: 0
-  m_Name: sign
+  m_Name: signRadiationHazard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,8 +58,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a241d1f9037092145862c12e245a515e, type: 2}
-  - {fileID: 2100000, guid: 5cbf1d8b53472d64eb25931a4da2bd8b, type: 2}
+  - {fileID: 2100000, guid: d1131467e2db8af4a9d28a387a029598, type: 2}
+  - {fileID: 2100000, guid: 11bf9fe3f3381374aa1caa9c6942504a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
