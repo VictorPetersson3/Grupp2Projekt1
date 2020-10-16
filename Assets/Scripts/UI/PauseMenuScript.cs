@@ -74,7 +74,7 @@ public class PauseMenuScript : MonoBehaviour
 
     public void BackToMenu()
     {
-        Debug.Log("Laddar huvudmenyn");
+        //Debug.Log("Laddar huvudmenyn");
         Time.timeScale = 1;
         SceneManager.LoadScene(0);
 
@@ -82,7 +82,7 @@ public class PauseMenuScript : MonoBehaviour
 
     public void ReplayLevel()
     {
-        Debug.Log("Spelar om banan");
+        //Debug.Log("Spelar om banan");
         //myPauseMenu.SetActive(false);
         Time.timeScale = 1;
     }
