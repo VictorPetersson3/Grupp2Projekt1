@@ -126,6 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 742abf16cb675a34996a6770003b0e46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myMagnetSound: {fileID: 8321754964448398860, guid: db1a24982eda5e3469db51892731ccad,
+    type: 3}
 --- !u!114 &7542368097851981287
 MonoBehaviour:
   m_ObjectHideFlags: 0

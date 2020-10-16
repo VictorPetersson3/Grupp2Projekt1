@@ -41,11 +41,6 @@ public class PlayerBackflip : MonoBehaviour
         return returnValue;
     }
 
-    public void ResetScore()
-    {
-        myBackflipScore = 0f;
-    }
-
     public bool WillCrash(Vector2 aGroundVector)
     {
         Vector3 playerVector = transform.rotation * -transform.right;

@@ -58,7 +58,6 @@ GameObject:
   - component: {fileID: 8594274612051973328}
   - component: {fileID: 7949656637624578085}
   - component: {fileID: 6089146099059851573}
-  - component: {fileID: 6543806900145093620}
   m_Layer: 0
   m_Name: Cog
   m_TagString: Coin
@@ -117,6 +116,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fbf794d78be8214fb5fc6b45f9aefbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myCogSound: {fileID: 5732622563005866235, guid: 29335fbb29202ee4285d6bf755edae9e,
+    type: 3}
 --- !u!114 &7949656637624578085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,22 +144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d7fbd9e915322e4897024d01043c098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myAttractReach: 5
-  myAttractSpeed: 8
---- !u!114 &6543806900145093620
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7370327526423406476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d7fbd9e915322e4897024d01043c098, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myAttractReach: 6
-  myAttractSpeed: 2
+  myAttractReach: 3
+  myAttractSpeed: 15
 --- !u!1001 &2124102610002410769
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Graphics/Menu & UI/Menu/2020_10_15.meta
 guid: 3ffda54173f81da49bb95d5ba7e1a791
+=======
+guid: 4ca4c76919aec8f4ca4199416b0d3085
+>>>>>>> feature-Sound:Assets/Prefabs/Sound-Objects.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

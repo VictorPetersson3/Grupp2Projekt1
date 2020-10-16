@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
     private bool myIsJumping;
     private int myScore = 0;
     private CollisionData myCollisionData;
+    private Vector3 myOldPosition;
     private Vector2[] myCurrentPoints;
     private Vector2[] myOldPoints;
     private Vector2 myAirMovement = Vector2.right;
@@ -69,6 +70,7 @@ public class Player : MonoBehaviour
         myCameraShake = myCameraFollow.gameObject.GetComponentInChildren<CameraShake>();
 
         myUnmodifiedSpeed = myStartSpeed;
+        myOldPosition = transform.position;
 
         if (mySplineManager == null)
         {
@@ -184,7 +186,7 @@ public class Player : MonoBehaviour
 
     private void Air()
     {
-        myPlayerAir.AirMovement(myGravity, ref myAirMovement);
+        myOldPosition = myPlayerAir.AirMovement(myGravity, ref myAirMovement);
         myCameraFollow.UpdateYOffset(myAirMovement.y);
 
         if (myIsJumping)
@@ -201,7 +203,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if (!myPlayerSpline.AttemptToCatchSpline(mySplineManager, myReach, ref myTooCloseToOldSpline, ref myPointsIndex, ref myCurrentPoints, ref myOldPoints, ref myBoostVector))
+        if (!myPlayerSpline.AttemptToCatchSpline(mySplineManager, myReach, ref myTooCloseToOldSpline, ref myPointsIndex, ref myCurrentPoints, ref myOldPoints, ref myBoostVector, myOldPosition))
         {
             return;
         }
@@ -214,7 +216,6 @@ public class Player : MonoBehaviour
                 return;
             }
         }
-
         else if (myPlayerBackflip.WillCrash(myCurrentPoints[myPointsIndex + 1] - myCurrentPoints[myPointsIndex]))
         {
             Crash();

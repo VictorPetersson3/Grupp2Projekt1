@@ -32,17 +32,20 @@ public class SplineManager : MonoBehaviour
 
         for (int i = 0; i < pathCreators.Length; i++)
         {
-            Vector2[] iteratedSplinesPoints = pathCreators[i].path.CalculateEvenlySpacedPoints();
-            Vector2 closestPointInIteratedSpline = GetClosestPointInSpline(aPlayerPosition, iteratedSplinesPoints, ref aPointsIndex);
-
-            if (Vector2.Distance(aPlayerPosition, closestPointInIteratedSpline) < Vector2.Distance(aPlayerPosition, closestPoint))
+            if (pathCreators[i].isActiveAndEnabled)
             {
-                closestPoint = closestPointInIteratedSpline;
-                aPoints = iteratedSplinesPoints;
-                closestIndex = aPointsIndex;
-                if (pathCreators[i].HasBoost())
+                Vector2[] iteratedSplinesPoints = pathCreators[i].path.CalculateEvenlySpacedPoints();
+                Vector2 closestPointInIteratedSpline = GetClosestPointInSpline(aPlayerPosition, iteratedSplinesPoints, ref aPointsIndex);
+
+                if (Vector2.Distance(aPlayerPosition, closestPointInIteratedSpline) < Vector2.Distance(aPlayerPosition, closestPoint))
                 {
-                    aBoost = pathCreators[i].GetBoost();
+                    closestPoint = closestPointInIteratedSpline;
+                    aPoints = iteratedSplinesPoints;
+                    closestIndex = aPointsIndex;
+                    if (pathCreators[i].HasBoost())
+                    {
+                        aBoost = pathCreators[i].GetBoost();
+                    }
                 }
             }
         }
@@ -97,14 +100,6 @@ public class SplineManager : MonoBehaviour
                     mySplines[i].SetActive(true);
                 }
             }
-        }
-    }
-
-    public void ResetAllSplines()
-    {
-        for (int i = 0; i < mySplines.Length; i++)
-        {
-            mySplines[i].SetActive(true);
         }
     }
 }
