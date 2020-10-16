@@ -10,8 +10,8 @@ public class MeshCreator : MonoBehaviour
 {
     [Range(0.05f, 1.5f)]
     private float mySpacing = 1;
-    private float myMeshHeigth = 1;
-    private float myMeshWidth = 1f;
+    public float myMeshHeigth = 0.1f;
+    public float myMeshWidth = 0.1f;
     public bool myPreviewGeneratedMesh;
     public float myUvTiling = 1;
     public Material myMaterial;
