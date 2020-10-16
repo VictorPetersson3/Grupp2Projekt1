@@ -23,13 +23,7 @@ public class MeshCreator : MonoBehaviour
     {
         Paths path = GetComponent<PathCreator>().path;
         Vector2[] points = path.CalculateEvenlySpacedPoints(mySpacing);
-        //myPreviewMesh = CreateMesh(points, path.IsClosed);
-
-        Paths paths = GetComponent<PathCreator>().path;
-        Vector2[] pointsies = paths.CalculateEvenlySpacedPoints();
-        myPreviewMesh = CreateSpeedMesh(pointsies, paths.IsClosed);
-
-
+        myPreviewMesh = CreateMesh(points, path.IsClosed);
 
         GetComponent<MeshFilter>().mesh = myPreviewMesh; 
         GetComponent<MeshRenderer>().material = myMaterial;
