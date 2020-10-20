@@ -5,13 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuScript : MonoBehaviour
 {
-    [SerializeField] private GameObject myLevelSelect;
-    [SerializeField] private GameObject myCreditsScreen;
-    [SerializeField] private GameObject myMainMenuObjects;
+    [SerializeField] private GameObject myLevelSelect = null;
+    [SerializeField] private GameObject myCreditsScreen = null;
+    [SerializeField] private GameObject myMainMenuObjects = null;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (myLevelSelect==null)
+        {
+            Debug.LogError("myLevelSelect is fuckywucky");
+        }
+        if (myCreditsScreen == null)
+        {
+            Debug.LogError("myCreditsScreen is fuckywucky");
+        }
+        if (myMainMenuObjects == null)
+        {
+            Debug.LogError("myMainMenuObjects is fuckywucky");
+        }
+
         myCreditsScreen.SetActive(false);
         myLevelSelect.SetActive(false);
     }
