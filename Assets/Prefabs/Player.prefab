@@ -1476,6 +1476,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: hoveboard_final
       objectReference: {fileID: 0}
+    - target: {fileID: 4287605392908911062, guid: 29b2e48ecf6c48d419c6cd76edf3700c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: be4492300d5048747ac1cfaedb93b03a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29b2e48ecf6c48d419c6cd76edf3700c, type: 3}
 --- !u!4 &5131848318565686331 stripped
@@ -1560,38 +1565,43 @@ PrefabInstance:
     - target: {fileID: -1089235310394082545, guid: 203c8ad4c8397104c9401c5becff784b,
         type: 3}
       propertyPath: m_AABB.m_Center.x
-      value: -0.39911917
+      value: -0.07096627
       objectReference: {fileID: 0}
     - target: {fileID: -1089235310394082545, guid: 203c8ad4c8397104c9401c5becff784b,
         type: 3}
       propertyPath: m_AABB.m_Center.y
-      value: -0.30983207
+      value: 1.1271167
       objectReference: {fileID: 0}
     - target: {fileID: -1089235310394082545, guid: 203c8ad4c8397104c9401c5becff784b,
         type: 3}
       propertyPath: m_AABB.m_Center.z
-      value: -0.12963364
+      value: -0.7166168
       objectReference: {fileID: 0}
     - target: {fileID: -1089235310394082545, guid: 203c8ad4c8397104c9401c5becff784b,
         type: 3}
       propertyPath: m_AABB.m_Extent.x
-      value: 0.37943622
+      value: 0.30691823
       objectReference: {fileID: 0}
     - target: {fileID: -1089235310394082545, guid: 203c8ad4c8397104c9401c5becff784b,
         type: 3}
       propertyPath: m_AABB.m_Extent.y
-      value: 0.3283901
+      value: 0.015578508
       objectReference: {fileID: 0}
     - target: {fileID: -1089235310394082545, guid: 203c8ad4c8397104c9401c5becff784b,
         type: 3}
       propertyPath: m_AABB.m_Extent.z
-      value: 0.24610189
+      value: 0.75416774
       objectReference: {fileID: 0}
     - target: {fileID: -1089235310394082545, guid: 203c8ad4c8397104c9401c5becff784b,
         type: 3}
       propertyPath: m_Quality
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: -1089235310394082545, guid: 203c8ad4c8397104c9401c5becff784b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: be4492300d5048747ac1cfaedb93b03a, type: 2}
     - target: {fileID: 919132149155446097, guid: 203c8ad4c8397104c9401c5becff784b,
         type: 3}
       propertyPath: m_Name

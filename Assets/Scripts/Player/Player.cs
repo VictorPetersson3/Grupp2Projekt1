@@ -143,6 +143,7 @@ public class Player : MonoBehaviour
 
     private void Grounded()
     {
+        myAirMovement.y = 0;
         myCameraFollow.UpdateYOffset(0);
         myPlayerBobbing.Bob();
         mySandParticleManager.CreateSandParticle(myGroundParticleAmount);
@@ -175,7 +176,7 @@ public class Player : MonoBehaviour
                 Bounce();
                 return;
             }
-            if (myCollisionData.GetTag() == "Left")
+            if (myCollisionData.GetTag() == "Left" && myAirMovement.y >= 0)
             {
                 myCameraShake.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
                 Crash();
