@@ -176,7 +176,7 @@ public class Player : MonoBehaviour
                 Bounce();
                 return;
             }
-            if (myCollisionData.GetTag() == "Left" && myAirMovement.y >= 0)
+            else if (myCollisionData.GetTag() == "Left")
             {
                 myCameraShake.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
                 Crash();
