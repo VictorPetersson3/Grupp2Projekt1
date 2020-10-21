@@ -54,6 +54,9 @@ public class Player : MonoBehaviour
     // Particles
     private const int myGroundParticleAmount = 8;
 
+    //Animator
+    [SerializeField]
+    Animator myAnimator;
     // Power-Ups
     private bool myMagnet = false;
 
@@ -99,10 +102,15 @@ public class Player : MonoBehaviour
         }
 
         Collision();
+        //Debug.LogError("Idle: " + myAnimator.GetBool("Idle"));
+        //Debug.LogError("InAir: " + myAnimator.GetBool("InAir"));
+        //Debug.LogError("BowDown: " + myAnimator.GetBool("Bow Down"));
 
         myIsJumping = myPlayerInput.IsJumping();
         if (myGrounded)
         {
+            myAnimator.SetBool("Idle", true);
+            myAnimator.SetBool("InAir", false);
             Grounded();
             return;
         }
@@ -138,9 +146,10 @@ public class Player : MonoBehaviour
         myCameraFollow.UpdateYOffset(0);
         myPlayerBobbing.Bob();
         mySandParticleManager.CreateSandParticle(myGroundParticleAmount);
-
         if (myIsJumping)
         {
+            myAnimator.SetTrigger("Jumping");
+            myAnimator.SetBool("Idle", false);
             myPlayerJump.Jump(myCurrentPoints, myPointsIndex, myTotalSpeed, ref myAirMovement);
             ResetSpline();
             return;
@@ -198,10 +207,15 @@ public class Player : MonoBehaviour
 
         if (myIsJumping)
         {
+            myAnimator.SetBool("Idle", false);
+            //myAnimator.SetBool("InAir", false);
+            myAnimator.SetBool("Bow Down", true);
             myPlayerBackflip.Backflip();
         }
         else
         {
+            myAnimator.SetBool("Bow Down", false);
+            //myAnimator.SetBool("InAir", true);
             myPlayerAir.AirRotation(mySplineManager.GetGroundDirection(transform.position));
         }
 
@@ -258,6 +272,8 @@ public class Player : MonoBehaviour
         {
             myTrickBoost = myPlayerBackflip.GetMaxTrickBoostTime();
         }
+        //myAnimator.SetTrigger("Landing");
+
         myCameraShake.TriggerShake(myShakeDurationSplines, myShakeMagnitudeSplines);
         myGrounded = true;
         mySplineT = 0;
