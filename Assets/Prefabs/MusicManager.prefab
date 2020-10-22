@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9084859996695544329}
   m_Layer: 0
   m_Name: MusicManager
-  m_TagString: Untagged
+  m_TagString: MusicManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,10 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32ea7bdba10b18b40b5c521a312e187d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMenuMusicClip: {fileID: 8300000, guid: 9cebf28dddf87e64d990efa4147b5771, type: 3}
-  myMusicSource: {fileID: 0}
-  myMusicVolume: 1
-  myFadeTime: 0.75
+  myMenuMusicClip: {fileID: 8300000, guid: b1ea9e790f5a822438e96aeecf20d767, type: 3}
+  myMenuMusic01Clip: {fileID: 0}
+  myMenuMusic02Clip: {fileID: 0}
+  myCreditsClip: {fileID: 0}
+  myScene01MusicClip: {fileID: 8300000, guid: c1f4668522d4f454f81f5fec232d19af, type: 3}
+  myScene02MusicClip: {fileID: 8300000, guid: 4fbf9b4b5a4e9f64b9959b993d053b7e, type: 3}
+  myScene03MusicClip: {fileID: 8300000, guid: c1655663207e1444eb71e8d8c27ffd22, type: 3}
 --- !u!82 &9084859996695544329
 AudioSource:
   m_ObjectHideFlags: 0
@@ -62,7 +65,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
