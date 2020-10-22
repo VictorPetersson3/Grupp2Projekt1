@@ -65,11 +65,11 @@ public class SplineManager : MonoBehaviour
         return false;
     }
 
-    public static bool LineLineIntersection(Vector3 line1point1, Vector3 line1point2, Vector3 line2point1, Vector3 line2point2)
+    public static bool LineLineIntersection(Vector3 aLine1point1, Vector3 aLine1point2, Vector3 aLine2point1, Vector3 aLine2point2)
     {
-        Vector2 a = line1point2 - line1point1;
-        Vector2 b = line2point1 - line2point2;
-        Vector2 c = line1point1 - line2point1;
+        Vector2 a = aLine1point2 - aLine1point1;
+        Vector2 b = aLine2point1 - aLine2point2;
+        Vector2 c = aLine1point1 - aLine2point1;
 
         float alphaNumerator = b.y * c.x - b.x * c.y;
         float betaNumerator = a.x * c.y - a.y * c.x;
