@@ -15,8 +15,8 @@ public class MainMenuScript : MonoBehaviour
      // Start is called before the first frame update
     void Start()
     {
-        myMusicManager= GameObject.FindGameObjectsWithTag("MusicManager")[0].GetComponent<MusicManagerScript>();  //Elf
-        myMusicManager.PlayMusic01();   //Elf
+        ////myMusicManager= GameObject.FindGameObjectsWithTag("MusicManager")[0].GetComponent<MusicManagerScript>();  //Elf
+        ////myMusicManager.PlayMusic01();   //Elf
 
 
         if (myLevelSelect==null)
@@ -66,7 +66,7 @@ public class MainMenuScript : MonoBehaviour
         //Debug.Log("viewing levels to select");
         myMainMenuObjects.SetActive(false);
         myLevelSelect.SetActive(true);
-        myMusicManager.PlayMenuMusic();   //Elf
+        ////myMusicManager.PlayMenuMusic();   //Elf
     }
     public void LevelOne()
     {
@@ -74,21 +74,21 @@ public class MainMenuScript : MonoBehaviour
         SceneManager.UnloadSceneAsync((int)SceneIndexes.MAIN_MENU);
         SceneManager.LoadSceneAsync((int)SceneIndexes.INTROLEVEL, LoadSceneMode.Additive);
 
-        myMusicManager.PlayMusic01();   //Elf
+        ////myMusicManager.PlayMusic01();   //Elf
     }
     public void LevelTwo()
     {
         //Debug.Log("playing level 2");
         SceneManager.UnloadSceneAsync((int)SceneIndexes.MAIN_MENU);
         SceneManager.LoadSceneAsync((int)SceneIndexes.LEVELTWO, LoadSceneMode.Additive);
-        myMusicManager.PlayMusic02();   //Elf
+        ////myMusicManager.PlayMusic02();   //Elf
     }
     public void LevelThree()
     {
         //Debug.Log("playing level 2");
         SceneManager.UnloadSceneAsync((int)SceneIndexes.MAIN_MENU); 
         SceneManager.LoadSceneAsync((int)SceneIndexes.LEVELTHREE, LoadSceneMode.Additive);
-        myMusicManager.PlayMusic03();   //Elf
+        ////myMusicManager.PlayMusic03();   //Elf
     }
 
     public void BacktoMainMenu()
@@ -98,6 +98,6 @@ public class MainMenuScript : MonoBehaviour
         myLevelSelect.SetActive(false);
         myMainMenuObjects.SetActive(true);
         
-        myMusicManager.PlayMusic();   //Elf
+        ////myMusicManager.PlayMusic();   //Elf
     }
 }
