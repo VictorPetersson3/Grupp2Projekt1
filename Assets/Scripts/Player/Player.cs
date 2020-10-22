@@ -163,7 +163,6 @@ public class Player : MonoBehaviour
         myCollisionData = myPlayerCollision.ReturnCollisionData();
         if (myCollisionData.GetHasCollided())
         {
-            Debug.Log("Collision: " + myCollisionData.GetTag());
             myCollisionData.SetHasCollided(false);
             if (myCollisionData.GetTag() == "Top")
             {
