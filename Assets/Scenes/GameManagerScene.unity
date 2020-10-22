@@ -121,7 +121,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &79795494
+--- !u!1001 &690970420
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -133,11 +133,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MusicManager
       objectReference: {fileID: 0}
-    - target: {fileID: 9084859996695544327, guid: cd6f2b28b174435479c602d2a0ed353a,
-        type: 3}
-      propertyPath: myScene01MusicClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 464d3a4a5126160499f6ed2d8f4b2a45, type: 3}
     - target: {fileID: 9084859996695544328, guid: cd6f2b28b174435479c602d2a0ed353a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -192,16 +187,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9084859996695544329, guid: cd6f2b28b174435479c602d2a0ed353a,
-        type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9084859996695544329, guid: cd6f2b28b174435479c602d2a0ed353a,
-        type: 3}
-      propertyPath: Loop
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd6f2b28b174435479c602d2a0ed353a, type: 3}
