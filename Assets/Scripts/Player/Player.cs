@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -9,8 +8,6 @@ public class Player : MonoBehaviour
     private SplineManager mySplineManager = null;
     [SerializeField]
     private CameraFollow myCameraFollow = null;
-    [SerializeField]
-    private float myReach = 0.25f;
     [SerializeField]
     private float myGravity = 1f;
     [SerializeField]
@@ -36,13 +33,11 @@ public class Player : MonoBehaviour
     private CameraShake myCameraShake = null;
 
     private bool myGrounded = false;
-    private bool myTooCloseToOldSpline = false;
     private bool myIsJumping;
     private int myScore = 0;
     private CollisionData myCollisionData;
     private Vector3 myOldPosition;
     private Vector2[] myCurrentPoints;
-    private Vector2[] myOldPoints;
     private Vector2 myAirMovement = Vector2.right;
     private Vector2 myBoostVector = Vector2.zero;
     private int myPointsIndex = -1;
@@ -131,10 +126,8 @@ public class Player : MonoBehaviour
 
     private void ResetSpline()
     {
-        myTooCloseToOldSpline = true;
         myGrounded = false;
         myPointsIndex = -1;
-        myOldPoints = myCurrentPoints;
         myCurrentPoints = null;
         mySplineT = 0;
         myPlayerSpline.ResetAngleVariables();
@@ -143,6 +136,7 @@ public class Player : MonoBehaviour
 
     private void Grounded()
     {
+        myAirMovement.y = 0;
         myCameraFollow.UpdateYOffset(0);
         myPlayerBobbing.Bob();
         mySandParticleManager.CreateSandParticle(myGroundParticleAmount);
@@ -175,7 +169,7 @@ public class Player : MonoBehaviour
                 Bounce();
                 return;
             }
-            if (myCollisionData.GetTag() == "Left")
+            else if (myCollisionData.GetTag() == "Left")
             {
                 myCameraShake.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
                 Crash();
@@ -224,7 +218,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if (!myPlayerSpline.AttemptToCatchSpline(mySplineManager, myReach, ref myTooCloseToOldSpline, ref myPointsIndex, ref myCurrentPoints, ref myOldPoints, ref myBoostVector, myOldPosition))
+        if (!mySplineManager.PlayerSplineCollision(transform.position, myOldPosition, ref myPointsIndex, ref myCurrentPoints, ref myBoostVector))
         {
             return;
         }
