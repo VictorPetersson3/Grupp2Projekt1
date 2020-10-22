@@ -29,9 +29,4 @@ public class CogsCollision : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    private void OnCollisionExit(Collision aCollision)
-    {
-        print("Collision out: " + aCollision.gameObject.name);
-    }
 }
