@@ -218,7 +218,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if (mySplineManager.PlayerSplineCollision(transform.position, myOldPosition, ref myPointsIndex, ref myCurrentPoints, ref myBoostVector))
+        if (!mySplineManager.PlayerSplineCollision(transform.position, myOldPosition, ref myPointsIndex, ref myCurrentPoints, ref myBoostVector))
         {
             return;
         }

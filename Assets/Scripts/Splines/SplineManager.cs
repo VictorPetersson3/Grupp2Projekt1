@@ -41,7 +41,7 @@ public class SplineManager : MonoBehaviour
                 continue;
             }
             Vector2[] points = pathCreators[i].path.GetMyEvenlySpacedPoints();
-            int offset = 1;
+            const int offset = 1;
             for (int j = 0; j < points.Length; j += offset)
             {
                 bool collide;
