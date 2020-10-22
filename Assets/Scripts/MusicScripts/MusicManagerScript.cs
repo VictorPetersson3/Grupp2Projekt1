@@ -9,14 +9,21 @@ public class MusicManagerScript : MonoBehaviour
     //private AudioClip myBackGroundNoiseClip;
 
     [SerializeField]
-    private AudioClip myMenuMusicClip;
+    private AudioClip myMenuMusicClip00;
+    [SerializeField]
+    private AudioClip myMenuMusicClip01;
+    [SerializeField]
+    private AudioClip myMenuMusicClip02;
+
+    [SerializeField]
+    private AudioClip myCreditsClip;
 
     [SerializeField]
     private AudioClip myScene01MusicClip;
-    //[SerializeField]
-    //private AudioClip myScene02MusicClip;
-    //[SerializeField]
-    //private AudioClip myScene03MusicClip;
+    [SerializeField]
+    private AudioClip myScene02MusicClip;
+    [SerializeField]
+    private AudioClip myScene03MusicClip;
 
 
 
@@ -43,7 +50,7 @@ public class MusicManagerScript : MonoBehaviour
         else
         {
             myMusicVolume = 1f;
-            myMusicSource.clip = myMenuMusicClip;
+            myMusicSource.clip = myMenuMusicClip00;
         }
 
         //mySoundFXSource = GetComponent<AudioSource>();
@@ -77,7 +84,7 @@ public class MusicManagerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S))        //FUNKAR!! 2020 10 20 BE
         {
             StopMusic();
-            myMusicSource.clip = myMenuMusicClip;
+            myMusicSource.clip = myMenuMusicClip00;
             PlayMusic();
         }
 
@@ -109,9 +116,57 @@ public class MusicManagerScript : MonoBehaviour
 
     public void PlayMusic ()
     {
+        StopMusic();
+        myMusicSource.clip = myMenuMusicClip00;
+        myMusicSource.Play();  //!
+        //myFadeUp = true; //!
+    }    
+    public void PlayMenuMusic_00 ()
+    {
+        StopMusic();
+        myMusicSource.clip = myMenuMusicClip00;
+        myMusicSource.Play();  //!
+        //myFadeUp = true; //!
+    }    
+    public void PlayMenuMusic_01 ()
+    {
+        StopMusic();
+        myMusicSource.clip = myMenuMusicClip00;
+        myMusicSource.Play();  //!
+        //myFadeUp = true; //!
+    } 
+    public void PlayMenuMusic_02 ()
+    {
+        StopMusic();
+        myMusicSource.clip = myMenuMusicClip00;
+        myMusicSource.Play();  //!
+        //myFadeUp = true; //!
+    }    
+
+
+    public void PlayMusic01 ()
+    {
+        StopMusic();
+        myMusicSource.clip = myScene01MusicClip;
+        myMusicSource.Play();  //!
+        //myFadeUp = true; //!
+    }    
+    public void PlayMusic02 ()
+    {
+        StopMusic();
+        myMusicSource.clip = myScene02MusicClip;
+        myMusicSource.Play();  //!
+        //myFadeUp = true; //!
+    }    
+    public void PlayMusic03 ()
+    {
+        StopMusic();
+        myMusicSource.clip = myScene03MusicClip;
         myMusicSource.Play();  //!
         //myFadeUp = true; //!
     }
+
+
     public void StopMusic ()
     {
         myMusicSource.Stop();  //EXTRA
