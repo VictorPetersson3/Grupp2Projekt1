@@ -210,60 +210,6 @@ public class PlayerSpline : MonoBehaviour
         aAirMovement = aAirMovement.normalized * aTotalSpeed / 10;
     }
 
-    private bool IsOldSpline(Vector2[] someOldPoints, Vector2[] someCurrentPoints)
-    {
-        bool sameSpline = false;
-
-        if ((someOldPoints != null && someCurrentPoints != null) && someOldPoints.Length == someCurrentPoints.Length)
-        {
-            sameSpline = true;
-
-            for (int i = 0; i < someOldPoints.Length; i++)
-            {
-                if (someCurrentPoints[i] != someOldPoints[i])
-                {
-                    return false;
-                }
-            }
-        }
-        return sameSpline;
-    }
-
-    public static Vector3 NearestPointOnFiniteLine(Vector3 aStart, Vector3 anEnd, Vector3 aPoint)
-    {
-        Vector3 line = (anEnd - aStart);
-        float len = line.magnitude;
-        line.Normalize();
-        Vector3 v = aPoint - aStart;
-        float d = Vector3.Dot(v, line);
-        d = Mathf.Clamp(d, 0f, len);
-        return aStart + line * d;
-    }
-
-    public bool AttemptToCatchSpline(SplineManager aSplineManager, float aReach, ref bool aTooCloseToOldSpline, ref int aPointsIndex, ref Vector2[] someCurrentPoints, ref Vector2[] someOldPoints, ref Vector2 aBoost, Vector3 anOldPos)
-    {
-        Vector2 closestPoint = aSplineManager.GetClosestPoint(transform.position, ref aPointsIndex, ref someCurrentPoints, ref aBoost);
-        Vector3 closestPos = NearestPointOnFiniteLine(anOldPos, transform.position, closestPoint);
-        float distanceToPoint = Vector3.Distance(closestPos, closestPoint);
-
-        if (distanceToPoint <= aReach)
-        {
-            if (aTooCloseToOldSpline && IsOldSpline(someOldPoints, someCurrentPoints))
-            {
-                return false;
-            }
-
-            transform.position = closestPoint;
-            return true;
-        }
-        else if (IsOldSpline(someOldPoints, someCurrentPoints))
-        {
-            aTooCloseToOldSpline = false;
-        }
-
-        return false;
-    }
-
     private bool IndexWithinBoost(int anIndex, Vector2 aBoost)
     {
         if (aBoost == Vector2.zero)

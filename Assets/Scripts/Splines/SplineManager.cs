@@ -30,33 +30,67 @@ public class SplineManager : MonoBehaviour
         //SetSplineActivate();
     }
 
-    public Vector2 GetClosestPoint(Vector2 aPlayerPosition, ref int aPointsIndex, ref Vector2[] aPoints, ref Vector2 aBoost)
+    public bool PlayerSplineCollision(Vector2 aPlayerPos, Vector2 anOldPos, ref int aPointsIndex, ref Vector2[] someCurrentPoints, ref Vector2 aBoost)
     {
-        Vector2 closestPoint = Vector2.negativeInfinity;
-        int closestIndex = 0;
-
         for (int i = 0; i < pathCreators.Length; i++)
         {
-            if (pathCreators[i].isActiveAndEnabled)
+            if (!pathCreators[i].isActiveAndEnabled ||
+                pathCreators[i].path.GetFirstPoint().x > aPlayerPos.x ||
+                pathCreators[i].path.GetLastPoint().x < aPlayerPos.x)
             {
-                Vector2[] iteratedSplinesPoints = pathCreators[i].path.GetMyEvenlySpacedPoints();
-                Vector2 closestPointInIteratedSpline = GetClosestPointInSpline(aPlayerPosition, iteratedSplinesPoints, ref aPointsIndex);
-
-                if (Vector2.Distance(aPlayerPosition, closestPointInIteratedSpline) < Vector2.Distance(aPlayerPosition, closestPoint))
+                continue;
+            }
+            Vector2[] points = pathCreators[i].path.GetMyEvenlySpacedPoints();
+            int offset = 1;
+            for (int j = 0; j < points.Length; j += offset)
+            {
+                bool collide;
+                if (j + offset >= points.Length)
                 {
-                    closestPoint = closestPointInIteratedSpline;
-                    aPoints = iteratedSplinesPoints;
-                    closestIndex = aPointsIndex;
-                    if (pathCreators[i].HasBoost())
-                    {
-                        aBoost = pathCreators[i].GetBoost();
-                    }
+                    collide = LineLineIntersection(anOldPos, aPlayerPos, points[points.Length - (offset + 1)], points[points.Length - 1]);
+                }
+                else
+                {
+                    collide = LineLineIntersection(anOldPos, aPlayerPos, points[j], points[j + offset]);
+                }
+                if (collide)
+                {
+                    aPointsIndex = j;
+                    someCurrentPoints = points;
+                    aBoost = pathCreators[i].GetBoost();
+                    return true;
                 }
             }
         }
+        return false;
+    }
 
-        aPointsIndex = closestIndex;
-        return closestPoint;
+    public static bool LineLineIntersection(Vector3 line1point1, Vector3 line1point2, Vector3 line2point1, Vector3 line2point2)
+    {
+        Vector2 a = line1point2 - line1point1;
+        Vector2 b = line2point1 - line2point2;
+        Vector2 c = line1point1 - line2point1;
+
+        float alphaNumerator = b.y * c.x - b.x * c.y;
+        float betaNumerator = a.x * c.y - a.y * c.x;
+        float denominator = a.y * b.x - a.x * b.y;
+
+        if (denominator == 0)
+        {
+            return false;
+        }
+        else if (denominator > 0)
+        {
+            if (alphaNumerator < 0 || alphaNumerator > denominator || betaNumerator < 0 || betaNumerator > denominator)
+            {
+                return false;
+            }
+        }
+        else if (alphaNumerator > 0 || alphaNumerator < denominator || betaNumerator > 0 || betaNumerator < denominator)
+        {
+            return false;
+        }
+        return true;
     }
 
     private Vector2 GetClosestPointInSpline(Vector2 aPlayerPosition, Vector2[] somePoints, ref int aPointsIndex)
