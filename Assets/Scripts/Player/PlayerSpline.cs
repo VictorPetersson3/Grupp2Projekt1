@@ -16,9 +16,13 @@ public class PlayerSpline : MonoBehaviour
     private float myMinUnmodifiedSpeed = 10f;
     [Header("Trick Boost")]
     [SerializeField]
+    private PlayerTrickBoost myTrickBoost = null;
+    [SerializeField]
     private float myTrickBoostStrength = 100f;
     [SerializeField]
-    private float myTrickBoostMax = 100f;
+    private float myTrickBoostMaxForce = 100f;
+    [SerializeField]
+    private float myRailBoostMultiplier = 1f;
     [Header("Ground Boost")]
     [SerializeField]
     private float myGroundBoostStrength = 50f;
@@ -29,6 +33,7 @@ public class PlayerSpline : MonoBehaviour
     private float myCurrentAngle = 90;
     private float myCurrentGroundBoost = 0;
     private bool myFirstCheck = true;
+    private bool myRailing = false;
 
     const int myFlatAngle = 90;
 
@@ -36,10 +41,11 @@ public class PlayerSpline : MonoBehaviour
     private void OnGUI()
     {
         GUI.Label(new Rect(0, 180, 250, 20), "Ground Boost: " + myCurrentGroundBoost);
+        GUI.Label(new Rect(0, 200, 250, 20), "Railing: " + myRailing);
     }
 #endif
 
-    public bool SplineMovement(Vector2[] someCurrentPoints, ref float anUnmodifiedSpeed, ref int aPointsIndex, ref float aSplineT, float aGravity, Vector2 aBoostVector, ref float aTrickBoost, ref float aTotalSpeed)
+    public bool SplineMovement(Vector2[] someCurrentPoints, ref float anUnmodifiedSpeed, ref int aPointsIndex, ref float aSplineT, float aGravity, Vector2 aBoostVector, ref float aTotalSpeed)
     {
         float accMultiplier = mySlopeAcceleration;
 
@@ -75,20 +81,26 @@ public class PlayerSpline : MonoBehaviour
             }
         }
 
-        if (aTrickBoost > 0)
+        float trickBoost = myTrickBoost.GetTrickBoostTime();
+        if (trickBoost > 0)
         {
-            float currentTrickBoost = aTrickBoost * myTrickBoostStrength;
-            if (currentTrickBoost > myTrickBoostMax)
+            float currentTrickBoost = trickBoost * myTrickBoostStrength;
+            if (currentTrickBoost > myTrickBoostMaxForce)
             {
-                currentTrickBoost = myTrickBoostMax;
+                currentTrickBoost = myTrickBoostMaxForce;
             }
             aTotalSpeed += currentTrickBoost;
-            aTrickBoost -= Time.deltaTime;
         }
-        else if (aTrickBoost < 0)
+        
+        if (myRailing)
         {
-            aTrickBoost = 0;
+            myTrickBoost.AddTrickBoostTime(Time.deltaTime * myRailBoostMultiplier);
         }
+        else
+        {
+            myTrickBoost.AddTrickBoostTime(-Time.deltaTime);
+        }
+
         aSplineT += aTotalSpeed * Time.deltaTime;
 
         while (aSplineT >= 1f)
@@ -227,6 +239,11 @@ public class PlayerSpline : MonoBehaviour
 
     public Vector2 GetMinMaxSpeeds()
     {
-        return new Vector2(myMinUnmodifiedSpeed, myTrickBoostMax + myMaxUnmodifiedSpeed);
+        return new Vector2(myMinUnmodifiedSpeed, myTrickBoostMaxForce + myMaxUnmodifiedSpeed);
+    }
+
+    public void SetRailing(bool aSet)
+    {
+        myRailing = aSet;
     }
 }
