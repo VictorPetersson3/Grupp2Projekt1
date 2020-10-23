@@ -42,6 +42,9 @@ public class GameManager : MonoBehaviour
         }
 
         myObstacles = myObstacleParent.GetComponentsInChildren<BoxCollider>();
+
+        //[SerializeField] private MusicManagerScript myMusicManager;  //Elf
+
     }
 
     public void ResetObstacles()
