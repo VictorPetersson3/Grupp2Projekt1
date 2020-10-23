@@ -1409,7 +1409,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myFlipRotationSpeed: 130
-  myBackflipBoostTimeMultiplier: 0.5
+  myBackflipBoostTimeMultiplier: 0.01
   myCrashAngleTolerance: 90
   myTrickBoost: {fileID: 8148391156443554728}
 --- !u!135 &3452673020125730054

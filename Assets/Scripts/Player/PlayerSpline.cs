@@ -81,23 +81,24 @@ public class PlayerSpline : MonoBehaviour
             }
         }
 
+        float trickBoost = myTrickBoost.GetTrickBoostTime();
+        if (trickBoost > 0)
+        {
+            float currentTrickBoost = trickBoost * myTrickBoostStrength;
+            if (currentTrickBoost > myTrickBoostMaxForce)
+            {
+                currentTrickBoost = myTrickBoostMaxForce;
+            }
+            aTotalSpeed += currentTrickBoost;
+        }
+        
         if (myRailing)
         {
             myTrickBoost.AddTrickBoostTime(Time.deltaTime * myRailBoostMultiplier);
         }
         else
         {
-            float trickBoost = myTrickBoost.GetTrickBoostTime();
-            if (trickBoost > 0)
-            {
-                float currentTrickBoost = trickBoost * myTrickBoostStrength;
-                if (currentTrickBoost > myTrickBoostMaxForce)
-                {
-                    currentTrickBoost = myTrickBoostMaxForce;
-                }
-                aTotalSpeed += currentTrickBoost;
-                myTrickBoost.AddTrickBoostTime(-Time.deltaTime);
-            }
+            myTrickBoost.AddTrickBoostTime(-Time.deltaTime);
         }
 
         aSplineT += aTotalSpeed * Time.deltaTime;
