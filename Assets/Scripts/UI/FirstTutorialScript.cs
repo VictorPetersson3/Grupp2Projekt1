@@ -33,7 +33,7 @@ public class FirstTutorialScript : MonoBehaviour
         {
             myHaveEntered = true;
             Time.timeScale = 0.1f;
-            myfirstTutorialText.SetActive(true);//skapa något, point to world? Fråga Sparky
+            myFirstTutorialText.SetActive(true);//skapa något, point to world? Fråga Sparky
             Debug.Log("du är i tutorialbox");
         }
     }
