@@ -30,7 +30,7 @@ public class SplineManager : MonoBehaviour
         //SetSplineActivate();
     }
 
-    public bool PlayerSplineCollision(Vector2 aPlayerPos, Vector2 anOldPos, ref int aPointsIndex, ref Vector2[] someCurrentPoints, ref Vector2 aBoost)
+    public bool PlayerSplineCollision(Vector2 aPlayerPos, Vector2 anOldPos, ref int aPointsIndex, ref Vector2[] someCurrentPoints, ref Vector2 aBoost, ref bool aIsRail)
     {
         for (int i = 0; i < pathCreators.Length; i++)
         {
@@ -58,6 +58,7 @@ public class SplineManager : MonoBehaviour
                     aPointsIndex = j;
                     someCurrentPoints = points;
                     aBoost = pathCreators[i].GetBoost();
+                    aIsRail = pathCreators[i].GetIsRail();
                     return true;
                 }
             }

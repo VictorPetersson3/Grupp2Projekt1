@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7775170082975414533}
   - component: {fileID: 4187244042984590750}
   - component: {fileID: 1711758633111559714}
+  - component: {fileID: 8148391156443554728}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -81,8 +82,10 @@ MonoBehaviour:
   mySlopeDeceleration: 4
   myMaxUnmodifiedSpeed: 150
   myMinUnmodifiedSpeed: 80
+  myTrickBoost: {fileID: 8148391156443554728}
   myTrickBoostStrength: 20
-  myTrickBoostMax: 25
+  myTrickBoostMaxForce: 100
+  myRailBoostMultiplier: 1
   myGroundBoostStrength: 30
   myGroundBoostMaxTime: 2.5
 --- !u!114 &1607898314831972099
@@ -151,6 +154,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myMaxDuration: 2
+--- !u!114 &8148391156443554728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607898315252366862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5248de500ee416a41926689a57a5327c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myMaxTrickBoostTime: 10
+  myCurrentTrickBoost: 0
 --- !u!1 &2248561747536350408
 GameObject:
   m_ObjectHideFlags: 0
@@ -1393,8 +1410,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myFlipRotationSpeed: 130
   myBackflipBoostTimeMultiplier: 0.5
-  myMaxTrickBoostTime: 5
   myCrashAngleTolerance: 90
+  myTrickBoost: {fileID: 8148391156443554728}
 --- !u!135 &3452673020125730054
 SphereCollider:
   m_ObjectHideFlags: 0

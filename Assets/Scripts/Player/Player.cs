@@ -43,16 +43,12 @@ public class Player : MonoBehaviour
     private int myPointsIndex = -1;
     private float mySplineT = -1;
     private float myUnmodifiedSpeed = 0f;
-    private float myTrickBoost = 0f;
     private float myTotalSpeed = 0f;
-
-    // Particles
     private const int myGroundParticleAmount = 8;
 
-    //Animator
     [SerializeField]
     Animator myAnimator;
-    // Power-Ups
+
     private bool myMagnet = false;
 
     private void Start()
@@ -120,7 +116,6 @@ public class Player : MonoBehaviour
 #if UNITY_EDITOR
         GUI.Label(new Rect(0, 120, 250, 20), "Total Speed: " + myTotalSpeed);
         GUI.Label(new Rect(0, 140, 250, 20), "Air Movement: " + myAirMovement);
-        GUI.Label(new Rect(0, 160, 250, 20), "Trick Boost: " + myTrickBoost);
 #endif
     }
 
@@ -132,6 +127,7 @@ public class Player : MonoBehaviour
         mySplineT = 0;
         myPlayerSpline.ResetAngleVariables();
         myBoostVector = Vector2.zero;
+        myPlayerSpline.SetRailing(false);
     }
 
     private void Grounded()
@@ -149,7 +145,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if (!myPlayerSpline.SplineMovement(myCurrentPoints, ref myUnmodifiedSpeed, ref myPointsIndex, ref mySplineT, myGravity, myBoostVector, ref myTrickBoost, ref myTotalSpeed))
+        if (!myPlayerSpline.SplineMovement(myCurrentPoints, ref myUnmodifiedSpeed, ref myPointsIndex, ref mySplineT, myGravity, myBoostVector, ref myTotalSpeed))
         {
             myPlayerSpline.ReleaseSpline(myCurrentPoints, myTotalSpeed, ref myAirMovement, myPointsIndex);
             ResetSpline();
@@ -218,10 +214,13 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if (!mySplineManager.PlayerSplineCollision(transform.position, myOldPosition, ref myPointsIndex, ref myCurrentPoints, ref myBoostVector))
+        bool isRail = false;
+        if (!mySplineManager.PlayerSplineCollision(transform.position, myOldPosition, ref myPointsIndex, ref myCurrentPoints, ref myBoostVector, ref isRail))
         {
             return;
         }
+
+        myPlayerSpline.SetRailing(isRail);
 
         if (myPointsIndex + 1 >= myCurrentPoints.Length)
         {
@@ -261,13 +260,8 @@ public class Player : MonoBehaviour
 
     private void CatchSpline()
     {
-        myTrickBoost += myPlayerBackflip.GetBackflipScore();
-        if (myTrickBoost > myPlayerBackflip.GetMaxTrickBoostTime())
-        {
-            myTrickBoost = myPlayerBackflip.GetMaxTrickBoostTime();
-        }
+        myPlayerBackflip.GetBackflipScore();
         //myAnimator.SetTrigger("Landing");
-
         myCameraShake.TriggerShake(myShakeDurationSplines, myShakeMagnitudeSplines);
         myGrounded = true;
         mySplineT = 0;

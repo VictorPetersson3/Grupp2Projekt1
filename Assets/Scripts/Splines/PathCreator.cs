@@ -10,6 +10,8 @@ public class PathCreator : MonoBehaviour
     private int myBoostEnd = 0;
     [SerializeField]
     private GameObject myBoostSpherePrefab = null;
+    [SerializeField]
+    private bool myIsRail = false;
     
     [SerializeField, HideInInspector]
     private bool myHasBoost;
@@ -27,6 +29,10 @@ public class PathCreator : MonoBehaviour
     private void OnValidate()
     {
         UpdateBoost();
+    }
+    public bool GetIsRail()
+    {
+        return myIsRail;
     }
     public int GetBoostStart()
     {
