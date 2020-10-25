@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec079b5a8d1688948af56b6c123d6eb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myRockParticle: {fileID: 0}
 --- !u!1 &5854692728609269168
 GameObject:
   m_ObjectHideFlags: 0
@@ -84,6 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7962875871243104479}
   - component: {fileID: 4505975709857640332}
+  - component: {fileID: 4892089946489966995}
   m_Layer: 0
   m_Name: Rock
   m_TagString: Untagged
@@ -116,6 +118,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5854692728609269168}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &4892089946489966995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5854692728609269168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec079b5a8d1688948af56b6c123d6eb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myRockParticle: {fileID: 4801308249876853648, guid: cb0a38c9c033ff54698cbedb9f4eb165,
+    type: 3}
 --- !u!1 &7418195944881697317
 GameObject:
   m_ObjectHideFlags: 0
