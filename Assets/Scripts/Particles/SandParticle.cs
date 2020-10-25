@@ -23,10 +23,6 @@ public class SandParticle : MonoBehaviour
     // Getting rotation
     private Vector3 myRotation;
     private Transform myPlayerTransform;
-    //private SandParticleManager mySandParticleManager;
-
-    // Parent GameObject for particles
-    //private GameObject mySandParticles;
 
     [HideInInspector]
     public bool myIsDead = false;
@@ -38,8 +34,6 @@ public class SandParticle : MonoBehaviour
 
         // Rotation
         myPlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-
-        //mySandParticleManager = GameObject.FindGameObjectWithTag("SandParticleManager").GetComponent<SandParticleManager>();
 
         // Render
         myMaterial = GetComponent<MeshRenderer>().material;

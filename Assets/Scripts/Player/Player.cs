@@ -49,7 +49,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     Animator myAnimator;
 
+    // Power ups
     private bool myMagnet = false;
+    private bool myInvincible = false;
 
     private void Start()
     {
@@ -93,9 +95,6 @@ public class Player : MonoBehaviour
         }
 
         Collision();
-        //Debug.LogError("Idle: " + myAnimator.GetBool("Idle"));
-        //Debug.LogError("InAir: " + myAnimator.GetBool("InAir"));
-        //Debug.LogError("BowDown: " + myAnimator.GetBool("Bow Down"));
 
         myIsJumping = myPlayerInput.IsJumping();
         if (myGrounded)
@@ -165,7 +164,11 @@ public class Player : MonoBehaviour
                 Bounce();
                 return;
             }
-            else if (myCollisionData.GetTag() == "Left")
+            if (myInvincible)
+            {
+                return;
+            }
+            if (myCollisionData.GetTag() == "Left")
             {
                 myCameraShake.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
                 Crash();
@@ -256,6 +259,16 @@ public class Player : MonoBehaviour
     public void SetMagnet(bool aValue)
     {
         myMagnet = aValue;
+    }
+
+    public bool GetInvincible()
+    {
+        return myInvincible;
+    }
+
+    public void SetInvincible(bool aValue)
+    {
+        myInvincible = aValue;
     }
 
     private void CatchSpline()

@@ -3,8 +3,7 @@
 public class PlayerMagnet : MonoBehaviour
 {
     [SerializeField]
-    private float myMaxDuration = 15f;
-    private float myDuration = 0f;
+    private float myDuration = 10f;
     private Player myPlayer = null;
 
     private void Start()
@@ -12,8 +11,14 @@ public class PlayerMagnet : MonoBehaviour
         myPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         if (myPlayer == null)
         {
-            Debug.LogError("Error: myPlayer " + myPlayer);
+            Debug.LogError("myPlayer " + myPlayer);
         }
+    }
+
+    private void OnGUI()
+    {
+        GUI.Label(new Rect(0, 260, 250, 20), "Magnet active: " + myPlayer.GetMagnet());
+        GUI.Label(new Rect(0, 280, 250, 20), "Magnet duration: " + myDuration);
     }
 
     private void Update()
@@ -23,11 +28,15 @@ public class PlayerMagnet : MonoBehaviour
 
     private void DeactivateMagnet()
     {
-        myDuration += Time.deltaTime;
-        if (myDuration >= myMaxDuration)
+        if (myPlayer.GetMagnet())
+        {
+            myDuration -= Time.deltaTime;
+        }
+
+        if (myDuration <= 0)
         {
             myPlayer.SetMagnet(false);
-            myDuration = 0;
+            myDuration = 10f;
         }
     }
 }

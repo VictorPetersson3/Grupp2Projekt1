@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7787338031115709254}
   - component: {fileID: 837386459866730342}
   - component: {fileID: 2010734331245868902}
+  - component: {fileID: 6614321668801076988}
   m_Layer: 0
   m_Name: LeftCollider
   m_TagString: Left
@@ -43,8 +44,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.26867464
-  m_Center: {x: -0.2658652, y: -0.03018725, z: 0}
+  m_Radius: 0.2945165
+  m_Center: {x: -0.24648382, y: -0.077671885, z: 0}
 --- !u!54 &2010734331245868902
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -61,6 +62,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &6614321668801076988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444860001621158007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec079b5a8d1688948af56b6c123d6eb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5854692728609269168
 GameObject:
   m_ObjectHideFlags: 0
@@ -71,7 +84,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7962875871243104479}
   - component: {fileID: 4505975709857640332}
-  - component: {fileID: 3526598282739130173}
   m_Layer: 0
   m_Name: Rock
   m_TagString: Untagged
@@ -104,45 +116,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5854692728609269168}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &3526598282739130173
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5854692728609269168}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: e0be3308e640b114c8a25f553dfa01b7, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!1 &7418195944881697317
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,8 +126,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8114707072572831562}
   - component: {fileID: 9009272658964182087}
-  - component: {fileID: 7970485966426100757}
   - component: {fileID: 6999695583760756323}
+  - component: {fileID: 7970485966426100757}
+  - component: {fileID: 4464962310158467322}
   m_Layer: 0
   m_Name: TopCollider
   m_TagString: Top
@@ -187,8 +161,21 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8480955, y: 0.090954304, z: 1}
-  m_Center: {x: 0.07595303, y: 0.45075083, z: 0}
+  m_Size: {x: 0.9450024, y: 0.29276323, z: 1}
+  m_Center: {x: 0.12440643, y: 0.5516553, z: 0}
+--- !u!65 &6999695583760756323
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7418195944881697317}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.2440404, y: 0.27027845, z: 1}
+  m_Center: {x: -0.36996683, y: 0.3832147, z: 0}
 --- !u!54 &7970485966426100757
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -205,7 +192,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!65 &6999695583760756323
+--- !u!65 &4464962310158467322
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -216,8 +203,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.12775195, y: 0.17530966, z: 1}
-  m_Center: {x: -0.4281109, y: 0.4306991, z: 0}
+  m_Size: {x: 0.34103355, y: 0.3589611, z: 1}
+  m_Center: {x: 0.69772977, y: 0.32051945, z: 0}
 --- !u!1001 &4055380256926827719
 PrefabInstance:
   m_ObjectHideFlags: 0

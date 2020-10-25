@@ -36,8 +36,11 @@ public class CogsAttract : MonoBehaviour
     {
         if (myPlayer.GetMagnet())
         {
-            myAttractReach = 15;
-            myAttractSpeed = 25;
+            myAttractReach = 15f;
+        }
+        else
+        {
+            myAttractReach = 2f;
         }
     }
 }
