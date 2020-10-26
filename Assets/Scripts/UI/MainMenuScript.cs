@@ -34,6 +34,10 @@ public class MainMenuScript : MonoBehaviour
 
         myCreditsScreen.SetActive(false);
         myLevelSelect.SetActive(false);
+
+         
+
+
     }
 
     // Update is called once per frame
