@@ -53,6 +53,9 @@ public class Player : MonoBehaviour
     private bool myMagnet = false;
     private bool myInvincible = false;
 
+    // Sounds
+    private AudioSource myJumpSound = null;
+
     private void Start()
     {
         myPlayerSpline = GetComponent<PlayerSpline>();
@@ -64,6 +67,7 @@ public class Player : MonoBehaviour
         myPlayerBackflip = GetComponentInChildren<PlayerBackflip>();
         mySandParticleManager = GetComponentInChildren<SandParticleManager>();
         myCameraShake = myCameraFollow.gameObject.GetComponentInChildren<CameraShake>();
+        myJumpSound = GetComponentInChildren<AudioSource>();
 
         myUnmodifiedSpeed = myStartSpeed;
         myOldPosition = transform.position;
@@ -139,6 +143,7 @@ public class Player : MonoBehaviour
         {
             myAnimator.SetTrigger("Jumping");
             myAnimator.SetBool("Idle", false);
+            myJumpSound.Play();
             myPlayerJump.Jump(myCurrentPoints, myPointsIndex, myTotalSpeed, ref myAirMovement);
             ResetSpline();
             return;
@@ -181,6 +186,7 @@ public class Player : MonoBehaviour
     {
         if (!myGrounded && myAirMovement.y < 0)
         {
+            myJumpSound.Play();
             myPlayerJump.Bounce(ref myAirMovement);
             return true;
         }
