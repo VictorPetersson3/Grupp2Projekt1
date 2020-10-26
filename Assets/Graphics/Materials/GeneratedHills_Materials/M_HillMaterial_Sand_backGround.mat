@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_HillMaterial_Sand
+  m_Name: M_HillMaterial_Sand_backGround
   m_Shader: {fileID: -6465566751694194690, guid: fd82da0b5aa597d489a8eaf30f583b2a,
     type: 3}
   m_ShaderKeywords: 
@@ -33,22 +33,22 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_17E1A0: 0.471
-    - Vector1_33A7041A: 24.9
-    - Vector1_53108C71: 0.569
+    - Vector1_17E1A0: 0.026
+    - Vector1_33A7041A: 0.3
+    - Vector1_53108C71: 0.485
     - Vector1_5B568A98: 1
-    - Vector1_64C17BE3: 0.838
-    - Vector1_7089BB0B: 57.3
-    - Vector1_71B8059A: 2.32
-    - Vector1_76955F47: 57.7
-    - Vector1_917C44AC: 113
-    - Vector1_B01EA4A4: 0.33
-    - Vector1_B69241E1: 166
-    - Vector1_BA2E9D07: 7.3
-    - Vector1_BCA4FAF6: 3.02
+    - Vector1_64C17BE3: 0.397
+    - Vector1_7089BB0B: 9.6
+    - Vector1_71B8059A: 2.89
+    - Vector1_76955F47: 2.8
+    - Vector1_917C44AC: 293
+    - Vector1_B01EA4A4: 1.17
+    - Vector1_B69241E1: 157
+    - Vector1_BA2E9D07: 6.3
+    - Vector1_BCA4FAF6: 2.13
     m_Colors:
-    - Base: {r: 0.7647059, g: 0.4254154, b: 0.3058824, a: 1}
-    - Color_1: {r: 1, g: 0.68647003, b: 0.5801887, a: 1}
-    - Color_622C62EE: {r: 0.3773585, g: 0.25784954, b: 0.1512994, a: 1}
-    - Color_F8637335: {r: 1, g: 0.7160777, b: 0.5330188, a: 1}
-    - Color_F92ACA3A: {r: 1, g: 0.69642025, b: 0.5518868, a: 1}
+    - Base: {r: 0.7960785, g: 0.27058825, b: 0.4039216, a: 1}
+    - Color_1: {r: 1, g: 0.80803317, b: 0.43867922, a: 1}
+    - Color_622C62EE: {r: 0.3584906, g: 0.22587822, b: 0.13697046, a: 1}
+    - Color_F8637335: {r: 0.990566, g: 0.9382262, b: 0.75226945, a: 1}
+    - Color_F92ACA3A: {r: 1, g: 0.93801796, b: 0.8254717, a: 1}
