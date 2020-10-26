@@ -19,6 +19,8 @@ public class MainMenuScript : MonoBehaviour
         ////myMusicManager.PlayMusic01();   //Elf
 
 
+        Time.timeScale = 1f;
+
         if (myLevelSelect==null)
         {
             Debug.LogError("myLevelSelect is fuckywucky");
