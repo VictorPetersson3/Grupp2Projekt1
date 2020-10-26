@@ -53,6 +53,12 @@ public class Player : MonoBehaviour
     private bool myMagnet = false;
     private bool myInvincible = false;
 
+    // Sounds
+    private AudioSource myJumpSound = null;
+
+    // Trails
+    private GameObject mySpeedTrail = null;
+
     private void Start()
     {
         myPlayerSpline = GetComponent<PlayerSpline>();
@@ -64,6 +70,8 @@ public class Player : MonoBehaviour
         myPlayerBackflip = GetComponentInChildren<PlayerBackflip>();
         mySandParticleManager = GetComponentInChildren<SandParticleManager>();
         myCameraShake = myCameraFollow.gameObject.GetComponentInChildren<CameraShake>();
+        mySpeedTrail = GameObject.FindGameObjectWithTag("SpeedTrail");
+        myJumpSound = GetComponentInChildren<AudioSource>();
 
         myUnmodifiedSpeed = myStartSpeed;
         myOldPosition = transform.position;
@@ -95,6 +103,7 @@ public class Player : MonoBehaviour
         }
 
         Collision();
+        ActivateTrail();
 
         myIsJumping = myPlayerInput.IsJumping();
         if (myGrounded)
@@ -139,6 +148,7 @@ public class Player : MonoBehaviour
         {
             myAnimator.SetTrigger("Jumping");
             myAnimator.SetBool("Idle", false);
+            myJumpSound.Play();
             myPlayerJump.Jump(myCurrentPoints, myPointsIndex, myTotalSpeed, ref myAirMovement);
             ResetSpline();
             return;
@@ -181,6 +191,7 @@ public class Player : MonoBehaviour
     {
         if (!myGrounded && myAirMovement.y < 0)
         {
+            myJumpSound.Play();
             myPlayerJump.Bounce(ref myAirMovement);
             return true;
         }
@@ -240,6 +251,19 @@ public class Player : MonoBehaviour
         }
 
         CatchSpline();
+    }
+
+    private void ActivateTrail()
+    {
+        float trailLimit = 200f;
+        if (myTotalSpeed >= trailLimit)
+        {
+            mySpeedTrail.SetActive(true);
+        }
+        else
+        {
+            mySpeedTrail.SetActive(false);
+        }
     }
 
     public void IncreaseScore()
