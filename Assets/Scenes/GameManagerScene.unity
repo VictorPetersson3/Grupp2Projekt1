@@ -133,51 +133,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MusicManager
       objectReference: {fileID: 0}
-    - target: {fileID: 9084859996695544327, guid: cd6f2b28b174435479c602d2a0ed353a,
-        type: 3}
-      propertyPath: myMenuMusic01Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 464d3a4a5126160499f6ed2d8f4b2a45, type: 3}
-    - target: {fileID: 9084859996695544327, guid: cd6f2b28b174435479c602d2a0ed353a,
-        type: 3}
-      propertyPath: myMenuMusic02Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 7a3bb51b8f0a8fa41992c0c8dc8ddb09, type: 3}
-    - target: {fileID: 9084859996695544327, guid: cd6f2b28b174435479c602d2a0ed353a,
-        type: 3}
-      propertyPath: myCreditsClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 2be248720dd15a44098a5db335e116a1, type: 3}
-    - target: {fileID: 9084859996695544327, guid: cd6f2b28b174435479c602d2a0ed353a,
-        type: 3}
-      propertyPath: myMenuMusicClip00
-      value: 
-      objectReference: {fileID: 8300000, guid: b1ea9e790f5a822438e96aeecf20d767, type: 3}
-    - target: {fileID: 9084859996695544327, guid: cd6f2b28b174435479c602d2a0ed353a,
-        type: 3}
-      propertyPath: myMenuMusicClip01
-      value: 
-      objectReference: {fileID: 8300000, guid: c1f4668522d4f454f81f5fec232d19af, type: 3}
-    - target: {fileID: 9084859996695544327, guid: cd6f2b28b174435479c602d2a0ed353a,
-        type: 3}
-      propertyPath: myMenuMusicClip02
-      value: 
-      objectReference: {fileID: 8300000, guid: 4fbf9b4b5a4e9f64b9959b993d053b7e, type: 3}
-    - target: {fileID: 9084859996695544327, guid: cd6f2b28b174435479c602d2a0ed353a,
-        type: 3}
-      propertyPath: myScene01MusicClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 83107960f64b4044e96a3a97ba314603, type: 3}
-    - target: {fileID: 9084859996695544327, guid: cd6f2b28b174435479c602d2a0ed353a,
-        type: 3}
-      propertyPath: myScene02MusicClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 464d3a4a5126160499f6ed2d8f4b2a45, type: 3}
-    - target: {fileID: 9084859996695544327, guid: cd6f2b28b174435479c602d2a0ed353a,
-        type: 3}
-      propertyPath: myScene03MusicClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 7a3bb51b8f0a8fa41992c0c8dc8ddb09, type: 3}
     - target: {fileID: 9084859996695544328, guid: cd6f2b28b174435479c602d2a0ed353a,
         type: 3}
       propertyPath: m_LocalPosition.x
