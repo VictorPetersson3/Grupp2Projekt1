@@ -3,7 +3,7 @@
 public class CogsCollision : MonoBehaviour
 {
     private Player myPlayer = null;
-    private GameObject mySoundContainer;
+    private GameObject mySoundContainer = null;
     [SerializeField]
     private GameObject myCogSound = null;
 
