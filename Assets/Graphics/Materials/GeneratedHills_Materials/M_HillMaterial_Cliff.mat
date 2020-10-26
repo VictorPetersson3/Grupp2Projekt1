@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_HillMaterial_Sand
-  m_Shader: {fileID: -6465566751694194690, guid: fd82da0b5aa597d489a8eaf30f583b2a,
+  m_Name: M_HillMaterial_Cliff
+  m_Shader: {fileID: -6465566751694194690, guid: 19a1ff0cd2131af44a4ff2ce8168b815,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -21,11 +21,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Heigth:
-        m_Texture: {fileID: 2800000, guid: 248425398a04ad94db405a4a1d81b13a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 690f5ce8228ddc9418b0b6e2040d87b7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Normal:
-        m_Texture: {fileID: 2800000, guid: 25a6d042b503b1f4b980d1a36fd94df9, type: 3}
+        m_Texture: {fileID: 2800000, guid: e65ad5fd0dd7ebd4982bd4a84d834a8d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2DAsset_E9186DE9_Out_0:
@@ -33,22 +33,23 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_17E1A0: 0.273
+    - Vector1_17E1A0: 0.841
     - Vector1_33A7041A: 24.9
-    - Vector1_53108C71: 0.111
+    - Vector1_53108C71: 0.383
     - Vector1_5B568A98: 1
     - Vector1_64C17BE3: 0.838
-    - Vector1_7089BB0B: 57.3
+    - Vector1_7089BB0B: 50.1
     - Vector1_71B8059A: 2.32
-    - Vector1_76955F47: 57.7
-    - Vector1_917C44AC: 113
+    - Vector1_76955F47: 37.3
+    - Vector1_917C44AC: 233
     - Vector1_B01EA4A4: 0.33
     - Vector1_B69241E1: 166
+    - Vector1_B720340B: 0.06
     - Vector1_BA2E9D07: 7.3
     - Vector1_BCA4FAF6: 3.02
     m_Colors:
     - Base: {r: 0.7647059, g: 0.4254154, b: 0.3058824, a: 1}
-    - Color_1: {r: 1, g: 0.68647003, b: 0.5801887, a: 1}
-    - Color_622C62EE: {r: 0.3773585, g: 0.25784954, b: 0.1512994, a: 1}
+    - Color_1: {r: 0.5283019, g: 0.43320757, b: 0.3962264, a: 1}
+    - Color_622C62EE: {r: 0.23918656, g: 0.26154175, b: 0.4056604, a: 1}
     - Color_F8637335: {r: 1, g: 0.7160777, b: 0.5330188, a: 1}
     - Color_F92ACA3A: {r: 1, g: 0.69642025, b: 0.5518868, a: 1}
