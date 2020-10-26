@@ -23,6 +23,7 @@ public class Explode : MonoBehaviour
     {
         if (myPlayer.GetInvincible())
         {
+            // TODO: Fix Explosion
             myExplosion.Play();
             myGraphicsContainer.SetActive(false);
             Destroy(myParent, myExplosion.main.duration);
