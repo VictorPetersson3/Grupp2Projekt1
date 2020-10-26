@@ -15,6 +15,10 @@ TagManager:
   - Top
   - Left
   - MusicManager
+  - SpeedTrail
+  - GraphicsContainer
+  - magnetGraphics
+  - invincibleGraphics
   layers:
   - Default
   - TransparentFX

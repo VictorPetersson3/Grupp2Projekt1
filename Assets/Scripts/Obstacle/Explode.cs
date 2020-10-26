@@ -32,7 +32,6 @@ public class Explode : MonoBehaviour
     {
         if (myPlayer.GetInvincible())
         {
-            // TODO: Fix Explosion
             myExplosion.Play();
             Instantiate(myExplosionSound, mySoundContainer.transform);
             myGraphicsContainer.SetActive(false);
