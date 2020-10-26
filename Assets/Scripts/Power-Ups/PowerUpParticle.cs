@@ -6,7 +6,6 @@ public class PowerUpParticle : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("COLORS");
         myParticleEffect = GetComponent<ParticleSystem>();
         myParticleEffect.Play();
         Destroy(gameObject, myParticleEffect.main.duration);
