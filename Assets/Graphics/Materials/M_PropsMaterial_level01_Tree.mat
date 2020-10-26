@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_PropsMaterial_level01_Rock
+  m_Name: M_PropsMaterial_level01_Tree
   m_Shader: {fileID: -6465566751694194690, guid: d9e25d4c7a8fe67499c2cc2537cac437,
     type: 3}
   m_ShaderKeywords: 
