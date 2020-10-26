@@ -136,6 +136,11 @@ public class GameManager : MonoBehaviour
         SceneManager.UnloadSceneAsync(aCurrentScene);
         SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Additive);
     }
+    public void ReplayLevel(Scene aCurrentScene)
+    {
+        SceneManager.UnloadSceneAsync(aCurrentScene);
+        SceneManager.LoadSceneAsync(aCurrentScene.buildIndex, LoadSceneMode.Additive);
+    }
 
     public void Pause(Scene aScene)
     {
