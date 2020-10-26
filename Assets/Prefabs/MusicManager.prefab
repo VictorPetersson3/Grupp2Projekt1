@@ -44,13 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32ea7bdba10b18b40b5c521a312e187d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMenuMusicClip: {fileID: 8300000, guid: b1ea9e790f5a822438e96aeecf20d767, type: 3}
-  myMenuMusic01Clip: {fileID: 0}
-  myMenuMusic02Clip: {fileID: 0}
+  myMenuMusicClip00: {fileID: 8300000, guid: b1ea9e790f5a822438e96aeecf20d767, type: 3}
+  myMenuMusicClip01: {fileID: 0}
+  myMenuMusicClip02: {fileID: 0}
   myCreditsClip: {fileID: 0}
-  myScene01MusicClip: {fileID: 8300000, guid: c1f4668522d4f454f81f5fec232d19af, type: 3}
-  myScene02MusicClip: {fileID: 8300000, guid: 4fbf9b4b5a4e9f64b9959b993d053b7e, type: 3}
-  myScene03MusicClip: {fileID: 8300000, guid: c1655663207e1444eb71e8d8c27ffd22, type: 3}
+  myScene01MusicClip: {fileID: 8300000, guid: 83107960f64b4044e96a3a97ba314603, type: 3}
+  myScene02MusicClip: {fileID: 8300000, guid: 464d3a4a5126160499f6ed2d8f4b2a45, type: 3}
+  myScene03MusicClip: {fileID: 8300000, guid: 7a3bb51b8f0a8fa41992c0c8dc8ddb09, type: 3}
 --- !u!82 &9084859996695544329
 AudioSource:
   m_ObjectHideFlags: 0
