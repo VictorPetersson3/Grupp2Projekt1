@@ -19,6 +19,8 @@ public class MainMenuScript : MonoBehaviour
         ////myMusicManager.PlayMusic01();   //Elf
 
 
+        Time.timeScale = 1f;
+
         if (myLevelSelect==null)
         {
             Debug.LogError("myLevelSelect is fuckywucky");
@@ -34,6 +36,10 @@ public class MainMenuScript : MonoBehaviour
 
         myCreditsScreen.SetActive(false);
         myLevelSelect.SetActive(false);
+
+         
+
+
     }
 
     // Update is called once per frame
