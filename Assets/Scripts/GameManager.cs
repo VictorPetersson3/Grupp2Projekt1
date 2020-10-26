@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     private Transform myObstacleParent = null;
     [SerializeField]
     private BoxCollider[] myObstacles;
+    [SerializeField]
+    private GameObject myLoadingScreen = null;
     //[SerializeField]
     //private AudioClip myMenuMusicClip;
     //[SerializeField]
@@ -43,8 +45,8 @@ public class GameManager : MonoBehaviour
 
         myObstacles = myObstacleParent.GetComponentsInChildren<BoxCollider>();
 
-        //[SerializeField] private MusicManagerScript myMusicManager;  //Elf
 
+        //[SerializeField] private MusicManagerScript myMusicManager;  //Elf
     }
 
     public void ResetObstacles()
