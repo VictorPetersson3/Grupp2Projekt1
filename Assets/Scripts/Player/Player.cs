@@ -56,6 +56,9 @@ public class Player : MonoBehaviour
     // Sounds
     private AudioSource myJumpSound = null;
 
+    // Trails
+    private GameObject mySpeedTrail = null;
+
     private void Start()
     {
         myPlayerSpline = GetComponent<PlayerSpline>();
@@ -67,6 +70,7 @@ public class Player : MonoBehaviour
         myPlayerBackflip = GetComponentInChildren<PlayerBackflip>();
         mySandParticleManager = GetComponentInChildren<SandParticleManager>();
         myCameraShake = myCameraFollow.gameObject.GetComponentInChildren<CameraShake>();
+        mySpeedTrail = GameObject.FindGameObjectWithTag("SpeedTrail");
         myJumpSound = GetComponentInChildren<AudioSource>();
 
         myUnmodifiedSpeed = myStartSpeed;
@@ -99,6 +103,7 @@ public class Player : MonoBehaviour
         }
 
         Collision();
+        ActivateTrail();
 
         myIsJumping = myPlayerInput.IsJumping();
         if (myGrounded)
@@ -246,6 +251,19 @@ public class Player : MonoBehaviour
         }
 
         CatchSpline();
+    }
+
+    private void ActivateTrail()
+    {
+        float trailLimit = 200f;
+        if (myTotalSpeed >= trailLimit)
+        {
+            mySpeedTrail.SetActive(true);
+        }
+        else
+        {
+            mySpeedTrail.SetActive(false);
+        }
     }
 
     public void IncreaseScore()
