@@ -9,10 +9,11 @@ public class InvincibleCollision : MonoBehaviour
     private GameObject myParticleObject = null;
     [SerializeField]
     private GameObject mySound = null;
+    private bool myShouldDestroy = false;
     
     void Start()
     {
-        myPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        myPlayer = GameObject.FindGameObjectWithTag("PlayerTag").GetComponent<Player>();
         myGraphicsContainer = GameObject.FindGameObjectWithTag("invincibleGraphics");
         mySoundContainer = GameObject.FindGameObjectWithTag("SoundContainer");
 
@@ -26,6 +27,14 @@ public class InvincibleCollision : MonoBehaviour
         }  
     }
 
+    private void LateUpdate()
+    {
+        if (myShouldDestroy)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void OnCollisionEnter(Collision aCollision)
     {
         if (myPlayer == null || mySound == null)
@@ -36,6 +45,6 @@ public class InvincibleCollision : MonoBehaviour
         myPlayer.SetInvincible(true);
         Instantiate(myParticleObject);
         Instantiate(mySound, mySoundContainer.transform);
-        Destroy(gameObject);
+        myShouldDestroy = true;
     }
 }

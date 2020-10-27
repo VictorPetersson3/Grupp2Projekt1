@@ -2,15 +2,15 @@
 
 public class CogsAttract : MonoBehaviour
 {
+    private Player myPlayer = null;
     [SerializeField]
     private float myAttractReach = 0.1f;
     [SerializeField]
     private float myAttractSpeed = 2f;
-    private Player myPlayer = null;
      
     void Start()
     {
-        myPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        myPlayer = GameObject.FindGameObjectWithTag("PlayerTag").GetComponent<Player>();
         if (myPlayer == null)
         {
             Debug.LogError("Error: myPlayer missing");
