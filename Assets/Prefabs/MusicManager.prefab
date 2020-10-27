@@ -49,7 +49,7 @@ MonoBehaviour:
   myScene03WinMusic: {fileID: 8300000, guid: 82c3134e3c71ac14db2f122c57a8187f, type: 3}
   myCreditsClip: {fileID: 0}
   myScene01MusicClip: {fileID: 8300000, guid: 5975899d58cce6c439d2442c7104f95f, type: 3}
-  myScene02MusicClip: {fileID: 8300000, guid: a5b5284d8e859f149b5ee35a6c350edb, type: 3}
+  myScene02MusicClip: {fileID: 8300000, guid: 78bbebc8f9ec3184088766a01923cc1e, type: 3}
   myScene03MusicClip: {fileID: 8300000, guid: 88bfde086189f784587f2a9520962d6f, type: 3}
 --- !u!82 &9084859996695544329
 AudioSource:
