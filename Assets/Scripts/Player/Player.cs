@@ -131,8 +131,6 @@ public class Player : MonoBehaviour
     private void ResetSpline()
     {
         myGrounded = false;
-        myPointsIndex = -1;
-        myCurrentPoints = null;
         mySplineT = 0;
         myPlayerSpline.ResetAngleVariables();
         myBoostVector = Vector2.zero;
@@ -144,7 +142,10 @@ public class Player : MonoBehaviour
         myAirMovement.y = 0;
         myCameraFollow.UpdateYOffset(0);
         myPlayerBobbing.Bob();
-        mySandParticleManager.CreateSandParticle(myGroundParticleAmount);
+        if (!myPlayerSpline.GetIsRailing())
+        {
+            mySandParticleManager.CreateSandParticle(myGroundParticleAmount);
+        }
         if (myPressJump)
         {
             myAnimator.SetTrigger("Jumping");
