@@ -7,8 +7,6 @@ public class PlayerSpline : MonoBehaviour
     [SerializeField]
     private float myAngleBuffer = -0.1f;
     [SerializeField]
-    private float myGroundBoostStrength = 50f;
-    [SerializeField]
     private float mySlopeAcceleration = 1f;
     [SerializeField]
     private float mySlopeDeceleration = 1f;
@@ -18,17 +16,36 @@ public class PlayerSpline : MonoBehaviour
     private float myMinUnmodifiedSpeed = 10f;
     [Header("Trick Boost")]
     [SerializeField]
+    private PlayerTrickBoost myTrickBoost = null;
+    [SerializeField]
     private float myTrickBoostStrength = 100f;
     [SerializeField]
-    private float myTrickBoostMax = 100f;
+    private float myTrickBoostMaxForce = 100f;
+    [SerializeField]
+    private float myRailBoostMultiplier = 1f;
+    [Header("Ground Boost")]
+    [SerializeField]
+    private float myGroundBoostStrength = 50f;
+    [SerializeField]
+    private float myGroundBoostMaxTime = 5f;
 
     private float myOldAngle = 90;
     private float myCurrentAngle = 90;
+    private float myCurrentGroundBoost = 0;
     private bool myFirstCheck = true;
+    private bool myRailing = false;
 
     const int myFlatAngle = 90;
 
-    public bool SplineMovement(Vector2[] someCurrentPoints, ref float anUnmodifiedSpeed, ref int aPointsIndex, ref float aSplineT, float aGravity, Vector2 aBoostVector, ref float aTrickBoost, ref float aTotalSpeed)
+#if UNITY_EDITOR
+    private void OnGUI()
+    {
+        GUI.Label(new Rect(0, 180, 250, 20), "Ground Boost: " + myCurrentGroundBoost);
+        GUI.Label(new Rect(0, 200, 250, 20), "Railing: " + myRailing);
+    }
+#endif
+
+    public bool SplineMovement(Vector2[] someCurrentPoints, ref float anUnmodifiedSpeed, ref int aPointsIndex, ref float aSplineT, float aGravity, Vector2 aBoostVector, ref float aTotalSpeed)
     {
         float accMultiplier = mySlopeAcceleration;
 
@@ -36,7 +53,8 @@ public class PlayerSpline : MonoBehaviour
         {
             accMultiplier = mySlopeDeceleration;
         }
-        
+
+        accMultiplier *= Time.deltaTime;
         anUnmodifiedSpeed -= (myCurrentAngle - myFlatAngle) * accMultiplier;
         anUnmodifiedSpeed = Mathf.Clamp(anUnmodifiedSpeed, myMinUnmodifiedSpeed, myMaxUnmodifiedSpeed);
 
@@ -44,27 +62,54 @@ public class PlayerSpline : MonoBehaviour
 
         if (IndexWithinBoost(aPointsIndex, aBoostVector))
         {
-            aTotalSpeed += myGroundBoostStrength;
+            myCurrentGroundBoost += Time.deltaTime * 10;
+            if (myCurrentGroundBoost > myGroundBoostMaxTime)
+            {
+                myCurrentGroundBoost = myGroundBoostMaxTime;
+            }
+            aTotalSpeed += myGroundBoostStrength * myCurrentGroundBoost / myGroundBoostMaxTime;
         }
 
-        if (aTrickBoost > 0)
+        else if (myCurrentGroundBoost > 0)
         {
-            float currentTrickBoost = aTrickBoost * myTrickBoostStrength;
-            if (currentTrickBoost > myTrickBoostMax)
+            myCurrentGroundBoost -= Time.deltaTime;
+            aTotalSpeed += myGroundBoostStrength * myCurrentGroundBoost / myGroundBoostMaxTime;
+
+            if (myCurrentGroundBoost < 0)
             {
-                currentTrickBoost = myTrickBoostMax;
+                myCurrentGroundBoost = 0;
+            }
+        }
+
+        float trickBoost = myTrickBoost.GetTrickBoostTime();
+        if (trickBoost > 0)
+        {
+            float currentTrickBoost = trickBoost * myTrickBoostStrength;
+            if (currentTrickBoost > myTrickBoostMaxForce)
+            {
+                currentTrickBoost = myTrickBoostMaxForce;
             }
             aTotalSpeed += currentTrickBoost;
-            aTrickBoost -= Time.deltaTime;
         }
-        else if (aTrickBoost < 0)
+        
+        if (myRailing)
         {
-            aTrickBoost = 0;
+            myTrickBoost.AddTrickBoostTime(Time.deltaTime * myRailBoostMultiplier);
         }
+        else
+        {
+            myTrickBoost.AddTrickBoostTime(-Time.deltaTime);
+        }
+
         aSplineT += aTotalSpeed * Time.deltaTime;
 
         while (aSplineT >= 1f)
         {
+            if (aPointsIndex + 1 >= someCurrentPoints.Length)
+            {
+                return false;
+            }
+
             transform.position = someCurrentPoints[aPointsIndex + 1];
 
             aSplineT -= 1f;
@@ -177,47 +222,6 @@ public class PlayerSpline : MonoBehaviour
         aAirMovement = aAirMovement.normalized * aTotalSpeed / 10;
     }
 
-    private bool IsOldSpline(Vector2[] someOldPoints, Vector2[] someCurrentPoints)
-    {
-        bool sameSpline = false;
-
-        if ((someOldPoints != null && someCurrentPoints != null) && someOldPoints.Length == someCurrentPoints.Length)
-        {
-            sameSpline = true;
-
-            for (int i = 0; i < someOldPoints.Length; i++)
-            {
-                if (someCurrentPoints[i] != someOldPoints[i])
-                {
-                    return false;
-                }
-            }
-        }
-        return sameSpline;
-    }
-
-    public bool AttemptToCatchSpline(SplineManager aSplineManager, float aReach, ref bool aTooCloseToOldSpline, ref int aPointsIndex, ref Vector2[] someCurrentPoints, ref Vector2[] someOldPoints, ref Vector2 aBoost)
-    {
-        Vector2 closestPoint = aSplineManager.GetClosestPoint(transform.position, ref aPointsIndex, ref someCurrentPoints, ref aBoost);
-
-        if (Vector2.Distance(transform.position, closestPoint) <= aReach)
-        {
-            if (aTooCloseToOldSpline && IsOldSpline(someOldPoints, someCurrentPoints))
-            {
-                return false;
-            }
-
-            transform.position = closestPoint;
-            return true;
-        }
-
-        if (Vector2.Distance(transform.position, closestPoint) > aReach && IsOldSpline(someOldPoints, someCurrentPoints))
-        {
-            aTooCloseToOldSpline = false;
-        }
-        return false;
-    }
-
     private bool IndexWithinBoost(int anIndex, Vector2 aBoost)
     {
         if (aBoost == Vector2.zero)
@@ -231,5 +235,15 @@ public class PlayerSpline : MonoBehaviour
         }
 
         return false;
+    }
+
+    public Vector2 GetMinMaxSpeeds()
+    {
+        return new Vector2(myMinUnmodifiedSpeed, myTrickBoostMaxForce + myMaxUnmodifiedSpeed);
+    }
+
+    public void SetRailing(bool aSet)
+    {
+        myRailing = aSet;
     }
 }

@@ -1,16 +1,13 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-	[SerializeField]
+    [SerializeField]
     private GameManager myGameManager = null;
     [SerializeField]
     private SplineManager mySplineManager = null;
     [SerializeField]
-    private CameraShake myCamera = null;
-    [SerializeField]
-    private float myReach = 0.25f;
+    private CameraFollow myCameraFollow = null;
     [SerializeField]
     private float myGravity = 1f;
     [SerializeField]
@@ -24,7 +21,7 @@ public class Player : MonoBehaviour
     private float myShakeDurationSplines = 10f;
     [SerializeField]
     private float myShakeMagnitudeSplines = 5f;
-	
+
     private SandParticleManager mySandParticleManager;
     private PlayerSpline myPlayerSpline;
     private PlayerJump myPlayerJump;
@@ -33,22 +30,35 @@ public class Player : MonoBehaviour
     private PlayerCollision myPlayerCollision;
     private PlayerBobbing myPlayerBobbing;
     private PlayerBackflip myPlayerBackflip;
+    private CameraShake myCameraShake = null;
 
     private bool myGrounded = false;
-    private bool myTooCloseToOldSpline = false;
-    private bool myIsJumping;
-    private bool myHasCollided = false;
+    private bool myIsHoldingJump;
+    private bool myPressJump;
+    private int myScore = 0;
+    private CollisionData myCollisionData;
+    private Vector3 myOldPosition;
     private Vector2[] myCurrentPoints;
-    private Vector2[] myOldPoints;
     private Vector2 myAirMovement = Vector2.right;
     private Vector2 myBoostVector = Vector2.zero;
     private int myPointsIndex = -1;
     private float mySplineT = -1;
-    private float myUnmodifiedSpeed = 0f; 
-    private float myTrickBoost = 0f;
+    private float myUnmodifiedSpeed = 0f;
     private float myTotalSpeed = 0f;
+    private const int myGroundParticleAmount = 8;
 
-    private const int myGroundParticleAmount = 3;
+    [SerializeField]
+    Animator myAnimator;
+
+    // Power ups
+    private bool myMagnet = false;
+    private bool myInvincible = false;
+
+    // Sounds
+    private AudioSource myJumpSound = null;
+
+    // Trails
+    private GameObject mySpeedTrail = null;
 
     private void Start()
     {
@@ -60,25 +70,30 @@ public class Player : MonoBehaviour
         myPlayerBobbing = GetComponent<PlayerBobbing>();
         myPlayerBackflip = GetComponentInChildren<PlayerBackflip>();
         mySandParticleManager = GetComponentInChildren<SandParticleManager>();
+        myCameraShake = myCameraFollow.gameObject.GetComponentInChildren<CameraShake>();
+        mySpeedTrail = GameObject.FindGameObjectWithTag("SpeedTrail");
+        myJumpSound = GetComponentInChildren<AudioSource>();
 
         myUnmodifiedSpeed = myStartSpeed;
-
+        myOldPosition = transform.position;
         if (mySplineManager == null)
         {
             Debug.LogError(this + " has no splineManager!");
             return;
         }
-        if (myCamera == null)
+        if (myCameraFollow == null)
         {
-            Debug.LogError(this + " has no camera!");
+            Debug.LogError(this + " has no camera follow!");
         }
+
+        myCameraFollow.SetPlayerSpeeds(myPlayerSpline.GetMinMaxSpeeds().x, myPlayerSpline.GetMinMaxSpeeds().y);
     }
 
     private void Update()
     {
         if (myPlayerInput.IsQuitting())
         {
-            Application.Quit();
+            //Application.Quit();
         }
 
         if (myPlayerInput.IsResetting())
@@ -86,22 +101,16 @@ public class Player : MonoBehaviour
             Crash();
             return;
         }
+        myAnimator.SetFloat("MovementSpeed", myTotalSpeed);
+        Collision();
+        ActivateTrail();
 
-        myHasCollided = myPlayerCollision.HasCollided();
-        if (myHasCollided)
-        {
-            myPlayerCollision.ResetCollided();
-            myCamera.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
-            if (!Bounce())
-            {
-                Crash();
-                return;
-            }
-        }
-
-        myIsJumping = myPlayerInput.IsJumping();
+        myIsHoldingJump = myPlayerInput.IsJumping();
+        myPressJump = myPlayerInput.PressJump();
         if (myGrounded)
         {
+            myAnimator.SetBool("Idle", true);
+            myAnimator.SetBool("InAir", false);
             Grounded();
             return;
         }
@@ -109,34 +118,73 @@ public class Player : MonoBehaviour
         Air();
     }
 
+    private void OnGUI()
+    {
+        float fps = 1 / Time.deltaTime;
+        GUI.Label(new Rect(0, 100, 250, 20), "FPS: " + fps);
+#if UNITY_EDITOR
+        GUI.Label(new Rect(0, 120, 250, 20), "Total Speed: " + myTotalSpeed);
+        GUI.Label(new Rect(0, 140, 250, 20), "Air Movement: " + myAirMovement);
+#endif
+    }
+
     private void ResetSpline()
     {
-        myTooCloseToOldSpline = true;
         myGrounded = false;
         myPointsIndex = -1;
-        myOldPoints = myCurrentPoints;
         myCurrentPoints = null;
         mySplineT = 0;
         myPlayerSpline.ResetAngleVariables();
         myBoostVector = Vector2.zero;
+        myPlayerSpline.SetRailing(false);
     }
 
     private void Grounded()
     {
+        myAirMovement.y = 0;
+        myCameraFollow.UpdateYOffset(0);
         myPlayerBobbing.Bob();
         mySandParticleManager.CreateSandParticle(myGroundParticleAmount);
-
-        if (myIsJumping)
+        if (myPressJump)
         {
+            myAnimator.SetTrigger("Jumping");
+            myAnimator.SetBool("Idle", false);
+            myJumpSound.Play();
             myPlayerJump.Jump(myCurrentPoints, myPointsIndex, myTotalSpeed, ref myAirMovement);
             ResetSpline();
             return;
         }
 
-        if (!myPlayerSpline.SplineMovement(myCurrentPoints, ref myUnmodifiedSpeed, ref myPointsIndex, ref mySplineT, myGravity, myBoostVector, ref myTrickBoost, ref myTotalSpeed))
+        if (!myPlayerSpline.SplineMovement(myCurrentPoints, ref myUnmodifiedSpeed, ref myPointsIndex, ref mySplineT, myGravity, myBoostVector, ref myTotalSpeed))
         {
             myPlayerSpline.ReleaseSpline(myCurrentPoints, myTotalSpeed, ref myAirMovement, myPointsIndex);
             ResetSpline();
+        }
+
+        myCameraFollow.CameraZoom(myTotalSpeed);
+    }
+
+    private void Collision()
+    {
+        myCollisionData = myPlayerCollision.ReturnCollisionData();
+        if (myCollisionData.GetHasCollided())
+        {
+            myCollisionData.SetHasCollided(false);
+            if (myCollisionData.GetTag() == "Top")
+            {
+                Bounce();
+                return;
+            }
+            if (myInvincible)
+            {
+                return;
+            }
+            if (myCollisionData.GetTag() == "Left")
+            {
+                myCameraShake.TriggerShake(myShakeDurationRocks, myShakeMagnitudeRocks);
+                Crash();
+                return;
+            }
         }
     }
 
@@ -144,6 +192,7 @@ public class Player : MonoBehaviour
     {
         if (!myGrounded && myAirMovement.y < 0)
         {
+            myJumpSound.Play();
             myPlayerJump.Bounce(ref myAirMovement);
             return true;
         }
@@ -153,31 +202,39 @@ public class Player : MonoBehaviour
     private void Crash()
     {
         mySandParticleManager.DestroyAllSandParticles();
-        myGameManager.GameOver(SceneManager.GetSceneAt(1));
+        myGameManager.GameOver(myGameManager.GetActiveScene());
     }
 
     private void Air()
     {
-        myPlayerAir.AirMovement(myGravity, ref myAirMovement);
+        myOldPosition = myPlayerAir.AirMovement(myGravity, ref myAirMovement);
+        myCameraFollow.UpdateYOffset(myAirMovement.y);
 
-        if (myIsJumping)
+        if (myIsHoldingJump)
         {
+            myAnimator.SetBool("Idle", false);
+            myAnimator.SetBool("Bow Down", true);
             myPlayerBackflip.Backflip();
         }
         else
         {
-            myPlayerAir.AirRotation();
+            myAnimator.SetBool("Bow Down", false);
+            myPlayerAir.AirRotation(mySplineManager.GetGroundDirection(transform.position));
         }
 
-        if (myAirMovement.y > 0)
+        bool falling = false;
+        if (myAirMovement.y < 0)
+        {
+            falling = true;
+        }
+
+        bool isRail = false;
+        if (!mySplineManager.PlayerSplineCollision(transform.position, myOldPosition, ref myPointsIndex, ref myCurrentPoints, ref myBoostVector, ref isRail, falling, myIsHoldingJump))
         {
             return;
         }
 
-        if (!myPlayerSpline.AttemptToCatchSpline(mySplineManager, myReach, ref myTooCloseToOldSpline, ref myPointsIndex, ref myCurrentPoints, ref myOldPoints, ref myBoostVector))
-        {
-            return;
-        }
+        myPlayerSpline.SetRailing(isRail);
 
         if (myPointsIndex + 1 >= myCurrentPoints.Length)
         {
@@ -187,7 +244,6 @@ public class Player : MonoBehaviour
                 return;
             }
         }
-        
         else if (myPlayerBackflip.WillCrash(myCurrentPoints[myPointsIndex + 1] - myCurrentPoints[myPointsIndex]))
         {
             Crash();
@@ -197,10 +253,53 @@ public class Player : MonoBehaviour
         CatchSpline();
     }
 
+    private void ActivateTrail()
+    {
+        float trailLimit = 200f;
+        if (myTotalSpeed >= trailLimit)
+        {
+            mySpeedTrail.SetActive(true);
+        }
+        else
+        {
+            mySpeedTrail.SetActive(false);
+        }
+    }
+
+    public void IncreaseScore()
+    {
+        myScore++;
+    }
+
+    public int GetScore()
+    {
+        return myScore;
+    }
+    public bool GetMagnet()
+    {
+        return myMagnet;
+    }
+
+    public void SetMagnet(bool aValue)
+    {
+        myMagnet = aValue;
+    }
+
+    public bool GetInvincible()
+    {
+        return myInvincible;
+    }
+
+    public void SetInvincible(bool aValue)
+    {
+        myInvincible = aValue;
+    }
+
     private void CatchSpline()
     {
-        myTrickBoost += myPlayerBackflip.GetBackflipScore();
-        myCamera.TriggerShake(myShakeDurationSplines, myShakeMagnitudeSplines);
+        myPlayerBackflip.GetBackflipScore();
+        myAnimator.SetTrigger("Landing");
+        myCameraShake.TriggerShake(myShakeDurationSplines, myShakeMagnitudeSplines);
         myGrounded = true;
         mySplineT = 0;
     }

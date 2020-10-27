@@ -13,7 +13,7 @@ public class PlayerJump : MonoBehaviour
         }
         else
         {
-            aAirMovement = aCurrentPoints[aCurrentPoints.Length] - aCurrentPoints[aCurrentPoints.Length - 1];
+            aAirMovement = aCurrentPoints[aCurrentPoints.Length - 1] - aCurrentPoints[aCurrentPoints.Length - 2];
         }
 
         aAirMovement = aAirMovement.normalized * aTotalSpeed / 10;

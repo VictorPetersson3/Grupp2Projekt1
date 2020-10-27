@@ -7,9 +7,9 @@ public class PlayerBackflip : MonoBehaviour
     [SerializeField]
     private float myBackflipBoostTimeMultiplier = 0.5f;
     [SerializeField]
-    private float myMaxTrickBoostTime = 10f;
-    [SerializeField]
     private float myCrashAngleTolerance = 45f;
+    [SerializeField]
+    private PlayerTrickBoost myTrickBoost = null;
 
     private float myBackflipScore = 0f;
 
@@ -20,30 +20,19 @@ public class PlayerBackflip : MonoBehaviour
         myBackflipScore += rotation;
     }
 
-    public float GetBackflipScore()
+    public void GetBackflipScore()
     {
-        float returnValue = 0f;
+        float boostValue = 0f;
 
         while (myBackflipScore > 180)
         {
-            returnValue += 360;
+            boostValue += 360;
             myBackflipScore -= 360;
         }
         
         myBackflipScore = 0;
-        returnValue *= myBackflipBoostTimeMultiplier;
-
-        if (returnValue > myMaxTrickBoostTime)
-        {
-            returnValue = myMaxTrickBoostTime;
-        }
-
-        return returnValue;
-    }
-
-    public void ResetScore()
-    {
-        myBackflipScore = 0f;
+        boostValue *= myBackflipBoostTimeMultiplier;
+        myTrickBoost.AddTrickBoostTime(boostValue);
     }
 
     public bool WillCrash(Vector2 aGroundVector)

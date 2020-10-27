@@ -6,6 +6,19 @@ TagManager:
   tags:
   - Spline
   - GameManager
+  - SandParticleManager
+  - Coin
+  - Rock
+  - SandParticles
+  - Magnet
+  - SoundContainer
+  - Top
+  - Left
+  - MusicManager
+  - SpeedTrail
+  - GraphicsContainer
+  - magnetGraphics
+  - invincibleGraphics
   layers:
   - Default
   - TransparentFX
@@ -15,8 +28,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - PlayerLayer
+  - PlayerTrash
   - 
   - 
   - 

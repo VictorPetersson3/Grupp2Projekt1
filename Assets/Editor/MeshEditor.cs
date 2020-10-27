@@ -6,10 +6,9 @@ public class MeshEditor : Editor
 {
     private MeshCreator myCreator;
 
-
     private void OnSceneGUI()
     {
-        if (myCreator.previewGeneratedMesh && Event.current.type == EventType.Repaint)
+        if (myCreator.myPreviewGeneratedMesh && Event.current.type == EventType.Repaint)
         {
             myCreator.UpdateMesh();
         }
@@ -28,10 +27,10 @@ public class MeshEditor : Editor
         GUILayout.Label(" ");
         GUILayout.Label("Options to manipulate the mesh on the spline.");
         GUILayout.Label(" ");
-        if (GUILayout.Button("Generate 3D Mesh"))
+        if (GUILayout.Button("Generate 3D SpeedMesh Mesh"))
         {
-            Undo.RecordObject(myCreator, "Generate 3D Mesh");
-            myCreator.CreateMesh();
+            myCreator.CreateGameObject("SpeedBoost");
+            Undo.RecordObject(myCreator, "Generate 3D SpeedMesh Mesh");
         }
     }
 
