@@ -32,9 +32,11 @@ Material:
     - Boolean_38356CBC: 1
     - Vector1_691D6369: 0
     - Vector1_780AB4A5: 0
+    - Vector1_7BD34A5B: 0.697
     - Vector1_A31C796D: 0.4
     - Vector1_E509D7AB: 0
     m_Colors:
+    - Color_7C9FD621: {r: 0.7505785, g: 0.8962725, b: 0.9528302, a: 0}
     - Color_CD07F77A: {r: 0, g: 0, b: 0, a: 0}
     - Color_DAFEE9B0: {r: 1, g: 1, b: 1, a: 1}
     - Vector2_C8DF2674: {r: 1, g: 1, b: 1, a: 1}
