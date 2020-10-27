@@ -20,24 +20,4 @@ public class PlayerInput : MonoBehaviour
         }
         return false;
     }
-
-    public bool IsQuitting()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    public bool IsResetting()
-    {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            return true;
-        }
-
-        return false;
-    }
 }

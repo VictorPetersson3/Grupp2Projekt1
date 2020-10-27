@@ -16,12 +16,16 @@ public class ScoreCounter : MonoBehaviour
         myScoreText = GetComponent<Text>();
         if (myPlayer == null)
         {
-            Debug.LogError("Error: myPlayer " + myPlayer);
+            Debug.LogError("Error: myPlayer missing");
         }
     }
 
     void Update()
     {
+        if (myPlayer == null)
+        {
+            return;
+        }
         myScoreText.text = myPlayer.GetScore().ToString() + "/" + myCogsLength;
     }
 }

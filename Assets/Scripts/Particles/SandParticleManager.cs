@@ -46,19 +46,10 @@ public class SandParticleManager : MonoBehaviour
         }
     }
 
-    public void CreateSandParticle()
-    {
-        float newX = Random.Range(transform.position.x, transform.position.x - myOffsetX);
-        float newY = Random.Range(transform.position.y, transform.position.y + myOffsetY);
-        Vector3 newPosition = new Vector3(newX, newY, 0);
-
-        GameObject particle = Instantiate(mySandParticle, newPosition, Quaternion.identity, mySandParticlesContainer.transform);
-        mySandParticles.Add(particle);
-    }
-
     public void CreateSandParticle(int aTimes)
     {
-        for (int i = 0; i < aTimes; i++)
+        float amount = aTimes * Time.deltaTime;
+        for (int i = 0; i < amount; i++)
         {
             float newX = Random.Range(transform.position.x, transform.position.x - myOffsetX);
             float newY = Random.Range(transform.position.y, transform.position.y + myOffsetY);
@@ -66,30 +57,6 @@ public class SandParticleManager : MonoBehaviour
 
             GameObject particle = Instantiate(mySandParticle, newPosition, Quaternion.identity, mySandParticlesContainer.transform);
             mySandParticles.Add(particle);
-        }
-    }
-
-    public void ChangeSpawnOffsetY()
-    {
-        if (myOffsetY == 0.2f)
-        {
-            myOffsetY = 0.1f;
-        }
-        if (myOffsetY == 0.1f)
-        {
-            myOffsetY = 0.2f;
-        }
-    }
-
-    public void ChangeSpawnOffsetX()
-    {
-        if (myOffsetX == 0.25f)
-        {
-            myOffsetX = 0.4f;
-        }
-        if (myOffsetX == 0.4f)
-        {
-            myOffsetX = 0.25f;
         }
     }
 }
