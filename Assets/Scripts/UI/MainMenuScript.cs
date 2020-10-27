@@ -11,8 +11,6 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] private GameObject myMainMenuObjects = null;
     [SerializeField] 
     private GameObject myLoadingScreen = null;
-    [SerializeField]
-    private GameManager myGameManager = null;
 
     //[SerializeField] private MusicManagerScript myMusicManager;;  //Elf
     private MusicManagerScript myMusicManager;   //Elf

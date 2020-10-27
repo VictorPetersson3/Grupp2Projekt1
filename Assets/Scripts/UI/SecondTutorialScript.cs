@@ -15,6 +15,11 @@ public class SecondTutorialScript : MonoBehaviour
         {
             Debug.LogError("myPlayer: " + myPlayer);
         }
+
+        if (GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().myFirstTimeCheckTwo == false)
+        {
+            Destroy(this);
+        }
     }
 
     private void Update()
@@ -22,6 +27,7 @@ public class SecondTutorialScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && myHaveEntered == true)
         {
             Time.timeScale = 1;
+            GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().myFirstTimeCheckTwo = false;
             Destroy(this.gameObject);
         }
     }

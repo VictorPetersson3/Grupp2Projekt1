@@ -22,6 +22,10 @@ public class GameManager : MonoBehaviour
     private BoxCollider[] myObstacles;
     [SerializeField]
     private GameObject myLoadingScreen = null;
+
+    public bool myFirstTimeCheckOne = true;
+    public bool myFirstTimeCheckTwo = true;
+
     //[SerializeField]
     //private AudioClip myMenuMusicClip;
     //[SerializeField]
