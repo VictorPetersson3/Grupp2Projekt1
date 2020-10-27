@@ -33,7 +33,8 @@ public class Player : MonoBehaviour
     private CameraShake myCameraShake = null;
 
     private bool myGrounded = false;
-    private bool myIsJumping;
+    private bool myIsHoldingJump;
+    private bool myPressJump;
     private int myScore = 0;
     private CollisionData myCollisionData;
     private Vector3 myOldPosition;
@@ -105,7 +106,8 @@ public class Player : MonoBehaviour
         Collision();
         ActivateTrail();
 
-        myIsJumping = myPlayerInput.IsJumping();
+        myIsHoldingJump = myPlayerInput.IsJumping();
+        myPressJump = myPlayerInput.PressJump();
         if (myGrounded)
         {
             myAnimator.SetBool("Idle", true);
@@ -144,7 +146,7 @@ public class Player : MonoBehaviour
         myCameraFollow.UpdateYOffset(0);
         myPlayerBobbing.Bob();
         mySandParticleManager.CreateSandParticle(myGroundParticleAmount);
-        if (myIsJumping)
+        if (myPressJump)
         {
             myAnimator.SetTrigger("Jumping");
             myAnimator.SetBool("Idle", false);
@@ -209,7 +211,7 @@ public class Player : MonoBehaviour
         myOldPosition = myPlayerAir.AirMovement(myGravity, ref myAirMovement);
         myCameraFollow.UpdateYOffset(myAirMovement.y);
 
-        if (myIsJumping)
+        if (myIsHoldingJump)
         {
             myAnimator.SetBool("Idle", false);
             //myAnimator.SetBool("InAir", false);
@@ -230,7 +232,7 @@ public class Player : MonoBehaviour
         }
 
         bool isRail = false;
-        if (!mySplineManager.PlayerSplineCollision(transform.position, myOldPosition, ref myPointsIndex, ref myCurrentPoints, ref myBoostVector, ref isRail, falling, myIsJumping))
+        if (!mySplineManager.PlayerSplineCollision(transform.position, myOldPosition, ref myPointsIndex, ref myCurrentPoints, ref myBoostVector, ref isRail, falling, myIsHoldingJump))
         {
             return;
         }
