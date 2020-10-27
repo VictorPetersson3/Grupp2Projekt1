@@ -13,11 +13,11 @@ public class CogsCollision : MonoBehaviour
         mySoundContainer = GameObject.FindGameObjectWithTag("SoundContainer");
         if (myPlayer == null)
         {
-            Debug.LogError("myPlayer: " + myPlayer);
+            Debug.LogError("myPlayer");
         }
         if (myCogSound == null)
         {
-            Debug.LogError("myCogSound: " + myCogSound);
+            Debug.LogError("myCogSound: missing");
         }
     }
     private void OnCollisionEnter(Collision aCollision)

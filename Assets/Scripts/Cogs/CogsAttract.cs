@@ -13,12 +13,17 @@ public class CogsAttract : MonoBehaviour
         myPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         if (myPlayer == null)
         {
-            Debug.LogError("Error: myPlayer " + myPlayer);
+            Debug.LogError("Error: myPlayer missing");
         }
     }
 
     void Update()
     {
+        if (myPlayer == null)
+        {
+            return;
+        }
+
         Magnet();
         Attract();
     }

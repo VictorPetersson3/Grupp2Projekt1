@@ -11,7 +11,7 @@ public class PlayerInvincible : MonoBehaviour
         myPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         if (myPlayer == null)
         {
-            Debug.LogError("myPlayer: " + myPlayer);
+            Debug.LogError("myPlayer missing");
         }
     }
 
@@ -23,6 +23,10 @@ public class PlayerInvincible : MonoBehaviour
 
     void Update()
     {
+        if (myPlayer == null)
+        {
+            return;
+        }
         DeactiveInvincible();
     }
 

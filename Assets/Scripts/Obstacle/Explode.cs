@@ -20,11 +20,11 @@ public class Explode : MonoBehaviour
 
         if (myPlayer == null)
         {
-            Debug.LogError("myPlayer: " + myPlayer);
+            Debug.LogError("myPlayer: missing");
         }
         if (myExplosionSound == null)
         {
-            Debug.LogError("myExplosionSound: " + myExplosionSound);
+            Debug.LogError("myExplosionSound: missing");
         }
     }
 
