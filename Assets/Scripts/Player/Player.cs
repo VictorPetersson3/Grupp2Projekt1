@@ -75,7 +75,6 @@ public class Player : MonoBehaviour
 
         myUnmodifiedSpeed = myStartSpeed;
         myOldPosition = transform.position;
-
         if (mySplineManager == null)
         {
             Debug.LogError(this + " has no splineManager!");
@@ -101,7 +100,7 @@ public class Player : MonoBehaviour
             Crash();
             return;
         }
-
+        myAnimator.SetFloat("MovementSpeed", myTotalSpeed);
         Collision();
         ActivateTrail();
 
@@ -212,14 +211,12 @@ public class Player : MonoBehaviour
         if (myIsJumping)
         {
             myAnimator.SetBool("Idle", false);
-            //myAnimator.SetBool("InAir", false);
             myAnimator.SetBool("Bow Down", true);
             myPlayerBackflip.Backflip();
         }
         else
         {
             myAnimator.SetBool("Bow Down", false);
-            //myAnimator.SetBool("InAir", true);
             myPlayerAir.AirRotation(mySplineManager.GetGroundDirection(transform.position));
         }
 
@@ -298,7 +295,7 @@ public class Player : MonoBehaviour
     private void CatchSpline()
     {
         myPlayerBackflip.GetBackflipScore();
-        //myAnimator.SetTrigger("Landing");
+        myAnimator.SetTrigger("Landing");
         myCameraShake.TriggerShake(myShakeDurationSplines, myShakeMagnitudeSplines);
         myGrounded = true;
         mySplineT = 0;
