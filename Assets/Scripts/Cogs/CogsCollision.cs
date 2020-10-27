@@ -22,6 +22,11 @@ public class CogsCollision : MonoBehaviour
     }
     private void OnCollisionEnter(Collision aCollision)
     {
+        if (myPlayer == null || myCogSound == null)
+        {
+            return;
+        }
+
         if (aCollision.collider.gameObject.layer == LayerMask.NameToLayer("PlayerLayer"))
         {
             myPlayer.IncreaseScore();
