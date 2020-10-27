@@ -2,22 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuScript : MonoBehaviour
 {
     [SerializeField] private GameObject myLevelSelect = null;
     [SerializeField] private GameObject myCreditsScreen = null;
     [SerializeField] private GameObject myMainMenuObjects = null;
+    [SerializeField] 
+    private GameObject myLoadingScreen = null;
+    [SerializeField]
+    private GameManager myGameManager = null;
 
     //[SerializeField] private MusicManagerScript myMusicManager;;  //Elf
     private MusicManagerScript myMusicManager;   //Elf
+                                                 // Start is called before the first frame update
+    List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
 
-     // Start is called before the first frame update
     void Start()
     {
         ////myMusicManager= GameObject.FindGameObjectsWithTag("MusicManager")[0].GetComponent<MusicManagerScript>();  //Elf
         ////myMusicManager.PlayMusic01();   //Elf
-
 
         Time.timeScale = 1f;
 
@@ -33,12 +38,14 @@ public class MainMenuScript : MonoBehaviour
         {
             Debug.LogError("myMainMenuObjects is fuckywucky");
         }
+        if (myLoadingScreen != null)
+        {
+            myLoadingScreen.SetActive(false);
+        }
 
         myCreditsScreen.SetActive(false);
         myLevelSelect.SetActive(false);
-
-         
-
+        myLoadingScreen.SetActive(false);
 
     }
 
@@ -61,6 +68,16 @@ public class MainMenuScript : MonoBehaviour
         //Debug.Log("viewing people who worked on this game and also Dave");
         myMainMenuObjects.SetActive(false);
         myCreditsScreen.SetActive(true);
+    }
+
+    public void PlayGame()
+    {
+        myMainMenuObjects.SetActive(false);
+
+        scenesLoading.Add(SceneManager.UnloadSceneAsync((int)SceneIndexes.MAIN_MENU));
+        scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndexes.INTROLEVEL, LoadSceneMode.Additive));
+
+        StartCoroutine(LoadAsynchronously());    
     }
 
     public void LevelSelect()
@@ -101,5 +118,22 @@ public class MainMenuScript : MonoBehaviour
         myMainMenuObjects.SetActive(true);
         
         ////myMusicManager.PlayMusic();   //Elf
+    }
+
+    private IEnumerator LoadAsynchronously()
+    { 
+        myLoadingScreen.SetActive(true);
+
+        for (int i = 0; i < scenesLoading.Count; i++)
+        {
+            while (!scenesLoading[i].isDone)
+            {
+                
+
+                yield return null;
+            }
+        }
+
+        myLoadingScreen.SetActive(false);
     }
 }
