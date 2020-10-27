@@ -11,18 +11,24 @@ public class PlayerInvincible : MonoBehaviour
         myPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         if (myPlayer == null)
         {
-            Debug.LogError("myPlayer: " + myPlayer);
+            Debug.LogError("myPlayer missing");
         }
     }
 
+#if UNITY_EDITOR
     private void OnGUI()
     {
         GUI.Label(new Rect(0, 300, 250, 20), "Invincible active: " + myPlayer.GetInvincible());
         GUI.Label(new Rect(0, 320, 250, 20), "Invincible duration: " + myDuration);
     }
+#endif
 
     void Update()
     {
+        if (myPlayer == null)
+        {
+            return;
+        }
         DeactiveInvincible();
     }
 

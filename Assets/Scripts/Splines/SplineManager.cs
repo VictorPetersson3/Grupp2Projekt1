@@ -50,6 +50,11 @@ public class SplineManager : MonoBehaviour
             const int offset = 1;
             for (int j = 0; j < points.Length; j += offset)
             {
+                if (points[j].x < aPlayerPos.x - 1)
+                {
+                    continue;
+                }
+
                 bool collide;
                 if (j + offset >= points.Length)
                 {
