@@ -246,4 +246,9 @@ public class PlayerSpline : MonoBehaviour
     {
         myRailing = aSet;
     }
+
+    public bool GetIsRailing()
+    {
+        return myRailing;
+    }
 }

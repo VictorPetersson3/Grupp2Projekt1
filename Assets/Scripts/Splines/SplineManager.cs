@@ -59,13 +59,31 @@ public class SplineManager : MonoBehaviour
                 {
                     collide = LineLineIntersection(anOldPos, aPlayerPos, points[j], points[j + offset]);
                 }
-                if (collide && aIsFalling)
+                if (collide)
                 {
-                    aPointsIndex = j;
-                    someCurrentPoints = points;
-                    aBoost = pathCreators[i].GetBoost();
-                    aIsRail = pathCreators[i].GetIsRail();
-                    return true;
+                    bool catchSpline = false;
+                    const int indexDelta = 10;
+                    if (someCurrentPoints != points)
+                    {
+                        catchSpline = true;
+                    }
+                    else if (j - aPointsIndex > indexDelta)
+                    {
+                        catchSpline = true;
+                    }
+                    else if (aPointsIndex == -1)
+                    {
+                        catchSpline = true;
+                    }
+
+                    if (catchSpline)
+                    {
+                        aPointsIndex = j;
+                        someCurrentPoints = points;
+                        aBoost = pathCreators[i].GetBoost();
+                        aIsRail = pathCreators[i].GetIsRail();
+                        return true;
+                    }
                 }
             }
         }
