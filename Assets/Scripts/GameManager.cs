@@ -22,8 +22,6 @@ public class GameManager : MonoBehaviour
     private Transform myObstacleParent = null;
     [SerializeField]
     private BoxCollider[] myObstacles;
-    [SerializeField]
-    private GameObject myLoadingScreen = null;
 
     public bool myFirstTimeCheckOne = true;
     public bool myFirstTimeCheckTwo = true;
