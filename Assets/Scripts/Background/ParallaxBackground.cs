@@ -33,29 +33,29 @@ public class ParallaxBackground : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (myCamera != null)
-        {
-            Vector3 deltaMovement = myCamera.transform.position - myLastCameraPosition;
-            transform.position += new Vector3(deltaMovement.x * myParallaxEffectMultiplier.x, deltaMovement.y * myParallaxEffectMultiplier.y);
-            myLastCameraPosition = myCamera.transform.position;
+        //if (myCamera != null)
+        //{
+        //    Vector3 deltaMovement = myCamera.transform.position - myLastCameraPosition;
+        //    transform.position += new Vector3(deltaMovement.x * myParallaxEffectMultiplier.x, deltaMovement.y * myParallaxEffectMultiplier.y);
+        //    myLastCameraPosition = myCamera.transform.position;
 
-            if (myInfiniteHorizontal)
-            {
-                if (Mathf.Abs(myCamera.transform.position.x - transform.position.x) >= myTextureUnitSizeX)
-                {
-                    float offsetPositionX = (myCamera.transform.position.x - transform.position.x) % myTextureUnitSizeX;
-                    transform.position = new Vector3(myCamera.transform.position.x + offsetPositionX, transform.position.y);
-                }
-            }
+        //    if (myInfiniteHorizontal)
+        //    {
+        //        if (Mathf.Abs(myCamera.transform.position.x - transform.position.x) >= myTextureUnitSizeX)
+        //        {
+        //            float offsetPositionX = (myCamera.transform.position.x - transform.position.x) % myTextureUnitSizeX;
+        //            transform.position = new Vector3(myCamera.transform.position.x + offsetPositionX, transform.position.y);
+        //        }
+        //    }
 
-            if (myInfiniteVertical)
-            {
-                if (Mathf.Abs(myCamera.transform.position.y - transform.position.y) >= myTextureUnitSizeY)
-                {
-                    float offsetPositionY = (myCamera.transform.position.y - transform.position.y) % myTextureUnitSizeY;
-                    transform.position = new Vector3(transform.position.x, myCamera.transform.position.y + offsetPositionY);
-                }
-            }
-        }
+        //    if (myInfiniteVertical)
+        //    {
+        //        if (Mathf.Abs(myCamera.transform.position.y - transform.position.y) >= myTextureUnitSizeY)
+        //        {
+        //            float offsetPositionY = (myCamera.transform.position.y - transform.position.y) % myTextureUnitSizeY;
+        //            transform.position = new Vector3(transform.position.x, myCamera.transform.position.y + offsetPositionY);
+        //        }
+        //    }
+        //}
     }
 }
