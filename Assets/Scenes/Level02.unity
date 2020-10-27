@@ -2483,8 +2483,7 @@ PrefabInstance:
         type: 3}
       propertyPath: myTarget
       value: 
-      objectReference: {fileID: 1607898315252366860, guid: 33aee5f7f631c684badad8ceadb544d0,
-        type: 3}
+      objectReference: {fileID: 1236596140}
     - target: {fileID: 5420436019006238654, guid: 7da3ea5a058678b41bf621c437b2ea8b,
         type: 3}
       propertyPath: m_Name
@@ -23867,6 +23866,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6645105275003436769, guid: 2270a8d1b60c1d04cb661f90b3b67e4d,
     type: 3}
   m_PrefabInstance: {fileID: 1294692486}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1236596140 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1607898315252366860, guid: 33aee5f7f631c684badad8ceadb544d0,
+    type: 3}
+  m_PrefabInstance: {fileID: 884808954}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1243186594
 PrefabInstance:

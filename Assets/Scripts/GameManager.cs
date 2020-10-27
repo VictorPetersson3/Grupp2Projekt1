@@ -184,7 +184,6 @@ public void GameFinished(Scene aScene)
                 return SceneManager.GetSceneAt(i);
             }
         }
-
         return SceneManager.GetSceneAt(0);
     }
 }
