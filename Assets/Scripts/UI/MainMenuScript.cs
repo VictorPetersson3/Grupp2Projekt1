@@ -11,8 +11,6 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] private GameObject myMainMenuObjects = null;
     [SerializeField] 
     private GameObject myLoadingScreen = null;
-    [SerializeField]
-    private GameManager myGameManager = null;
 
     //[SerializeField] private MusicManagerScript myMusicManager;;  //Elf
     private MusicManagerScript myMusicManager;   //Elf
@@ -77,7 +75,9 @@ public class MainMenuScript : MonoBehaviour
         scenesLoading.Add(SceneManager.UnloadSceneAsync((int)SceneIndexes.MAIN_MENU));
         scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndexes.INTROLEVEL, LoadSceneMode.Additive));
 
-        StartCoroutine(LoadAsynchronously());    
+        myLoadingScreen.SetActive(true);
+        StartCoroutine(LoadAsynchronously());
+        myLoadingScreen.SetActive(false);
     }
 
     public void LevelSelect()
@@ -92,6 +92,7 @@ public class MainMenuScript : MonoBehaviour
         //Debug.Log("playing level 1");
         SceneManager.UnloadSceneAsync((int)SceneIndexes.MAIN_MENU);
         SceneManager.LoadSceneAsync((int)SceneIndexes.INTROLEVEL, LoadSceneMode.Additive);
+        myLevelSelect.SetActive(false);
 
         ////myMusicManager.PlayMusic01();   //Elf
     }
@@ -100,6 +101,8 @@ public class MainMenuScript : MonoBehaviour
         //Debug.Log("playing level 2");
         SceneManager.UnloadSceneAsync((int)SceneIndexes.MAIN_MENU);
         SceneManager.LoadSceneAsync((int)SceneIndexes.LEVELTWO, LoadSceneMode.Additive);
+        myLevelSelect.SetActive(false);
+
         ////myMusicManager.PlayMusic02();   //Elf
     }
     public void LevelThree()
@@ -107,6 +110,8 @@ public class MainMenuScript : MonoBehaviour
         //Debug.Log("playing level 2");
         SceneManager.UnloadSceneAsync((int)SceneIndexes.MAIN_MENU); 
         SceneManager.LoadSceneAsync((int)SceneIndexes.LEVELTHREE, LoadSceneMode.Additive);
+        myLevelSelect.SetActive(false);
+
         ////myMusicManager.PlayMusic03();   //Elf
     }
 
@@ -121,19 +126,18 @@ public class MainMenuScript : MonoBehaviour
     }
 
     private IEnumerator LoadAsynchronously()
-    { 
-        myLoadingScreen.SetActive(true);
-
+    {
         for (int i = 0; i < scenesLoading.Count; i++)
         {
-            while (!scenesLoading[i].isDone)
-            {
-                
+            Debug.Log("Loading Scene: " + scenesLoading[i] + "...");
 
+            while (!scenesLoading[i].isDone)
+            {                
                 yield return null;
             }
+            
+            Debug.Log("Finished loading Scene: " + scenesLoading[i]);
         }
-
-        myLoadingScreen.SetActive(false);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("Level01"));
     }
 }

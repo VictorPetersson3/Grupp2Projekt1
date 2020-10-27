@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public enum SceneIndexes
@@ -20,8 +22,10 @@ public class GameManager : MonoBehaviour
     private Transform myObstacleParent = null;
     [SerializeField]
     private BoxCollider[] myObstacles;
-    [SerializeField]
-    private GameObject myLoadingScreen = null;
+
+    public bool myFirstTimeCheckOne = true;
+    public bool myFirstTimeCheckTwo = true;
+
     //[SerializeField]
     //private AudioClip myMenuMusicClip;
     //[SerializeField]
@@ -85,7 +89,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void Update()
-    {
+     {
         //if (Input.GetKeyDown(KeyCode.X))
         //{
         //    PlayMenuMusic();
@@ -134,9 +138,8 @@ public class GameManager : MonoBehaviour
     public void NextLevel(Scene aCurrentScene)
     {
         int nextScene = aCurrentScene.buildIndex + 1;
-
         SceneManager.UnloadSceneAsync(aCurrentScene);
-        SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Additive);      
     }
     public void ReplayLevel(Scene aCurrentScene)
     {
@@ -152,10 +155,14 @@ public class GameManager : MonoBehaviour
     public void GameOver(Scene aScene)
     {
         SceneManager.UnloadSceneAsync(aScene);
-        SceneManager.LoadSceneAsync((int)SceneIndexes.MAIN_MENU, LoadSceneMode.Additive);
+
+        if (SceneManager.sceneCount <= 2)
+        {
+            SceneManager.LoadSceneAsync((int)SceneIndexes.MAIN_MENU, LoadSceneMode.Additive);
+        }
     }
 
-    public void GameFinished(Scene aScene)
+public void GameFinished(Scene aScene)
     {
         SceneManager.UnloadSceneAsync(aScene);
         SceneManager.LoadSceneAsync((int)SceneIndexes.MAIN_MENU, LoadSceneMode.Additive);
@@ -175,19 +182,6 @@ public class GameManager : MonoBehaviour
                 return SceneManager.GetSceneAt(i);
             }
         }
-
         return SceneManager.GetSceneAt(0);
     }
-
-    //public void PlayMenuMusic()
-    //{
-    //    myMusicSource.Play();
-    //    myFadeUp = true;
-    //}
-    //public void StopMenuMusic()
-    //{
-    //    myFadeDown = true;
-    //}
-
-
 }

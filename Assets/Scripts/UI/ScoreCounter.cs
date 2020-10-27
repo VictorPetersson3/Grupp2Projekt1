@@ -10,7 +10,7 @@ public class ScoreCounter : MonoBehaviour
 
     void Start()
     {
-        myPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        myPlayer = GameObject.FindGameObjectWithTag("PlayerTag").GetComponent<Player>();
         myCogs = GameObject.FindGameObjectsWithTag("Coin");
         myCogsLength = myCogs.Length;
         myScoreText = GetComponent<Text>();
