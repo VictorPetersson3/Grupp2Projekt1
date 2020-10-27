@@ -13,8 +13,6 @@ public class MainMenuScript : MonoBehaviour
     private GameObject myLoadingScreen = null;
     [SerializeField]
     private GameManager myGameManager = null;
-    [SerializeField]
-    private Slider mySlider;
 
     //[SerializeField] private MusicManagerScript myMusicManager;;  //Elf
     private MusicManagerScript myMusicManager;   //Elf
@@ -45,6 +43,7 @@ public class MainMenuScript : MonoBehaviour
 
         myCreditsScreen.SetActive(false);
         myLevelSelect.SetActive(false);
+        myLoadingScreen.SetActive(false);
     }
 
     // Update is called once per frame
@@ -75,9 +74,7 @@ public class MainMenuScript : MonoBehaviour
         scenesLoading.Add(SceneManager.UnloadSceneAsync((int)SceneIndexes.MAIN_MENU));
         scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndexes.INTROLEVEL, LoadSceneMode.Additive));
 
-        StartCoroutine(LoadAsynchronously());
-    
-        //myGameManager.PlayGame();
+        StartCoroutine(LoadAsynchronously());    
     }
 
     public void LevelSelect()
@@ -120,7 +117,7 @@ public class MainMenuScript : MonoBehaviour
         ////myMusicManager.PlayMusic();   //Elf
     }
 
-    IEnumerator LoadAsynchronously ()
+    private IEnumerator LoadAsynchronously()
     { 
         myLoadingScreen.SetActive(true);
 
@@ -128,13 +125,12 @@ public class MainMenuScript : MonoBehaviour
         {
             while (!scenesLoading[i].isDone)
             {
-                //float progress = Mathf.Clamp01(operations.progress / 0.9f);
-
-                //mySlider.value = progress;
+                
 
                 yield return null;
             }
         }
-        
+
+        myLoadingScreen.SetActive(false);
     }
 }
