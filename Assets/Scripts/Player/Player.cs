@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
     private float mySplineT = -1;
     private float myUnmodifiedSpeed = 0f;
     private float myTotalSpeed = 0f;
-    private const int myGroundParticleAmount = 8;
+    private const int myGroundParticleAmount = 20;
 
     [SerializeField]
     Animator myAnimator;
@@ -91,16 +91,11 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (myPlayerInput.IsQuitting())
+        if (Time.timeScale == 0f)
         {
-            //Application.Quit();
-        }
-
-        if (myPlayerInput.IsResetting())
-        {
-            Crash();
             return;
         }
+
         myAnimator.SetFloat("MovementSpeed", myTotalSpeed);
         Collision();
         ActivateTrail();
