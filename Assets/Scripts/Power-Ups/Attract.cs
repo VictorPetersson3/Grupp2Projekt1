@@ -10,15 +10,19 @@ public class Attract : MonoBehaviour
 
     void Start()
     {
-        myPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        myPlayer = GameObject.FindGameObjectWithTag("PlayerTag").GetComponent<Player>();
         if (myPlayer == null)
         {
-            Debug.LogError("Error: myPlayer " + myPlayer);
+            Debug.LogError("Error: myPlayer missing");
         }
     }
 
     void Update()
     {
+        if (myPlayer == null)
+        {
+            return;
+        }
         AttractObject();
     }
 

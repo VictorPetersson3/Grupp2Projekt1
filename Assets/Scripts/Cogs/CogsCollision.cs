@@ -9,19 +9,24 @@ public class CogsCollision : MonoBehaviour
 
     private void Start()
     {
-        myPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        myPlayer = GameObject.FindGameObjectWithTag("PlayerTag").GetComponent<Player>();
         mySoundContainer = GameObject.FindGameObjectWithTag("SoundContainer");
         if (myPlayer == null)
         {
-            Debug.LogError("myPlayer: " + myPlayer);
+            Debug.LogError("myPlayer");
         }
         if (myCogSound == null)
         {
-            Debug.LogError("myCogSound: " + myCogSound);
+            Debug.LogError("myCogSound: missing");
         }
     }
     private void OnCollisionEnter(Collision aCollision)
     {
+        if (myPlayer == null || myCogSound == null)
+        {
+            return;
+        }
+
         if (aCollision.collider.gameObject.layer == LayerMask.NameToLayer("PlayerLayer"))
         {
             myPlayer.IncreaseScore();

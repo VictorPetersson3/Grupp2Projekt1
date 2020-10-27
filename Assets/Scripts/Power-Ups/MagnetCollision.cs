@@ -9,29 +9,42 @@ public class MagnetCollision : MonoBehaviour
     private GameObject myParticleObject = null;
     [SerializeField]
     private GameObject myMagnetSound = null;
+    private bool myShouldDestroy = false;
 
     private void Start()
     {
-        myPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        myPlayer = GameObject.FindGameObjectWithTag("PlayerTag").GetComponent<Player>();
         myGraphicsContainer = GameObject.FindGameObjectWithTag("magnetGraphics");
         mySoundContainer = GameObject.FindGameObjectWithTag("SoundContainer");
 
         if (myPlayer == null)
         {
-            Debug.LogError("myPlayer: " + myPlayer);
+            Debug.LogError("myPlayer: missing");
         }
         if (myMagnetSound == null)
         {
-            Debug.LogError("myMagnetSound: " + myMagnetSound);
+            Debug.LogError("myMagnetSound: missing");
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (myShouldDestroy)
+        {
+            Destroy(gameObject);
         }
     }
 
     private void OnCollisionEnter(Collision aCollision)
     {
+        if (myPlayer == null || myMagnetSound == null)
+        {
+            return;
+        }
         myGraphicsContainer.SetActive(false);
         myPlayer.SetMagnet(true);
         Instantiate(myParticleObject);
         Instantiate(myMagnetSound, mySoundContainer.transform);
-        Destroy(gameObject);
+        myShouldDestroy = true;
     }
 }

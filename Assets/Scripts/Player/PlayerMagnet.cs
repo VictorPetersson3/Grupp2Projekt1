@@ -8,21 +8,27 @@ public class PlayerMagnet : MonoBehaviour
 
     private void Start()
     {
-        myPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        myPlayer = GameObject.FindGameObjectWithTag("PlayerTag").GetComponent<Player>();
         if (myPlayer == null)
         {
-            Debug.LogError("myPlayer " + myPlayer);
+            Debug.LogError("myPlayer ");
         }
     }
 
+#if UNITY_EDITOR
     private void OnGUI()
     {
         GUI.Label(new Rect(0, 260, 250, 20), "Magnet active: " + myPlayer.GetMagnet());
         GUI.Label(new Rect(0, 280, 250, 20), "Magnet duration: " + myDuration);
     }
+#endif
 
     private void Update()
     {
+        if (myPlayer == null)
+        {
+            return;
+        }
         DeactivateMagnet();
     }
 

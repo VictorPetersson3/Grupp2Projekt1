@@ -13,12 +13,7 @@ public class SandParticle : MonoBehaviour
     private float myMaxYForce = 7f;
     private float myMinYForce = 1f;
 
-    // Color and size
-    private float myDecreseOpacity = 0.02f;
     private Vector3 myScaleChange = new Vector3(0.5f, 0.5f, 0);
-    private Material myMaterial;
-    private Color myOriginalColor;
-    private Color myNewColor;
 
     // Getting rotation
     private Vector3 myRotation;
@@ -35,11 +30,6 @@ public class SandParticle : MonoBehaviour
         // Rotation
         myPlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
-        // Render
-        myMaterial = GetComponent<MeshRenderer>().material;
-        myOriginalColor = myMaterial.color;
-        myNewColor = myOriginalColor;
-
         ConvertEulerToDegree();
     }
 
@@ -47,7 +37,6 @@ public class SandParticle : MonoBehaviour
     {
         CheckIfDead();
         IncreaseSize();
-        IncreaseTransparency();
 
         if (myLifeTime >= myTotalLifeTime / Random.Range(2, 4))
         {
@@ -69,15 +58,6 @@ public class SandParticle : MonoBehaviour
     private void SetLifeTime()
     {
         myTotalLifeTime = Random.Range(myMinLifeTime, myMaxLifeTime);
-    }
-
-    private void IncreaseTransparency()
-    {
-        if (myNewColor.a > 0.1f)
-        {
-            myNewColor.a -= myDecreseOpacity;
-            myMaterial.SetColor("_Color", myNewColor);
-        }
     }
 
     private void ApplyGravity()

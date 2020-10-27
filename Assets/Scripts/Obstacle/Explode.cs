@@ -12,7 +12,7 @@ public class Explode : MonoBehaviour
 
     void Start()
     {
-        myPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        myPlayer = GameObject.FindGameObjectWithTag("PlayerTag").GetComponent<Player>();
         mySoundContainer = GameObject.FindGameObjectWithTag("SoundContainer");
         myParent = transform.parent.gameObject;
         myGraphicsContainer = GameObject.Find("capsulCrashed");
@@ -20,16 +20,21 @@ public class Explode : MonoBehaviour
 
         if (myPlayer == null)
         {
-            Debug.LogError("myPlayer: " + myPlayer);
+            Debug.LogError("myPlayer: missing");
         }
         if (myExplosionSound == null)
         {
-            Debug.LogError("myExplosionSound: " + myExplosionSound);
+            Debug.LogError("myExplosionSound: missing");
         }
     }
 
     private void OnCollisionEnter(Collision aCollision)
     {
+        if (myPlayer == null || myExplosionSound == null)
+        {
+            return;
+        }
+
         if (myPlayer.GetInvincible())
         {
             myGraphicsContainer.SetActive(false);
