@@ -24,6 +24,8 @@ public class MainMenuScript : MonoBehaviour
         ////myMusicManager= GameObject.FindGameObjectsWithTag("MusicManager")[0].GetComponent<MusicManagerScript>();  //Elf
         ////myMusicManager.PlayMusic01();   //Elf
 
+        Time.timeScale = 1f;
+
         if (myLevelSelect==null)
         {
             Debug.LogError("myLevelSelect is fuckywucky");
@@ -44,6 +46,7 @@ public class MainMenuScript : MonoBehaviour
         myCreditsScreen.SetActive(false);
         myLevelSelect.SetActive(false);
         myLoadingScreen.SetActive(false);
+
     }
 
     // Update is called once per frame

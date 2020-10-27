@@ -3,9 +3,10 @@
 public class InvincibleCollision : MonoBehaviour
 {
     private Player myPlayer = null;
-    private ParticleSystem myParticleEffect = null;
     private GameObject myGraphicsContainer = null;
     private GameObject mySoundContainer = null;
+    [SerializeField]
+    private GameObject myParticleObject = null;
     [SerializeField]
     private GameObject mySound = null;
     
@@ -14,7 +15,7 @@ public class InvincibleCollision : MonoBehaviour
         myPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         myGraphicsContainer = GameObject.FindGameObjectWithTag("invincibleGraphics");
         mySoundContainer = GameObject.FindGameObjectWithTag("SoundContainer");
-        myParticleEffect = GetComponent<ParticleSystem>();
+
         if (myPlayer == null)
         {
             Debug.LogError("myPlayer: " + myPlayer);
@@ -27,10 +28,10 @@ public class InvincibleCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision aCollision)
     {
-        myPlayer.SetInvincible(true);
-        myParticleEffect.Play();
         myGraphicsContainer.SetActive(false);
+        myPlayer.SetInvincible(true);
+        Instantiate(myParticleObject);
         Instantiate(mySound, mySoundContainer.transform);
-        Destroy(gameObject, myParticleEffect.main.duration);
+        Destroy(gameObject);
     }
 }
