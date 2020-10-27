@@ -12,8 +12,6 @@ public class MusicManagerScript : MonoBehaviour
     private AudioClip myMenuMusicClip00;
     [SerializeField]
     private AudioClip myMenuMusicClip01;
-    [SerializeField]
-    private AudioClip myScene03WinMusic;
 
     [SerializeField]
     private AudioClip myCreditsClip;
@@ -24,6 +22,8 @@ public class MusicManagerScript : MonoBehaviour
     private AudioClip myScene02MusicClip;
     [SerializeField]
     private AudioClip myScene03MusicClip;
+    [SerializeField]
+    private AudioClip myScene03WinMusic;
 
 
 
@@ -135,10 +135,10 @@ public class MusicManagerScript : MonoBehaviour
         myMusicSource.Play();  //!
         //myFadeUp = true; //!
     } 
-    public void PlayMenuMusic_02 ()
+    public void PlayScene03WinMusic ()
     {
         StopMusic();
-        myMusicSource.clip = myMenuMusicClip00;
+        myMusicSource.clip = myScene03WinMusic;
         myMusicSource.Play();  //!
         //myFadeUp = true; //!
     }    
