@@ -30,13 +30,19 @@ public class SplineManager : MonoBehaviour
         //SetSplineActivate();
     }
 
-    public bool PlayerSplineCollision(Vector2 aPlayerPos, Vector2 anOldPos, ref int aPointsIndex, ref Vector2[] someCurrentPoints, ref Vector2 aBoost, ref bool aIsRail)
+    public bool PlayerSplineCollision(Vector2 aPlayerPos, Vector2 anOldPos, ref int aPointsIndex, ref Vector2[] someCurrentPoints, ref Vector2 aBoost, ref bool aIsRail, bool aIsFalling, bool aIsBackflipping)
     {
         for (int i = 0; i < pathCreators.Length; i++)
         {
+            //Spline too far away too matter
             if (!pathCreators[i].isActiveAndEnabled ||
                 pathCreators[i].path.GetFirstPoint().x > aPlayerPos.x ||
                 pathCreators[i].path.GetLastPoint().x < aPlayerPos.x)
+            {
+                continue;
+            }
+            //Ignore rails when backflipping and when travelling upwards
+            if (pathCreators[i].GetIsRail() && (!aIsFalling || aIsBackflipping))
             {
                 continue;
             }
@@ -55,11 +61,29 @@ public class SplineManager : MonoBehaviour
                 }
                 if (collide)
                 {
-                    aPointsIndex = j;
-                    someCurrentPoints = points;
-                    aBoost = pathCreators[i].GetBoost();
-                    aIsRail = pathCreators[i].GetIsRail();
-                    return true;
+                    bool catchSpline = false;
+                    const int indexDelta = 10;
+                    if (someCurrentPoints != points)
+                    {
+                        catchSpline = true;
+                    }
+                    else if (j - aPointsIndex > indexDelta)
+                    {
+                        catchSpline = true;
+                    }
+                    else if (aPointsIndex == -1)
+                    {
+                        catchSpline = true;
+                    }
+
+                    if (catchSpline)
+                    {
+                        aPointsIndex = j;
+                        someCurrentPoints = points;
+                        aBoost = pathCreators[i].GetBoost();
+                        aIsRail = pathCreators[i].GetIsRail();
+                        return true;
+                    }
                 }
             }
         }
