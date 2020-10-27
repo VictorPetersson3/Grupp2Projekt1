@@ -24,7 +24,6 @@ public class FirstTutorialScript : MonoBehaviour
         {
             Time.timeScale = 1;
             Destroy(this.gameObject);
-            Debug.Log("du förstörde tutroial box, you monster");
         }
     }
     private void OnCollisionEnter(Collision aCollision)
@@ -34,7 +33,6 @@ public class FirstTutorialScript : MonoBehaviour
             myHaveEntered = true;
             Time.timeScale = 0.1f;
             myFirstTutorialText.SetActive(true);//skapa något, point to world? Fråga Sparky
-            Debug.Log("du är i tutorialbox");
         }
     }
 }
