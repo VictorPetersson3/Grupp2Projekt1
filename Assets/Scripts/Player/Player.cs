@@ -223,13 +223,14 @@ public class Player : MonoBehaviour
             myPlayerAir.AirRotation(mySplineManager.GetGroundDirection(transform.position));
         }
 
-        if (myAirMovement.y > 0)
+        bool falling = false;
+        if (myAirMovement.y < 0)
         {
-            return;
+            falling = true;
         }
 
         bool isRail = false;
-        if (!mySplineManager.PlayerSplineCollision(transform.position, myOldPosition, ref myPointsIndex, ref myCurrentPoints, ref myBoostVector, ref isRail))
+        if (!mySplineManager.PlayerSplineCollision(transform.position, myOldPosition, ref myPointsIndex, ref myCurrentPoints, ref myBoostVector, ref isRail, falling, myIsJumping))
         {
             return;
         }

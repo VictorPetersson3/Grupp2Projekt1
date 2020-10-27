@@ -30,13 +30,19 @@ public class SplineManager : MonoBehaviour
         //SetSplineActivate();
     }
 
-    public bool PlayerSplineCollision(Vector2 aPlayerPos, Vector2 anOldPos, ref int aPointsIndex, ref Vector2[] someCurrentPoints, ref Vector2 aBoost, ref bool aIsRail)
+    public bool PlayerSplineCollision(Vector2 aPlayerPos, Vector2 anOldPos, ref int aPointsIndex, ref Vector2[] someCurrentPoints, ref Vector2 aBoost, ref bool aIsRail, bool aIsFalling, bool aIsBackflipping)
     {
         for (int i = 0; i < pathCreators.Length; i++)
         {
+            //Spline too far away too matter
             if (!pathCreators[i].isActiveAndEnabled ||
                 pathCreators[i].path.GetFirstPoint().x > aPlayerPos.x ||
                 pathCreators[i].path.GetLastPoint().x < aPlayerPos.x)
+            {
+                continue;
+            }
+            //Ignore rails when backflipping and when travelling upwards
+            if (pathCreators[i].GetIsRail() && (!aIsFalling || aIsBackflipping))
             {
                 continue;
             }
@@ -53,7 +59,7 @@ public class SplineManager : MonoBehaviour
                 {
                     collide = LineLineIntersection(anOldPos, aPlayerPos, points[j], points[j + offset]);
                 }
-                if (collide)
+                if (collide && aIsFalling)
                 {
                     aPointsIndex = j;
                     someCurrentPoints = points;
