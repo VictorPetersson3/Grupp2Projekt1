@@ -13,7 +13,7 @@ public class MusicManagerScript : MonoBehaviour
     [SerializeField]
     private AudioClip myMenuMusicClip01;
     [SerializeField]
-    private AudioClip myMenuMusicClip02;
+    private AudioClip myScene03WinMusic;
 
     [SerializeField]
     private AudioClip myCreditsClip;
