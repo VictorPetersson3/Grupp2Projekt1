@@ -1609,13 +1609,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7564284767491219389}
-  m_LocalRotation: {x: 0.63421834, y: -0.7334182, z: -0.16324587, w: -0.18225142}
-  m_LocalPosition: {x: -0.3586029, y: 0.3341932, z: 0.49966064}
+  m_LocalRotation: {x: 0.671525, y: -0.6994208, z: -0.15354055, w: -0.19049957}
+  m_LocalPosition: {x: -0.118, y: -0.058, z: -0.234}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9056569060798657211}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -151.925, y: -3.9169922, z: 93.311}
 --- !u!96 &5182389572283203372
 TrailRenderer:
   serializedVersion: 2
@@ -1952,32 +1952,32 @@ PrefabInstance:
     - target: {fileID: -1089235310394082545, guid: 203c8ad4c8397104c9401c5becff784b,
         type: 3}
       propertyPath: m_AABB.m_Center.x
-      value: -0.39895204
+      value: -0.07096627
       objectReference: {fileID: 0}
     - target: {fileID: -1089235310394082545, guid: 203c8ad4c8397104c9401c5becff784b,
         type: 3}
       propertyPath: m_AABB.m_Center.y
-      value: -0.3096896
+      value: 1.1271167
       objectReference: {fileID: 0}
     - target: {fileID: -1089235310394082545, guid: 203c8ad4c8397104c9401c5becff784b,
         type: 3}
       propertyPath: m_AABB.m_Center.z
-      value: -0.1297932
+      value: -0.7166168
       objectReference: {fileID: 0}
     - target: {fileID: -1089235310394082545, guid: 203c8ad4c8397104c9401c5becff784b,
         type: 3}
       propertyPath: m_AABB.m_Extent.x
-      value: 0.3792691
+      value: 0.30691823
       objectReference: {fileID: 0}
     - target: {fileID: -1089235310394082545, guid: 203c8ad4c8397104c9401c5becff784b,
         type: 3}
       propertyPath: m_AABB.m_Extent.y
-      value: 0.32824764
+      value: 0.015578508
       objectReference: {fileID: 0}
     - target: {fileID: -1089235310394082545, guid: 203c8ad4c8397104c9401c5becff784b,
         type: 3}
       propertyPath: m_AABB.m_Extent.z
-      value: 0.24626145
+      value: 0.75416774
       objectReference: {fileID: 0}
     - target: {fileID: -1089235310394082545, guid: 203c8ad4c8397104c9401c5becff784b,
         type: 3}
