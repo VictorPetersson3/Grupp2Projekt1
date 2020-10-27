@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3149516405281033961}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,9 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myObstacleParent: {fileID: 0}
   myObstacles: []
-  myMenuMusicClip: {fileID: 8300000, guid: 9cebf28dddf87e64d990efa4147b5771, type: 3}
-  myCoinCollectClip: {fileID: 0}
-  myFadeTime: 0.75
 --- !u!82 &3149516405281033961
 AudioSource:
   m_ObjectHideFlags: 0
