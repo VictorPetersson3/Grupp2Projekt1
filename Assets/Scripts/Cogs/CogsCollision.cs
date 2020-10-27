@@ -9,7 +9,7 @@ public class CogsCollision : MonoBehaviour
 
     private void Start()
     {
-        myPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        myPlayer = GameObject.FindGameObjectWithTag("PlayerTag").GetComponent<Player>();
         mySoundContainer = GameObject.FindGameObjectWithTag("SoundContainer");
         if (myPlayer == null)
         {

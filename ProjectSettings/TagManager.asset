@@ -19,6 +19,7 @@ TagManager:
   - GraphicsContainer
   - magnetGraphics
   - invincibleGraphics
+  - PlayerTag
   layers:
   - Default
   - TransparentFX

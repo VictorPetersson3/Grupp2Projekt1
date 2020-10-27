@@ -8,7 +8,7 @@ public class PlayerMagnet : MonoBehaviour
 
     private void Start()
     {
-        myPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        myPlayer = GameObject.FindGameObjectWithTag("PlayerTag").GetComponent<Player>();
         if (myPlayer == null)
         {
             Debug.LogError("myPlayer ");
