@@ -33,7 +33,8 @@ public class Player : MonoBehaviour
     private CameraShake myCameraShake = null;
 
     private bool myGrounded = false;
-    private bool myIsJumping;
+    private bool myIsHoldingJump;
+    private bool myPressJump;
     private int myScore = 0;
     private CollisionData myCollisionData;
     private Vector3 myOldPosition;
@@ -75,7 +76,6 @@ public class Player : MonoBehaviour
 
         myUnmodifiedSpeed = myStartSpeed;
         myOldPosition = transform.position;
-
         if (mySplineManager == null)
         {
             Debug.LogError(this + " has no splineManager!");
@@ -101,11 +101,12 @@ public class Player : MonoBehaviour
             Crash();
             return;
         }
-
+        myAnimator.SetFloat("MovementSpeed", myTotalSpeed);
         Collision();
         ActivateTrail();
 
-        myIsJumping = myPlayerInput.IsJumping();
+        myIsHoldingJump = myPlayerInput.IsJumping();
+        myPressJump = myPlayerInput.PressJump();
         if (myGrounded)
         {
             myAnimator.SetBool("Idle", true);
@@ -144,7 +145,7 @@ public class Player : MonoBehaviour
         myCameraFollow.UpdateYOffset(0);
         myPlayerBobbing.Bob();
         mySandParticleManager.CreateSandParticle(myGroundParticleAmount);
-        if (myIsJumping)
+        if (myPressJump)
         {
             myAnimator.SetTrigger("Jumping");
             myAnimator.SetBool("Idle", false);
@@ -209,27 +210,26 @@ public class Player : MonoBehaviour
         myOldPosition = myPlayerAir.AirMovement(myGravity, ref myAirMovement);
         myCameraFollow.UpdateYOffset(myAirMovement.y);
 
-        if (myIsJumping)
+        if (myIsHoldingJump)
         {
             myAnimator.SetBool("Idle", false);
-            //myAnimator.SetBool("InAir", false);
             myAnimator.SetBool("Bow Down", true);
             myPlayerBackflip.Backflip();
         }
         else
         {
             myAnimator.SetBool("Bow Down", false);
-            //myAnimator.SetBool("InAir", true);
             myPlayerAir.AirRotation(mySplineManager.GetGroundDirection(transform.position));
         }
 
-        if (myAirMovement.y > 0)
+        bool falling = false;
+        if (myAirMovement.y < 0)
         {
-            return;
+            falling = true;
         }
 
         bool isRail = false;
-        if (!mySplineManager.PlayerSplineCollision(transform.position, myOldPosition, ref myPointsIndex, ref myCurrentPoints, ref myBoostVector, ref isRail))
+        if (!mySplineManager.PlayerSplineCollision(transform.position, myOldPosition, ref myPointsIndex, ref myCurrentPoints, ref myBoostVector, ref isRail, falling, myIsHoldingJump))
         {
             return;
         }
@@ -298,7 +298,7 @@ public class Player : MonoBehaviour
     private void CatchSpline()
     {
         myPlayerBackflip.GetBackflipScore();
-        //myAnimator.SetTrigger("Landing");
+        myAnimator.SetTrigger("Landing");
         myCameraShake.TriggerShake(myShakeDurationSplines, myShakeMagnitudeSplines);
         myGrounded = true;
         mySplineT = 0;

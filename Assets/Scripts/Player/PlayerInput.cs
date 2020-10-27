@@ -12,6 +12,15 @@ public class PlayerInput : MonoBehaviour
         return false;
     }
 
+    public bool PressJump()
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            return true;
+        }
+        return false;
+    }
+
     public bool IsQuitting()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
