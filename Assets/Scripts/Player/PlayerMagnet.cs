@@ -15,11 +15,13 @@ public class PlayerMagnet : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
     private void OnGUI()
     {
         GUI.Label(new Rect(0, 260, 250, 20), "Magnet active: " + myPlayer.GetMagnet());
         GUI.Label(new Rect(0, 280, 250, 20), "Magnet duration: " + myDuration);
     }
+#endif
 
     private void Update()
     {

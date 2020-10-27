@@ -30,6 +30,11 @@ public class Explode : MonoBehaviour
 
     private void OnCollisionEnter(Collision aCollision)
     {
+        if (myPlayer == null || myExplosionSound == null)
+        {
+            return;
+        }
+
         if (myPlayer.GetInvincible())
         {
             myGraphicsContainer.SetActive(false);

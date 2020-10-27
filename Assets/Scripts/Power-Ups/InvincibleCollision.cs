@@ -18,16 +18,20 @@ public class InvincibleCollision : MonoBehaviour
 
         if (myPlayer == null)
         {
-            Debug.LogError("myPlayer: " + myPlayer);
+            Debug.LogError("myPlayer: missing");
         }
         if (mySound == null)
         {
-            Debug.LogError("mySound: " + mySound);
+            Debug.LogError("mySound: missing");
         }  
     }
 
     private void OnCollisionEnter(Collision aCollision)
     {
+        if (myPlayer == null || mySound == null)
+        {
+            return;
+        }
         myGraphicsContainer.SetActive(false);
         myPlayer.SetInvincible(true);
         Instantiate(myParticleObject);

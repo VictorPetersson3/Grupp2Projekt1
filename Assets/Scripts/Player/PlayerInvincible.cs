@@ -15,11 +15,13 @@ public class PlayerInvincible : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
     private void OnGUI()
     {
         GUI.Label(new Rect(0, 300, 250, 20), "Invincible active: " + myPlayer.GetInvincible());
         GUI.Label(new Rect(0, 320, 250, 20), "Invincible duration: " + myDuration);
     }
+#endif
 
     void Update()
     {
