@@ -135,11 +135,11 @@ public class MusicManagerScript : MonoBehaviour
         myMusicSource.Play();  //!
         //myFadeUp = true; //!
     } 
-    public void PlayScene03WinMusic ()
+    public void PlayScene03WinningMusic ()
     {
         StopMusic();
-        myMusicSource.clip = myScene03WinMusic;
-        myMusicSource.Play();  //!
+        //myMusicSource.clip = myScene03WinMusic;
+        myMusicSource.PlayOneShot(myScene03WinMusic)  ;  //!
         //myFadeUp = true; //!
     }    
 

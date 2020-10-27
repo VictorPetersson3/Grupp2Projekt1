@@ -10,7 +10,7 @@ public class Level03WinMusic : MonoBehaviour
     void Start()
     {
         myMusicManager = GameObject.FindGameObjectsWithTag("MusicManager")[0].GetComponent<MusicManagerScript>();  //Elf
-        myMusicManager.PlayMenuMusic_01();   //Elf
+        myMusicManager.PlayScene03WinningMusic();   //Elf
     }
 
     // Update is called once per frame

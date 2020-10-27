@@ -7,7 +7,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 748705918121066692}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e155a5584c84f9a4ab7f71585deebe63, type: 3}
   m_Name: 
@@ -853,6 +853,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MenuAndLevelMusic
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713643803490195731, guid: 808f6f6de55cb1e45bfb70e271bd5e2a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 808f6f6de55cb1e45bfb70e271bd5e2a, type: 3}
