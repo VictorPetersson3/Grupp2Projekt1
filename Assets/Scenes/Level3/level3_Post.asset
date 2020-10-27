@@ -36,7 +36,7 @@ MonoBehaviour:
     m_Value: 0
   contrast:
     m_OverrideState: 1
-    m_Value: 5.36
+    m_Value: 2.5
     min: -100
     max: 100
   colorFilter:
@@ -89,15 +89,15 @@ MonoBehaviour:
   m_AdvancedMode: 0
   threshold:
     m_OverrideState: 1
-    m_Value: 0.9
+    m_Value: 0.96
     min: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.32
+    m_Value: 0.44
     min: 0
   scatter:
     m_OverrideState: 1
-    m_Value: 0.122
+    m_Value: 0.201
     min: 0
     max: 1
   clamp:
