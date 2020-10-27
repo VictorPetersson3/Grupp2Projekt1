@@ -12,7 +12,7 @@ public class Explode : MonoBehaviour
 
     void Start()
     {
-        myPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        myPlayer = GameObject.FindGameObjectWithTag("PlayerTag").GetComponent<Player>();
         mySoundContainer = GameObject.FindGameObjectWithTag("SoundContainer");
         myParent = transform.parent.gameObject;
         myGraphicsContainer = GameObject.Find("capsulCrashed");
