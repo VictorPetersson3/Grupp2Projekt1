@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class SceneSelect : MonoBehaviour
 {
@@ -11,10 +10,6 @@ public class SceneSelect : MonoBehaviour
         {
             StartingTheGame();
         }
-        /*if (Input.GetKey("escape"))
-        {
-            QuittingTheGame();
-        }*/
     }
 
     public void StartingTheGame()
@@ -28,8 +23,4 @@ public class SceneSelect : MonoBehaviour
         Debug.Log("Quitting the fucking game");
         Application.Quit();
     }
-
 }
-
-
-
