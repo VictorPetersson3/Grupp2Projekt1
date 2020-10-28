@@ -44,7 +44,11 @@ public class InvincibleCollision : MonoBehaviour
                 return;
             }
             Debug.Log("Invincible working");
-            myGraphicsContainer.SetActive(false);
+
+            if (myGraphicsContainer != null)
+            {
+                myGraphicsContainer.SetActive(false);
+            }
             myPlayer.SetInvincible(true);
             Instantiate(myParticleObject);
             Instantiate(mySound, mySoundContainer.transform);

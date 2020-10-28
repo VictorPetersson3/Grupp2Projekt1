@@ -43,7 +43,10 @@ public class MagnetCollision : MonoBehaviour
             {
                 return;
             }
-            myGraphicsContainer.SetActive(false);
+            if (myGraphicsContainer != null)
+            {
+                myGraphicsContainer.SetActive(false);
+            }
             myPlayer.SetMagnet(true);
             Instantiate(myParticleObject);
             Instantiate(myMagnetSound, mySoundContainer.transform);
