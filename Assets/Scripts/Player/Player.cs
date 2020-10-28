@@ -135,15 +135,15 @@ public class Player : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
     private void OnGUI()
     {
         float fps = 1 / Time.deltaTime;
         GUI.Label(new Rect(0, 100, 250, 20), "FPS: " + fps);
-#if UNITY_EDITOR
         GUI.Label(new Rect(0, 120, 250, 20), "Total Speed: " + myTotalSpeed);
         GUI.Label(new Rect(0, 140, 250, 20), "Air Movement: " + myAirMovement);
-#endif
     }
+#endif
 
     private void ResetSpline()
     {
