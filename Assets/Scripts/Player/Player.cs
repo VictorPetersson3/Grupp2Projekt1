@@ -163,7 +163,7 @@ public class Player : MonoBehaviour
         myPlayerBobbing.Bob();
         if (!myPlayerSpline.GetIsRailing())
         {
-            mySandParticleManager.CreateSandParticle(myGroundParticleAmount);
+            mySandParticleManager.CreateSandParticle(4);
         }
         if (myPressJump)
         {
