@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -23994,7 +23994,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1290132765}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1290132767}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e74a1f36a5caaa4190636b01e211fcc, type: 3}
@@ -47828,7 +47828,7 @@ PrefabInstance:
     - target: {fileID: 260358154, guid: 02d1b7b5391c04a4ea9ea0330d95ec73, type: 3}
       propertyPath: myCamera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1290132767}
     - target: {fileID: 260358154, guid: 02d1b7b5391c04a4ea9ea0330d95ec73, type: 3}
       propertyPath: myInfiniteHorizontal
       value: 0
@@ -47837,7 +47837,7 @@ PrefabInstance:
         type: 3}
       propertyPath: myCamera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1290132767}
     - target: {fileID: 817904419114670946, guid: 02d1b7b5391c04a4ea9ea0330d95ec73,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -47867,7 +47867,7 @@ PrefabInstance:
         type: 3}
       propertyPath: myCamera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1290132767}
     - target: {fileID: 2177187619226062414, guid: 02d1b7b5391c04a4ea9ea0330d95ec73,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -47977,12 +47977,12 @@ PrefabInstance:
         type: 3}
       propertyPath: myCamera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1290132767}
     - target: {fileID: 4549488523788546775, guid: 02d1b7b5391c04a4ea9ea0330d95ec73,
         type: 3}
       propertyPath: myCamera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1290132767}
     - target: {fileID: 4549488523788546775, guid: 02d1b7b5391c04a4ea9ea0330d95ec73,
         type: 3}
       propertyPath: myInfiniteHorizontal
@@ -48067,7 +48067,7 @@ PrefabInstance:
         type: 3}
       propertyPath: myCamera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1290132767}
     - target: {fileID: 6864880366908452395, guid: 02d1b7b5391c04a4ea9ea0330d95ec73,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -48132,7 +48132,7 @@ PrefabInstance:
         type: 3}
       propertyPath: myCamera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1290132767}
     - target: {fileID: 9197619687980636505, guid: 02d1b7b5391c04a4ea9ea0330d95ec73,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -48553,6 +48553,12 @@ PrefabInstance:
 --- !u!4 &1290132766 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5420436019006238655, guid: 7da3ea5a058678b41bf621c437b2ea8b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1290132765}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1290132767 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5420436018547269147, guid: 7da3ea5a058678b41bf621c437b2ea8b,
     type: 3}
   m_PrefabInstance: {fileID: 1290132765}
   m_PrefabAsset: {fileID: 0}
