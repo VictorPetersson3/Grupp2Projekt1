@@ -1,17 +1,20 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 public class FinishTrigger : MonoBehaviour
 {
-    [SerializeField]
-    private GameManager myGameManager = null;
     [SerializeField]
     private GameObject myVictoryScreen = null;
     
     private void OnTriggerEnter(Collider aCollider)
     {
-        Time.timeScale = 0f;
+        if (aCollider.transform.parent.tag != "PlayerTag")
+        {
+            return;
+        }
+
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().myLevelComplete = true;
+        Player player = aCollider.transform.GetComponentInParent<Player>();
+        player.LevelComplete();
         myVictoryScreen.SetActive(true);
     }
 }

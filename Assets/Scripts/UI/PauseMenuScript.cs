@@ -34,6 +34,10 @@ public class PauseMenuScript : MonoBehaviour
 
     public void PausingTheGame()
     {
+        if (GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().myLevelComplete)
+        {
+            return;
+        }
         myPauseMenu.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
