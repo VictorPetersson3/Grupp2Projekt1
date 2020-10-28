@@ -3737,7 +3737,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &109128303
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10286,6 +10286,8 @@ GameObject:
   - component: {fileID: 271269106}
   - component: {fileID: 271269105}
   - component: {fileID: 271269104}
+  - component: {fileID: 271269108}
+  - component: {fileID: 271269103}
   m_Layer: 5
   m_Name: Ending Screen
   m_TagString: Untagged
@@ -10293,6 +10295,35 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &271269103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271269102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &271269104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10380,6 +10411,14 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!222 &271269108
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271269102}
+  m_CullTransparentMesh: 0
 --- !u!4 &273323039 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2141367182914812551, guid: bd03a562258fc89468c9d12a30d64ccf,
@@ -17560,6 +17599,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseCanvas(WIP)
       objectReference: {fileID: 0}
+    - target: {fileID: 4800518280910755327, guid: 0251c132037db9e4a9f7d8719f327f2b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4800518281702662697, guid: 0251c132037db9e4a9f7d8719f327f2b,
         type: 3}
       propertyPath: m_IsActive
@@ -21918,7 +21962,7 @@ PrefabInstance:
     - target: {fileID: 825266382970332125, guid: 02196b990c36d074295d871d5b330f32,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3733141886774785439, guid: 02196b990c36d074295d871d5b330f32,
         type: 3}
@@ -26654,7 +26698,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &646358896
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28568,7 +28612,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -155.9}
+  m_AnchoredPosition: {x: -207.4, y: -155.9}
   m_SizeDelta: {x: 1085, y: 141}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &702130786
@@ -30254,7 +30298,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &752920838
 RectTransform:
   m_ObjectHideFlags: 0
@@ -31638,7 +31682,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &784129870
 RectTransform:
   m_ObjectHideFlags: 0
@@ -64351,10 +64395,10 @@ RectTransform:
   m_Father: {fileID: 271269107}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 900, y: 350}
+  m_SizeDelta: {x: 240, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1686858995
 MonoBehaviour:
@@ -64375,7 +64419,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 1c5e938f5874deb4c99362a45026208f, type: 3}
+  m_Texture: {fileID: 2800000, guid: c4ef5626d56f3f247a7f597495cbfe57, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -78789,11 +78833,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myEndingCanvas: {fileID: 271269102}
-  myCogsCollected: {fileID: 784129869}
-  myLockedScene: {fileID: 752920837}
-  myFirstScene: {fileID: 646358895}
-  mySecondScene: {fileID: 1126865816}
-  myThirdScene: {fileID: 14690751}
 --- !u!54 &2123343734
 Rigidbody:
   m_ObjectHideFlags: 0
