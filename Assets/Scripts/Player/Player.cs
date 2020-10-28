@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
     private float myTotalSpeed = 0f;
     private bool mySpeedInvincible = false;
     private bool myIsDead = false;
+    private bool myFinishedGame = false;
 
     // Animation
     [SerializeField]
@@ -286,6 +287,16 @@ public class Player : MonoBehaviour
         }
     }
 
+    public bool GetFinishedGame()
+    {
+        return myFinishedGame;
+    }
+
+    public void SetFinishedGame(bool aBool)
+    {
+        myFinishedGame = aBool;
+    }
+
     public void IncreaseScore()
     {
         myScore++;
@@ -335,4 +346,6 @@ public class Player : MonoBehaviour
     }
 
     public bool GetHasSeenCutscene() { return myHasSeenCutscene; }
+
+    
 }

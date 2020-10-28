@@ -43,7 +43,6 @@ public class InvincibleCollision : MonoBehaviour
             {
                 return;
             }
-            Debug.Log("Invincible working");
 
             if (myGraphicsContainer != null)
             {

@@ -9,8 +9,8 @@ public class LevelMusic01 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        myMusicManager = GameObject.FindGameObjectsWithTag("MusicManager")[0].GetComponent<MusicManagerScript>();  //Elf
-        myMusicManager.PlayMusic01();   //Elf
+        //myMusicManager = GameObject.FindGameObjectsWithTag("MusicManager")[0].GetComponent<MusicManagerScript>();  //Elf
+        //myMusicManager.PlayMusic01();   //Elf
     }
 
     // Update is called once per frame
