@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
     private float myTotalSpeed = 0f;
     private bool mySpeedInvincible = false;
     private bool myIsDead = false;
+    private bool myFinishedGame = false;
     private GameObject myShieldVisual = null;
 
     // Animation
@@ -135,15 +136,15 @@ public class Player : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
     private void OnGUI()
     {
         float fps = 1 / Time.deltaTime;
         GUI.Label(new Rect(0, 100, 250, 20), "FPS: " + fps);
-#if UNITY_EDITOR
         GUI.Label(new Rect(0, 120, 250, 20), "Total Speed: " + myTotalSpeed);
         GUI.Label(new Rect(0, 140, 250, 20), "Air Movement: " + myAirMovement);
-#endif
     }
+#endif
 
     private void ResetSpline()
     {
@@ -288,6 +289,16 @@ public class Player : MonoBehaviour
             mySpeedTrail.SetActive(false);
             mySpeedInvincible = false;
         }
+    }
+
+    public void SetHasFinishedGame(bool aBool)
+    {
+        myFinishedGame = aBool;
+    }
+
+    public bool GetHasFinished()
+    {
+        return myFinishedGame;
     }
 
     public void IncreaseScore()

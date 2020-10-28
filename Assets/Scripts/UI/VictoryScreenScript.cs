@@ -5,11 +5,10 @@ public class VictoryScreenScript : MonoBehaviour
 {
     [SerializeField]
     GameObject myContinue = null;
-
     GameManager myGameManager = null;
 
     private void Start()
-    {
+    {  
         myGameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
         if (myGameManager.GetActiveScene() == SceneManager.GetSceneByName("Level3"))
