@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq.Expressions;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public enum SceneIndexes
@@ -24,6 +25,42 @@ public class GameManager : MonoBehaviour
     public bool myFirstTimeCheckOne = true;
     public bool myFirstTimeCheckTwo = true;
     public bool myLevelComplete = false;
+
+    private int myCogCountOne;
+    private int myCogCountTwo;
+    private int myCogCountThree;
+
+    public int TotalCogsCollected()
+    {
+        return myCogCountOne + myCogCountTwo + myCogCountThree;
+    }
+
+    public void SetCogCount(int someCogsOnLevel)
+    {
+        Scene activeScene = GetActiveScene();
+        int index = activeScene.buildIndex;
+        SceneIndexes sceneIndex = (SceneIndexes)index;
+
+        switch (sceneIndex)
+        {
+            case SceneIndexes.INTROLEVEL:
+                myCogCountOne = someCogsOnLevel;
+                break;
+            case SceneIndexes.LEVELTWO:
+                myCogCountTwo = someCogsOnLevel;
+                break;
+            case SceneIndexes.LEVELTHREE:
+                myCogCountThree = someCogsOnLevel;
+                break;
+            default:
+                Debug.LogError("vi borde inte va' hä'r, hur fan kom vi hit, det här är ju omjöligt");
+                break;
+        }
+    }
+
+
+
+
 
     //[SerializeField]
     //private AudioClip myMenuMusicClip;
@@ -114,7 +151,7 @@ public class GameManager : MonoBehaviour
     {
         int nextScene = aCurrentScene.buildIndex + 1;
         SceneManager.UnloadSceneAsync(aCurrentScene);
-        SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Additive);      
+        SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Additive);
     }
     public void ReplayLevel(Scene aCurrentScene)
     {
@@ -137,7 +174,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-public void GameFinished(Scene aScene)
+    public void GameFinished(Scene aScene)
     {
         SceneManager.UnloadSceneAsync(aScene);
         SceneManager.LoadSceneAsync((int)SceneIndexes.MAIN_MENU, LoadSceneMode.Additive);
