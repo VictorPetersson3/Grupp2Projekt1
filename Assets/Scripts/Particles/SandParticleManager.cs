@@ -64,7 +64,7 @@ public class SandParticleManager : MonoBehaviour
         }
     }
 
-    public void CreateSandParticle(int aAmount)
+    public void CreateSandParticle()
     {
         mySpawnTime += Time.deltaTime;
         if (mySpawnTime <= myTimeCap)
@@ -73,19 +73,16 @@ public class SandParticleManager : MonoBehaviour
         }
         mySpawnTime -= myTimeCap;
 
-        for (int i = 0; i < mySandParticles.Count-aAmount; i++)
+        for (int i = 0; i < mySandParticles.Count-1; i++)
         {
             if (!mySandParticles[i].GetComponent<SandParticle>().gameObject.activeSelf)
             {
-                for (int j = 0; j < aAmount; j++)
-                {
-                    float newX = Random.Range(transform.position.x, transform.position.x - myOffsetX);
-                    float newY = Random.Range(transform.position.y, transform.position.y + myOffsetY);
-                    Vector3 newPosition = new Vector3(newX, newY, 0);
+                float newX = Random.Range(transform.position.x, transform.position.x - myOffsetX);
+                float newY = Random.Range(transform.position.y, transform.position.y + myOffsetY);
+                Vector3 newPosition = new Vector3(newX, newY, 0);
 
-                    mySandParticles[i+j].GetComponent<SandParticle>().gameObject.SetActive(true);
-                    mySandParticles[i+j].GetComponent<SandParticle>().SetPosition(newPosition);
-                }
+                mySandParticles[i].GetComponent<SandParticle>().gameObject.SetActive(true);
+                mySandParticles[i].GetComponent<SandParticle>().SetPosition(newPosition);
                 return;
             }
         }
