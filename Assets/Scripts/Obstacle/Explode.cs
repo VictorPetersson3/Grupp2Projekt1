@@ -35,7 +35,7 @@ public class Explode : MonoBehaviour
             return;
         }
 
-        if (myPlayer.GetInvincible())
+        if (myPlayer.GetInvincible() || myPlayer.GetSpeedInvincible())
         {
             myGraphicsContainer.SetActive(false);
             myExplosion.Play();
