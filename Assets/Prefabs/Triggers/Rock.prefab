@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 444860001621158007}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.442, y: -0.638, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7962875871243104479}
@@ -45,7 +45,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.2945165
-  m_Center: {x: -0.24648382, y: -0.077671885, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &2010734331245868902
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1383,7 +1383,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   ColorModule:
-    enabled: 0
+    enabled: 1
     gradient:
       serializedVersion: 2
       minMaxState: 1
@@ -1391,7 +1391,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 1, b: 1, a: 1}
+        key0: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 1}
         key1: {r: 1, g: 1, b: 1, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
@@ -4797,7 +4797,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 2d3a93c479e3bd64c8682521b35b80aa, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0

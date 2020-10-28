@@ -37,14 +37,20 @@ public class MagnetCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision aCollision)
     {
-        if (myPlayer == null || myMagnetSound == null)
+        if (aCollision.gameObject.layer == 8)
         {
-            return;
+            if (myPlayer == null || myMagnetSound == null)
+            {
+                return;
+            }
+            if (myGraphicsContainer != null)
+            {
+                myGraphicsContainer.SetActive(false);
+            }
+            myPlayer.SetMagnet(true);
+            Instantiate(myParticleObject);
+            Instantiate(myMagnetSound, mySoundContainer.transform);
+            myShouldDestroy = true;
         }
-        myGraphicsContainer.SetActive(false);
-        myPlayer.SetMagnet(true);
-        Instantiate(myParticleObject);
-        Instantiate(myMagnetSound, mySoundContainer.transform);
-        myShouldDestroy = true;
     }
 }

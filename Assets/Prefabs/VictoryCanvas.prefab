@@ -48,7 +48,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -118.30001}
-  m_SizeDelta: {x: 2048, y: 256}
+  m_SizeDelta: {x: 1188, y: 148}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &825266382578102910
 CanvasRenderer:
@@ -80,10 +80,10 @@ MonoBehaviour:
   m_Texture: {fileID: 2800000, guid: 7a53581816f9efa49837705daee87bd3, type: 3}
   m_UVRect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+    x: 0.21
+    y: 0.21
+    width: 0.58
+    height: 0.58
 --- !u!114 &825266382578102904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,7 +289,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -241.3}
-  m_SizeDelta: {x: 2048, y: 256}
+  m_SizeDelta: {x: 1085, y: 146}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &825266383340168198
 CanvasRenderer:
@@ -321,10 +321,10 @@ MonoBehaviour:
   m_Texture: {fileID: 2800000, guid: 0ef4c434ee15bfc40878595330921ce2, type: 3}
   m_UVRect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+    x: 0.235
+    y: 0.21
+    width: 0.53
+    height: 0.57
 --- !u!114 &825266383340168192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,7 +415,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -180.70001}
-  m_SizeDelta: {x: 1024, y: 512}
+  m_SizeDelta: {x: 686, y: 154}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &825266384343077902
 CanvasRenderer:
@@ -447,10 +447,10 @@ MonoBehaviour:
   m_Texture: {fileID: 2800000, guid: 72643888eb592a440839c2478ffcd632, type: 3}
   m_UVRect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+    x: 0.16
+    y: 0.35
+    width: 0.67
+    height: 0.3
 --- !u!114 &825266384343077903
 MonoBehaviour:
   m_ObjectHideFlags: 0

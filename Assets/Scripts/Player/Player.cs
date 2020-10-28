@@ -46,11 +46,16 @@ public class Player : MonoBehaviour
     private float mySplineT = -1;
     private float myUnmodifiedSpeed = 0f;
     private float myTotalSpeed = 0f;
-    private const int myGroundParticleAmount = 20;
+    private bool mySpeedInvincible = false;
     private bool myIsDead = false;
 
+    // Animation
     [SerializeField]
-    Animator myAnimator;
+    private Animator myAnimator;
+
+    // Cutscene
+    [SerializeField]
+    private bool myHasSeenCutscene = false;
 
     // Power ups
     private bool myMagnet = false;
@@ -93,26 +98,37 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (Time.timeScale == 0f || myLevelComplete)
+        if (myLevelComplete || Time.timeScale == 0f)
         {
             return;
         }
-
-        myAnimator.SetFloat("MovementSpeed", myTotalSpeed);
-        Collision();
-        ActivateTrail();
-
-        myIsHoldingJump = myPlayerInput.IsJumping();
-        myPressJump = myPlayerInput.PressJump();
-        if (myGrounded)
+        if(!myHasSeenCutscene)
         {
-            myAnimator.SetBool("Idle", true);
-            myAnimator.SetBool("InAir", false);
-            Grounded();
-            return;
+            myAnimator.SetTrigger("StartedPlaying");
+            if (myAnimator.GetCurrentAnimatorStateInfo(0).IsName("Clip_IntroCutscene") && myAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            {
+                myHasSeenCutscene = true;
+                myCameraShake.TriggerShake(60, 100);
+            }
         }
+        else
+        {
+            myAnimator.SetFloat("MovementSpeed", myTotalSpeed);
+            Collision();
+            ActivateTrail();
 
-        Air();
+            myIsHoldingJump = myPlayerInput.IsJumping();
+            myPressJump = myPlayerInput.PressJump();
+            if (myGrounded)
+            {
+                myAnimator.SetBool("Idle", true);
+                myAnimator.SetBool("InAir", false);
+                Grounded();
+                return;
+            }
+
+            Air();
+        }
     }
 
     private void OnGUI()
@@ -141,7 +157,7 @@ public class Player : MonoBehaviour
         myPlayerBobbing.Bob();
         if (!myPlayerSpline.GetIsRailing())
         {
-            mySandParticleManager.CreateSandParticle(myGroundParticleAmount);
+            mySandParticleManager.CreateSandParticle();
         }
         if (myPressJump)
         {
@@ -173,7 +189,7 @@ public class Player : MonoBehaviour
                 Bounce();
                 return;
             }
-            if (myInvincible)
+            if (myInvincible || mySpeedInvincible)
             {
                 return;
             }
@@ -257,14 +273,16 @@ public class Player : MonoBehaviour
 
     private void ActivateTrail()
     {
-        float trailLimit = 200f;
+        float trailLimit = 185f;
         if (myTotalSpeed >= trailLimit)
         {
             mySpeedTrail.SetActive(true);
+            mySpeedInvincible = true;
         }
         else
         {
             mySpeedTrail.SetActive(false);
+            mySpeedInvincible = false;
         }
     }
 
@@ -292,6 +310,11 @@ public class Player : MonoBehaviour
         return myInvincible;
     }
 
+    public bool GetSpeedInvincible()
+    {
+        return mySpeedInvincible;
+    }
+
     public void SetInvincible(bool aValue)
     {
         myInvincible = aValue;
@@ -312,4 +335,6 @@ public class Player : MonoBehaviour
         myLevelComplete = true;
         myGameManager.SetCogCount(score);
     }
+
+    public bool GetHasSeenCutscene() { return myHasSeenCutscene; }
 }

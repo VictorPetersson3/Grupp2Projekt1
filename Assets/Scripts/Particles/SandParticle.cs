@@ -1,42 +1,61 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SandParticle : MonoBehaviour
 {
+    // Materials
+    [SerializeField]
+    private Material myLevel01Material;
+    [SerializeField]
+    private Material myLevel02Material;
+    [SerializeField]
+    private Material myLevel03Material;
+
     // Lifetime
-    private float myMinLifeTime = 0.3f;
-    private float myMaxLifeTime = 0.6f;
+    private float myMinLifeTime = 0.7f;
+    private float myMaxLifeTime = 0.8f;
     private float myTotalLifeTime = 0f;
     private float myLifeTime = 0f;
 
     // Physics
     private float myGravity = 4f;
-    private float myMaxYForce = 7f;
-    private float myMinYForce = 1f;
+    private float myMaxYForce = 6f;
+    private float myMinYForce = 3f;
+    private Vector3 myMaxSize;
+    private Vector3 myScaleChange = new Vector3(5.0f, 5.0f, 0);
+    private Vector3 myOriginalScale;
 
-    private Vector3 myScaleChange = new Vector3(0.5f, 0.5f, 0);
-
-    // Getting rotation
+    private Transform myPlayerTransform = null;
     private Vector3 myRotation;
-    private Transform myPlayerTransform;
 
-    [HideInInspector]
-    public bool myIsDead = false;
+    private bool myIsDead = false;
 
     private void Start()
     {
-        // Set life
+        float startScale = Random.Range(1.0f, 3.0f);
+        myMaxSize = new Vector3(startScale, startScale, startScale);
+        myPlayerTransform = GameObject.FindGameObjectWithTag("PlayerTag").transform;
+        myOriginalScale = transform.localScale;
         SetLifeTime();
+        SetMaterial();
+    }
 
-        // Rotation
-        myPlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+    private void OnEnable()
+    {
+        SetLifeTime();
+    }
 
-        ConvertEulerToDegree();
+    private void OnDisable()
+    {
+        transform.localScale = myOriginalScale;
+        myIsDead = false;
     }
 
     private void Update()
     {
         CheckIfDead();
         IncreaseSize();
+        ConvertEulerToDegree();
 
         if (myLifeTime >= myTotalLifeTime / Random.Range(2, 4))
         {
@@ -55,33 +74,41 @@ public class SandParticle : MonoBehaviour
         }
     }
 
+    public void SetPosition(Vector3 newPos)
+    {
+        transform.position = newPos;
+    }
+
     private void SetLifeTime()
     {
         myTotalLifeTime = Random.Range(myMinLifeTime, myMaxLifeTime);
+        myLifeTime = 0;
     }
 
     private void ApplyGravity()
     {
-        if (myLifeTime >= myTotalLifeTime / 3)
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y - (myGravity * Time.deltaTime), transform.position.z);
-        }
+        transform.position = new Vector3(transform.position.x, transform.position.y - (myGravity * Time.deltaTime), transform.position.z);
     }
 
     private void ApplyForce()
     {
         float newYForce = Random.Range(myMinYForce, myMaxYForce);
-
-        if (myRotation.x < -5)
+        if (myRotation.x >= 25f)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y + (newYForce * Time.deltaTime), transform.position.z);
+            transform.position = new Vector3(transform.position.x, transform.position.y + (newYForce * Time.deltaTime * 3), transform.position.z);
             return;
         }
-        transform.position = new Vector3(transform.position.x, transform.position.y + (newYForce * Time.deltaTime * 2), transform.position.z);
+        if (myRotation.x >= 10f)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y + (newYForce * Time.deltaTime * 2), transform.position.z);
+            return;
+        }
+        transform.position = new Vector3(transform.position.x, transform.position.y + (newYForce * Time.deltaTime), transform.position.z);
     }
 
     private void IncreaseSize()
     {
+        if (transform.localScale.x < myMaxSize.x)
         transform.localScale += myScaleChange * Time.deltaTime;
     }
 
@@ -94,6 +121,33 @@ public class SandParticle : MonoBehaviour
         else
         {
             myRotation = new Vector3(myPlayerTransform.eulerAngles.x, 0, 0);
+        }
+    }
+
+    public bool GetIsDead()
+    {
+        return myIsDead;
+    }
+
+    private void SetMaterial()
+    {
+        for (int i = 0; i < SceneManager.sceneCount; ++i)
+        {
+            if (SceneManager.GetSceneAt(i).isLoaded && SceneManager.GetSceneAt(i).name != "GameManagerScene")
+            {
+                if (SceneManager.GetSceneAt(i).name == "Level01")
+                {
+                    gameObject.GetComponent<Renderer>().material = myLevel01Material;
+                }
+                if (SceneManager.GetSceneAt(i).name == "Level02")
+                {
+                    gameObject.GetComponent<Renderer>().material = myLevel02Material;
+                }
+                if (SceneManager.GetSceneAt(i).name == "Level3")
+                {
+                    gameObject.GetComponent<Renderer>().material = myLevel03Material;
+                }
+            }
         }
     }
 }
