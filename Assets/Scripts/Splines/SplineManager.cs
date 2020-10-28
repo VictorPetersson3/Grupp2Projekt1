@@ -123,20 +123,18 @@ public class SplineManager : MonoBehaviour
         return true;
     }
 
-    private Vector2 GetClosestPointInSpline(Vector2 aPlayerPosition, Vector2[] somePoints, ref int aPointsIndex)
+    private Vector2 GetPointBelowPlayer(Vector2 aPlayerPosition, Vector2[] somePoints, ref int aPointsIndex)
     {
-        Vector2 closestPoint = Vector2.negativeInfinity;
-
         for (int i = 0; i < somePoints.Length; i++)
         {
-            if (Vector2.Distance(aPlayerPosition, somePoints[i]) < Vector2.Distance(aPlayerPosition, closestPoint))
+            if (somePoints[i].x > aPlayerPosition.x)
             {
-                closestPoint = somePoints[i];
                 aPointsIndex = i;
+                return somePoints[i];
             }
         }
 
-        return closestPoint;
+        return Vector2.negativeInfinity;
     }
 
     public Vector2 GetGroundDirection(Vector2 aPlayerPosition)
@@ -147,19 +145,28 @@ public class SplineManager : MonoBehaviour
 
         for (int i = 0; i < pathCreators.Length; i++)
         {
-            if (pathCreators[i].isActiveAndEnabled)
+            if (!pathCreators[i].isActiveAndEnabled ||
+                pathCreators[i].path.GetFirstPoint().x > aPlayerPosition.x ||
+                pathCreators[i].path.GetLastPoint().x < aPlayerPosition.x)
             {
-                int anIndex = 0;
-                Vector2[] iteratedSplinesPoints = pathCreators[i].path.GetMyEvenlySpacedPoints();
-                Vector2 closestPointInIteratedSpline = GetClosestPointInSpline(aPlayerPosition, iteratedSplinesPoints, ref anIndex);
-
-                if (Vector2.Distance(aPlayerPosition, closestPointInIteratedSpline) < Vector2.Distance(aPlayerPosition, closestPoint))
-                {
-                    closestPoint = closestPointInIteratedSpline;
-                    closestPoints = iteratedSplinesPoints;
-                    closestIndex = anIndex;
-                }
+                continue;
             }
+
+            int anIndex = 0;
+            Vector2[] iteratedSplinesPoints = pathCreators[i].path.GetMyEvenlySpacedPoints();
+            Vector2 closestPointInIteratedSpline = GetPointBelowPlayer(aPlayerPosition, iteratedSplinesPoints, ref anIndex);
+
+            if (Vector2.Distance(aPlayerPosition, closestPointInIteratedSpline) <= Vector2.Distance(aPlayerPosition, closestPoint))
+            {
+                closestPoint = closestPointInIteratedSpline;
+                closestPoints = iteratedSplinesPoints;
+                closestIndex = anIndex;
+            }
+        }
+
+        if (closestPoints == null)
+        {
+            return Vector2.right;
         }
 
         Vector2[] groundPoints = new Vector2[2];
