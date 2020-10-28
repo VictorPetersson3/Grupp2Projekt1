@@ -129,14 +129,14 @@ public class MainMenuScript : MonoBehaviour
     {
         for (int i = 0; i < scenesLoading.Count; i++)
         {
-            Debug.Log("Loading Scene: " + scenesLoading[i] + "...");
+            Debug.Log("Loading Scene: " + SceneManager.GetSceneAt(i + 1).name + "...");
 
             while (!scenesLoading[i].isDone)
             {                
                 yield return null;
             }
             
-            Debug.Log("Finished loading Scene: " + scenesLoading[i]);
+            Debug.Log("Finished loading Scene: " + SceneManager.GetSceneAt(i + 1));
         }
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("Level01"));
     }
