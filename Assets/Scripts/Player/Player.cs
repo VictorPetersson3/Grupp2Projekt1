@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
     private bool myGrounded = false;
     private bool myIsHoldingJump;
     private bool myPressJump;
+    private bool myLevelComplete = false;
     private int myScore = 0;
     private CollisionData myCollisionData;
     private Vector3 myOldPosition;
@@ -98,12 +99,16 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (myLevelComplete)
+        {
+            return;
+        }
         if(!myHasSeenCutscene)
         {
             myAnimator.SetTrigger("StartedPlaying");
-            if (myAnimator.GetCurrentAnimatorStateInfo(0).IsName("Clip_IntroCutscene") && myAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            if (myAnimator.GetCurrentAnimatorStateInfo(0).IsName("Clip_Idle") && myAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             {
-                SetHasSeenCutscene(true);
+                myHasSeenCutscene = true;
                 myCameraShake.TriggerShake(60, 100);
             }
         }
@@ -322,9 +327,11 @@ public class Player : MonoBehaviour
         myGrounded = true;
         mySplineT = 0;
     }
-    private void SetHasSeenCutscene(bool aSeenCutscene)
+
+    public void LevelComplete()
     {
-        myHasSeenCutscene = aSeenCutscene;
+        myLevelComplete = true;
     }
+
     public bool GetHasSeenCutscene() { return myHasSeenCutscene; }
 }

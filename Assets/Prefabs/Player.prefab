@@ -67,6 +67,7 @@ MonoBehaviour:
   myShakeDurationSplines: 5
   myShakeMagnitudeSplines: 5
   myAnimator: {fileID: 2181817609186395227}
+  myHasSeenCutscene: 1
 --- !u!114 &1607898314831972098
 MonoBehaviour:
   m_ObjectHideFlags: 0
