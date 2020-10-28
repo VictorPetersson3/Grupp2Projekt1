@@ -69,7 +69,6 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        myAnimator.SetTrigger("StartedPlaying");
         myPlayerSpline = GetComponent<PlayerSpline>();
         myPlayerJump = GetComponent<PlayerJump>();
         myPlayerAir = GetComponent<PlayerAir>();
@@ -106,7 +105,7 @@ public class Player : MonoBehaviour
         if(!myHasSeenCutscene)
         {
             myAnimator.SetTrigger("StartedPlaying");
-            if (myAnimator.GetCurrentAnimatorStateInfo(0).IsName("Clip_Idle") && myAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            if (myAnimator.GetCurrentAnimatorStateInfo(0).IsName("Clip_IntroCutscene") && myAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             {
                 myHasSeenCutscene = true;
                 myCameraShake.TriggerShake(60, 100);
