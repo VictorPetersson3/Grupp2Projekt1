@@ -20,7 +20,7 @@ TagManager:
   - magnetGraphics
   - invincibleGraphics
   - PlayerTag
-  - EndTrigger
+  - Shield
   layers:
   - Default
   - TransparentFX
