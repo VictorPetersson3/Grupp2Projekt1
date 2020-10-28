@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public enum SceneIndexes
@@ -25,6 +23,7 @@ public class GameManager : MonoBehaviour
 
     public bool myFirstTimeCheckOne = true;
     public bool myFirstTimeCheckTwo = true;
+    public bool myLevelComplete = false;
 
     //[SerializeField]
     //private AudioClip myMenuMusicClip;

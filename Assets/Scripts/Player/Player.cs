@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
     private bool myGrounded = false;
     private bool myIsHoldingJump;
     private bool myPressJump;
+    private bool myLevelComplete = false;
     private int myScore = 0;
     private CollisionData myCollisionData;
     private Vector3 myOldPosition;
@@ -48,8 +49,13 @@ public class Player : MonoBehaviour
     private const int myGroundParticleAmount = 20;
     private bool myIsDead = false;
 
+    // Animation
     [SerializeField]
-    Animator myAnimator;
+    private Animator myAnimator;
+
+    // Cutscene
+    [SerializeField]
+    private bool myHasSeenCutscene = false;
 
     // Power ups
     private bool myMagnet = false;
@@ -92,26 +98,42 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (Time.timeScale == 0f)
+        if (myLevelComplete)
         {
             return;
         }
-
-        myAnimator.SetFloat("MovementSpeed", myTotalSpeed);
-        Collision();
-        ActivateTrail();
-
-        myIsHoldingJump = myPlayerInput.IsJumping();
-        myPressJump = myPlayerInput.PressJump();
-        if (myGrounded)
+        if(!myHasSeenCutscene)
         {
-            myAnimator.SetBool("Idle", true);
-            myAnimator.SetBool("InAir", false);
-            Grounded();
-            return;
+            myAnimator.SetTrigger("StartedPlaying");
+            if (myAnimator.GetCurrentAnimatorStateInfo(0).IsName("Clip_IntroCutscene") && myAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            {
+                myHasSeenCutscene = true;
+                myCameraShake.TriggerShake(60, 100);
+            }
         }
+        else
+        {
+            if (Time.timeScale == 0f)
+            {
+                return;
+            }
 
-        Air();
+            myAnimator.SetFloat("MovementSpeed", myTotalSpeed);
+            Collision();
+            ActivateTrail();
+
+            myIsHoldingJump = myPlayerInput.IsJumping();
+            myPressJump = myPlayerInput.PressJump();
+            if (myGrounded)
+            {
+                myAnimator.SetBool("Idle", true);
+                myAnimator.SetBool("InAir", false);
+                Grounded();
+                return;
+            }
+
+            Air();
+        }
     }
 
     private void OnGUI()
@@ -140,7 +162,7 @@ public class Player : MonoBehaviour
         myPlayerBobbing.Bob();
         if (!myPlayerSpline.GetIsRailing())
         {
-            mySandParticleManager.CreateSandParticle(myGroundParticleAmount);
+            mySandParticleManager.CreateSandParticle(4);
         }
         if (myPressJump)
         {
@@ -304,4 +326,11 @@ public class Player : MonoBehaviour
         myGrounded = true;
         mySplineT = 0;
     }
+
+    public void LevelComplete()
+    {
+        myLevelComplete = true;
+    }
+
+    public bool GetHasSeenCutscene() { return myHasSeenCutscene; }
 }
