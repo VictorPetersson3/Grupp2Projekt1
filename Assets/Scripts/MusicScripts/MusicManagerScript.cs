@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MusicManagerScript : MonoBehaviour
@@ -13,8 +11,12 @@ public class MusicManagerScript : MonoBehaviour
     private AudioClip myScene02MusicClip = null;
     [SerializeField]
     private AudioClip myScene03MusicClip = null;
+    [SerializeField]
+    private AudioClip myScene03WinMusic = null;
 
     private AudioSource myMusicSource;
+    private Player myPlayer = null;
+    private bool myIsFinished = false;
 
     void Start()
     {
@@ -52,8 +54,7 @@ public class MusicManagerScript : MonoBehaviour
                     myMusicSource.Play();
                 }
             }
+
         }
     }
-
 }
-

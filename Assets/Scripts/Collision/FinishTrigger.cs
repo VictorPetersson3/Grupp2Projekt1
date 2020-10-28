@@ -15,7 +15,6 @@ public class FinishTrigger : MonoBehaviour
         GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().myLevelComplete = true;
         Player player = aCollider.transform.GetComponentInParent<Player>();
         player.LevelComplete();
-        player.SetFinishedGame(true);
         myVictoryScreen.SetActive(true);
     }
 }

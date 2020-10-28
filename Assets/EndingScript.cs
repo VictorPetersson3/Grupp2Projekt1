@@ -12,13 +12,16 @@ public class EndingScript : MonoBehaviour
     [SerializeField] private GameObject myFirstScene = null;
     [SerializeField] private GameObject mySecondScene = null;
     [SerializeField] private GameObject myThirdScene = null;
-
+    
+    private Player myPlayer = null;
     //snakca med gustav om antal cogs
 
     //snacka med Leo om end gam how do
 
     void Start()
     {
+        myPlayer = GameObject.FindGameObjectWithTag("PlayerTag").GetComponent<Player>();
+
         if (myEndingCanvas == null)
         {
             Debug.LogError("myBG is fuckywucky");
@@ -43,6 +46,7 @@ public class EndingScript : MonoBehaviour
         {
             Debug.LogError("myThirdScene is fuckywucky");
         }
+
     }
 
     void Update()
@@ -58,6 +62,7 @@ public class EndingScript : MonoBehaviour
     }*/
     private void OnTriggerEnter(Collider anEndingCollider)
     {
+        myPlayer.SetHasFinishedGame(true);
         Debug.Log("We out here fam");
         GameManager gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         gameManager.myLevelComplete = true;
@@ -79,6 +84,7 @@ public class EndingScript : MonoBehaviour
 
     public void BackToMenu()
     {
+        myPlayer.SetHasFinishedGame(false);
         Time.timeScale = 1;
         SceneManager.LoadScene(0);
     }

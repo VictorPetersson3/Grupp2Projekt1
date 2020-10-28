@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
     private float myTotalSpeed = 0f;
     private bool mySpeedInvincible = false;
     private bool myIsDead = false;
+    private bool myFinishedGame = false;
     private GameObject myShieldVisual = null;
 
     // Animation
@@ -288,6 +289,16 @@ public class Player : MonoBehaviour
             mySpeedTrail.SetActive(false);
             mySpeedInvincible = false;
         }
+    }
+
+    public void SetHasFinishedGame(bool aBool)
+    {
+        myFinishedGame = aBool;
+    }
+
+    public bool GetHasFinished()
+    {
+        return myFinishedGame;
     }
 
     public void IncreaseScore()
