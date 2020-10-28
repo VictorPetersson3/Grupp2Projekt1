@@ -22,18 +22,21 @@ public class VictoryScreenScript : MonoBehaviour
 
     public void Continue()
     {
+        myGameManager.myLevelComplete = false;
         Time.timeScale = 1f;
         myGameManager.NextLevel(myGameManager.GetActiveScene());
     }
 
     public void Replay()
     {
+        myGameManager.myLevelComplete = false;
         Time.timeScale = 1f;
         myGameManager.ReplayLevel(myGameManager.GetActiveScene());
     }
 
     public void Home()
     {
+        myGameManager.myLevelComplete = false;
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
     }
