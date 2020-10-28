@@ -331,7 +331,9 @@ public class Player : MonoBehaviour
 
     public void LevelComplete()
     {
+        int score = GetScore();
         myLevelComplete = true;
+        myGameManager.SetCogCount(score);
     }
 
     public bool GetHasSeenCutscene() { return myHasSeenCutscene; }
