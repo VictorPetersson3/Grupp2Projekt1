@@ -28,14 +28,12 @@ public class SandParticle : MonoBehaviour
 
     private Transform myPlayerTransform = null;
     private Vector3 myRotation;
-    private Material myMaterial = null;
 
     private bool myIsDead = false;
 
     private void Start()
     {
         myPlayerTransform = GameObject.FindGameObjectWithTag("PlayerTag").transform;
-        myMaterial = gameObject.GetComponent<Renderer>().GetComponent<Material>();
         myOriginalScale = transform.localScale;
         SetLifeTime();
         SetMaterial();
@@ -57,7 +55,6 @@ public class SandParticle : MonoBehaviour
         CheckIfDead();
         IncreaseSize();
         ConvertEulerToDegree();
-        Debug.Log("rotation: " + myRotation);
 
         if (myLifeTime >= myTotalLifeTime / Random.Range(2, 4))
         {
@@ -139,15 +136,15 @@ public class SandParticle : MonoBehaviour
             {
                 if (SceneManager.GetSceneAt(i).name == "Level01")
                 {
-                    myMaterial = myLevel01Material;
+                    gameObject.GetComponent<Renderer>().material = myLevel01Material;
                 }
                 if (SceneManager.GetSceneAt(i).name == "Level02")
                 {
-                    myMaterial = myLevel02Material;
+                    gameObject.GetComponent<Renderer>().material = myLevel02Material;
                 }
-                if (SceneManager.GetSceneAt(i).name == "Level03")
+                if (SceneManager.GetSceneAt(i).name == "Level3")
                 {
-                    myMaterial = myLevel03Material;
+                    gameObject.GetComponent<Renderer>().material = myLevel03Material;
                 }
             }
         }
