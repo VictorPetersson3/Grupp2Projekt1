@@ -37,14 +37,17 @@ public class InvincibleCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision aCollision)
     {
-        if (myPlayer == null || mySound == null)
+        if (aCollision.gameObject.layer == 8)
         {
-            return;
+            if (myPlayer == null || mySound == null)
+            {
+                return;
+            }
+            myGraphicsContainer.SetActive(false);
+            myPlayer.SetInvincible(true);
+            Instantiate(myParticleObject);
+            Instantiate(mySound, mySoundContainer.transform);
+            myShouldDestroy = true;
         }
-        myGraphicsContainer.SetActive(false);
-        myPlayer.SetInvincible(true);
-        Instantiate(myParticleObject);
-        Instantiate(mySound, mySoundContainer.transform);
-        myShouldDestroy = true;
     }
 }
