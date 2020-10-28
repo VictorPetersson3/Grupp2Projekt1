@@ -98,7 +98,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (myLevelComplete)
+        if (myLevelComplete || Time.timeScale == 0f)
         {
             return;
         }
@@ -113,11 +113,6 @@ public class Player : MonoBehaviour
         }
         else
         {
-            if (Time.timeScale == 0f)
-            {
-                return;
-            }
-
             myAnimator.SetFloat("MovementSpeed", myTotalSpeed);
             Collision();
             ActivateTrail();
