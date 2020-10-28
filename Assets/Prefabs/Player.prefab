@@ -83,7 +83,7 @@ MonoBehaviour:
   myGroundedRotationSpeed: 10
   myAngleBuffer: -0.1
   mySlopeAcceleration: 0.45
-  mySlopeDeceleration: 4
+  mySlopeDeceleration: 2
   myMaxUnmodifiedSpeed: 150
   myMinUnmodifiedSpeed: 80
   myTrickBoost: {fileID: 8148391156443554728}
