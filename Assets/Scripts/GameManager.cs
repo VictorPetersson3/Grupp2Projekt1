@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public enum SceneIndexes
@@ -20,8 +22,6 @@ public class GameManager : MonoBehaviour
     private Transform myObstacleParent = null;
     [SerializeField]
     private BoxCollider[] myObstacles;
-    [SerializeField]
-    private GameObject myLoadingScreen = null;
 
     public bool myFirstTimeCheckOne = true;
     public bool myFirstTimeCheckTwo = true;
@@ -90,37 +90,13 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.X))
-        //{
-        //    PlayMenuMusic();
-        //}
-        //if (Input.GetKeyDown(KeyCode.Z))
-        //{
-        //    StopMenuMusic();
-        //}
-
-        //if (myFadeUp)
-        //{
-        //    myMusicVolume += Time.deltaTime / myFadeTime;
-        //    if (myMusicVolume > 1f)
-        //    {
-        //        myMusicVolume = 1;
-        //        myFadeUp = false;
-        //    }
-        //    myMusicSource.volume = myMusicVolume;
-        //}
-
-        //if (myFadeDown)
-        //{
-        //    myMusicVolume -= Time.deltaTime / myFadeTime;
-        //    if (myMusicVolume <= 0.01f)
-        //    {
-        //        myMusicVolume = 0;
-        //        myMusicSource.Stop();
-        //        myFadeDown = false;
-        //    }
-        //    myMusicSource.volume = myMusicVolume;
-        //}
+        for (int i = 0; i < SceneManager.sceneCount; ++i)
+        {
+            if (SceneManager.GetSceneAt(i).isLoaded && SceneManager.GetSceneAt(i).name != "GameManagerScene" && SceneManager.GetActiveScene() != SceneManager.GetSceneAt(i))
+            {
+                SceneManager.SetActiveScene(SceneManager.GetSceneAt(i));
+            }
+        }
     }
 
     public void MainMenu(Scene aScene)
@@ -138,9 +114,8 @@ public class GameManager : MonoBehaviour
     public void NextLevel(Scene aCurrentScene)
     {
         int nextScene = aCurrentScene.buildIndex + 1;
-
         SceneManager.UnloadSceneAsync(aCurrentScene);
-        SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Additive);      
     }
     public void ReplayLevel(Scene aCurrentScene)
     {
@@ -156,10 +131,14 @@ public class GameManager : MonoBehaviour
     public void GameOver(Scene aScene)
     {
         SceneManager.UnloadSceneAsync(aScene);
-        SceneManager.LoadSceneAsync((int)SceneIndexes.MAIN_MENU, LoadSceneMode.Additive);
+
+        if (SceneManager.sceneCount <= 2)
+        {
+            SceneManager.LoadSceneAsync((int)SceneIndexes.MAIN_MENU, LoadSceneMode.Additive);
+        }
     }
 
-    public void GameFinished(Scene aScene)
+public void GameFinished(Scene aScene)
     {
         SceneManager.UnloadSceneAsync(aScene);
         SceneManager.LoadSceneAsync((int)SceneIndexes.MAIN_MENU, LoadSceneMode.Additive);
@@ -179,19 +158,6 @@ public class GameManager : MonoBehaviour
                 return SceneManager.GetSceneAt(i);
             }
         }
-
         return SceneManager.GetSceneAt(0);
     }
-
-    //public void PlayMenuMusic()
-    //{
-    //    myMusicSource.Play();
-    //    myFadeUp = true;
-    //}
-    //public void StopMenuMusic()
-    //{
-    //    myFadeDown = true;
-    //}
-
-
 }
