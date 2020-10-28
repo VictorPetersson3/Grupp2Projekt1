@@ -7,12 +7,12 @@ public class SplineManager : MonoBehaviour
     private GameObject[] mySplines;
 
     [SerializeField]
-    private float mySplineOffset = 25f;
+    private float mySplineOffset = 5f;
     
     private void Start()
     {
         pathCreators = GetComponentsInChildren<PathCreator>();
-        myPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        myPlayer = GameObject.FindGameObjectWithTag("PlayerTag").GetComponent<Player>();
 
         if (mySplines == null)
         {
