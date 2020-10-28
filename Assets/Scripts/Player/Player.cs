@@ -47,6 +47,7 @@ public class Player : MonoBehaviour
     private float myUnmodifiedSpeed = 0f;
     private float myTotalSpeed = 0f;
     private const int myGroundParticleAmount = 20;
+    private bool myIsDead = false;
 
     [SerializeField]
     Animator myAnimator;
@@ -198,8 +199,12 @@ public class Player : MonoBehaviour
 
     private void Crash()
     {
-        mySandParticleManager.DestroyAllSandParticles();
-        myGameManager.GameOver(myGameManager.GetActiveScene());
+        if (!myIsDead)
+        {
+            mySandParticleManager.DestroyAllSandParticles();
+            myGameManager.GameOver(myGameManager.GetActiveScene());
+            myIsDead = true;
+        }
     }
 
     private void Air()

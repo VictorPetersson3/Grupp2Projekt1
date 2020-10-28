@@ -43,7 +43,7 @@ public class MainMenuScript : MonoBehaviour
 
         myCreditsScreen.SetActive(false);
         myLevelSelect.SetActive(false);
-        myLoadingScreen.SetActive(false);
+        myLoadingScreen.SetActive(true);
 
     }
 
@@ -75,7 +75,6 @@ public class MainMenuScript : MonoBehaviour
         scenesLoading.Add(SceneManager.UnloadSceneAsync((int)SceneIndexes.MAIN_MENU));
         scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndexes.INTROLEVEL, LoadSceneMode.Additive));
 
-        myLoadingScreen.SetActive(true);
         StartCoroutine(LoadAsynchronously());
         myLoadingScreen.SetActive(false);
     }
@@ -90,27 +89,32 @@ public class MainMenuScript : MonoBehaviour
     public void LevelOne()
     {
         //Debug.Log("playing level 1");
-        SceneManager.UnloadSceneAsync((int)SceneIndexes.MAIN_MENU);
-        SceneManager.LoadSceneAsync((int)SceneIndexes.INTROLEVEL, LoadSceneMode.Additive);
         myLevelSelect.SetActive(false);
+        scenesLoading.Add(SceneManager.UnloadSceneAsync((int)SceneIndexes.MAIN_MENU));
+        scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndexes.INTROLEVEL, LoadSceneMode.Additive));
+
+        StartCoroutine(LoadAsynchronously());
 
         ////myMusicManager.PlayMusic01();   //Elf
     }
     public void LevelTwo()
     {
         //Debug.Log("playing level 2");
-        SceneManager.UnloadSceneAsync((int)SceneIndexes.MAIN_MENU);
-        SceneManager.LoadSceneAsync((int)SceneIndexes.LEVELTWO, LoadSceneMode.Additive);
         myLevelSelect.SetActive(false);
+        scenesLoading.Add(SceneManager.UnloadSceneAsync((int)SceneIndexes.MAIN_MENU));
+        scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndexes.LEVELTWO, LoadSceneMode.Additive));
 
+        StartCoroutine(LoadAsynchronously());
         ////myMusicManager.PlayMusic02();   //Elf
     }
     public void LevelThree()
     {
         //Debug.Log("playing level 2");
-        SceneManager.UnloadSceneAsync((int)SceneIndexes.MAIN_MENU); 
-        SceneManager.LoadSceneAsync((int)SceneIndexes.LEVELTHREE, LoadSceneMode.Additive);
         myLevelSelect.SetActive(false);
+        scenesLoading.Add(SceneManager.UnloadSceneAsync((int)SceneIndexes.MAIN_MENU));
+        scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndexes.LEVELTHREE, LoadSceneMode.Additive));
+
+        StartCoroutine(LoadAsynchronously());
 
         ////myMusicManager.PlayMusic03();   //Elf
     }
@@ -127,17 +131,14 @@ public class MainMenuScript : MonoBehaviour
 
     private IEnumerator LoadAsynchronously()
     {
+        myLoadingScreen.SetActive(true);
+     
         for (int i = 0; i < scenesLoading.Count; i++)
         {
-            Debug.Log("Loading Scene: " + scenesLoading[i] + "...");
-
             while (!scenesLoading[i].isDone)
             {                
                 yield return null;
-            }
-            
-            Debug.Log("Finished loading Scene: " + scenesLoading[i]);
+            }           
         }
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName("Level01"));
     }
 }

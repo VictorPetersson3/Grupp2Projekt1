@@ -89,38 +89,14 @@ public class GameManager : MonoBehaviour
     }
 
     private void Update()
-     {
-        //if (Input.GetKeyDown(KeyCode.X))
-        //{
-        //    PlayMenuMusic();
-        //}
-        //if (Input.GetKeyDown(KeyCode.Z))
-        //{
-        //    StopMenuMusic();
-        //}
-
-        //if (myFadeUp)
-        //{
-        //    myMusicVolume += Time.deltaTime / myFadeTime;
-        //    if (myMusicVolume > 1f)
-        //    {
-        //        myMusicVolume = 1;
-        //        myFadeUp = false;
-        //    }
-        //    myMusicSource.volume = myMusicVolume;
-        //}
-
-        //if (myFadeDown)
-        //{
-        //    myMusicVolume -= Time.deltaTime / myFadeTime;
-        //    if (myMusicVolume <= 0.01f)
-        //    {
-        //        myMusicVolume = 0;
-        //        myMusicSource.Stop();
-        //        myFadeDown = false;
-        //    }
-        //    myMusicSource.volume = myMusicVolume;
-        //}
+    {
+        for (int i = 0; i < SceneManager.sceneCount; ++i)
+        {
+            if (SceneManager.GetSceneAt(i).isLoaded && SceneManager.GetSceneAt(i).name != "GameManagerScene" && SceneManager.GetActiveScene() != SceneManager.GetSceneAt(i))
+            {
+                SceneManager.SetActiveScene(SceneManager.GetSceneAt(i));
+            }
+        }
     }
 
     public void MainMenu(Scene aScene)
