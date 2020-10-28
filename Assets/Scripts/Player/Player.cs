@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
     private float myTotalSpeed = 0f;
     private bool mySpeedInvincible = false;
     private bool myIsDead = false;
+    private GameObject myShieldVisual = null;
 
     // Animation
     [SerializeField]
@@ -80,6 +81,8 @@ public class Player : MonoBehaviour
         myCameraShake = myCameraFollow.gameObject.GetComponentInChildren<CameraShake>();
         mySpeedTrail = GameObject.FindGameObjectWithTag("SpeedTrail");
         myJumpSound = GetComponentInChildren<AudioSource>();
+        myShieldVisual = GameObject.FindGameObjectWithTag("Shield");
+        myShieldVisual.SetActive(false);
 
         myUnmodifiedSpeed = myStartSpeed;
         myOldPosition = transform.position;
@@ -116,6 +119,7 @@ public class Player : MonoBehaviour
             myAnimator.SetFloat("MovementSpeed", myTotalSpeed);
             Collision();
             ActivateTrail();
+            DisplayShield();
 
             myIsHoldingJump = myPlayerInput.IsJumping();
             myPressJump = myPlayerInput.PressJump();
@@ -318,6 +322,16 @@ public class Player : MonoBehaviour
     public void SetInvincible(bool aValue)
     {
         myInvincible = aValue;
+    }
+
+    private void DisplayShield()
+    {
+        if (myInvincible || mySpeedInvincible)
+        {
+            myShieldVisual.SetActive(true);
+            return;
+        }
+        myShieldVisual.SetActive(false);
     }
 
     private void CatchSpline()
