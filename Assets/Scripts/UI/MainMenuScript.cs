@@ -43,7 +43,7 @@ public class MainMenuScript : MonoBehaviour
 
         myCreditsScreen.SetActive(false);
         myLevelSelect.SetActive(false);
-        myLoadingScreen.SetActive(false);
+        myLoadingScreen.SetActive(true);
 
     }
 
@@ -75,7 +75,6 @@ public class MainMenuScript : MonoBehaviour
         scenesLoading.Add(SceneManager.UnloadSceneAsync((int)SceneIndexes.MAIN_MENU));
         scenesLoading.Add(SceneManager.LoadSceneAsync((int)SceneIndexes.INTROLEVEL, LoadSceneMode.Additive));
 
-        myLoadingScreen.SetActive(true);
         StartCoroutine(LoadAsynchronously());
         myLoadingScreen.SetActive(false);
     }
@@ -127,6 +126,8 @@ public class MainMenuScript : MonoBehaviour
 
     private IEnumerator LoadAsynchronously()
     {
+        myLoadingScreen.SetActive(true);
+     
         for (int i = 0; i < scenesLoading.Count; i++)
         {
             Debug.Log("Loading Scene: " + SceneManager.GetSceneAt(i + 1).name + "...");
@@ -138,6 +139,5 @@ public class MainMenuScript : MonoBehaviour
             
             Debug.Log("Finished loading Scene: " + SceneManager.GetSceneAt(i + 1));
         }
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName("Level01"));
     }
 }

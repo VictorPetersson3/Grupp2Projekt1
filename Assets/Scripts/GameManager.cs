@@ -95,7 +95,6 @@ public class GameManager : MonoBehaviour
             if (SceneManager.GetSceneAt(i).isLoaded && SceneManager.GetSceneAt(i).name != "GameManagerScene" && SceneManager.GetActiveScene() != SceneManager.GetSceneAt(i))
             {
                 SceneManager.SetActiveScene(SceneManager.GetSceneAt(i));
-                Debug.Log(SceneManager.GetActiveScene().name);
             }
         }
     }

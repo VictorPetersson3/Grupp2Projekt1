@@ -2412,6 +2412,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 963519675829726003, guid: 5601e6ff9f131514885715006e1c968d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4996277873946247398, guid: 5601e6ff9f131514885715006e1c968d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2521,6 +2526,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LoadingBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324641540775629289, guid: 5601e6ff9f131514885715006e1c968d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5601e6ff9f131514885715006e1c968d, type: 3}
