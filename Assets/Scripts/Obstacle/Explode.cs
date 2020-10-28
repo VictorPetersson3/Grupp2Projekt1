@@ -30,20 +30,17 @@ public class Explode : MonoBehaviour
 
     private void OnCollisionEnter(Collision aCollision)
     {
-        if (aCollision.gameObject.layer == 8)
+        if (myPlayer == null || myExplosionSound == null)
         {
-            if (myPlayer == null || myExplosionSound == null)
-            {
-                return;
-            }
+            return;
+        }
 
-            if (myPlayer.GetInvincible())
-            {
-                myGraphicsContainer.SetActive(false);
-                myExplosion.Play();
-                Instantiate(myExplosionSound, mySoundContainer.transform);
-                Destroy(myParent, myExplosion.main.duration);
-            }
+        if (myPlayer.GetInvincible() || myPlayer.GetSpeedInvincible())
+        {
+            myGraphicsContainer.SetActive(false);
+            myExplosion.Play();
+            Instantiate(myExplosionSound, mySoundContainer.transform);
+            Destroy(myParent, myExplosion.main.duration);
         }
 
     }

@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
     private float mySplineT = -1;
     private float myUnmodifiedSpeed = 0f;
     private float myTotalSpeed = 0f;
-    private const int myGroundParticleAmount = 20;
+    private bool mySpeedInvincible = false;
     private bool myIsDead = false;
 
     // Animation
@@ -189,7 +189,7 @@ public class Player : MonoBehaviour
                 Bounce();
                 return;
             }
-            if (myInvincible)
+            if (myInvincible || mySpeedInvincible)
             {
                 return;
             }
@@ -277,12 +277,12 @@ public class Player : MonoBehaviour
         if (myTotalSpeed >= trailLimit)
         {
             mySpeedTrail.SetActive(true);
-            myInvincible = true;
+            mySpeedInvincible = true;
         }
         else
         {
             mySpeedTrail.SetActive(false);
-            myInvincible = false;
+            mySpeedInvincible = false;
         }
     }
 
@@ -308,6 +308,11 @@ public class Player : MonoBehaviour
     public bool GetInvincible()
     {
         return myInvincible;
+    }
+
+    public bool GetSpeedInvincible()
+    {
+        return mySpeedInvincible;
     }
 
     public void SetInvincible(bool aValue)
