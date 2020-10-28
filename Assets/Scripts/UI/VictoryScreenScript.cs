@@ -7,6 +7,7 @@ public class VictoryScreenScript : MonoBehaviour
     GameObject myContinue = null;
 
     GameManager myGameManager = null;
+
     private void Start()
     {
         myGameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();

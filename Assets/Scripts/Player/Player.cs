@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
     private bool myGrounded = false;
     private bool myIsHoldingJump;
     private bool myPressJump;
+    private bool myLevelComplete = false;
     private int myScore = 0;
     private CollisionData myCollisionData;
     private Vector3 myOldPosition;
@@ -91,7 +92,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (Time.timeScale == 0f)
+        if (Time.timeScale == 0f || myLevelComplete)
         {
             return;
         }
@@ -298,5 +299,10 @@ public class Player : MonoBehaviour
         myCameraShake.TriggerShake(myShakeDurationSplines, myShakeMagnitudeSplines);
         myGrounded = true;
         mySplineT = 0;
+    }
+
+    public void LevelComplete()
+    {
+        myLevelComplete = true;
     }
 }
