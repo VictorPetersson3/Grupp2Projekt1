@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
     private float myTotalSpeed = 0f;
     private bool mySpeedInvincible = false;
     private bool myIsDead = false;
-    private bool myFinishedGame = false;
+    private GameObject myShieldVisual = null;
 
     // Animation
     [SerializeField]
@@ -81,6 +81,8 @@ public class Player : MonoBehaviour
         myCameraShake = myCameraFollow.gameObject.GetComponentInChildren<CameraShake>();
         mySpeedTrail = GameObject.FindGameObjectWithTag("SpeedTrail");
         myJumpSound = GetComponentInChildren<AudioSource>();
+        myShieldVisual = GameObject.FindGameObjectWithTag("Shield");
+        myShieldVisual.SetActive(false);
 
         myUnmodifiedSpeed = myStartSpeed;
         myOldPosition = transform.position;
@@ -117,6 +119,7 @@ public class Player : MonoBehaviour
             myAnimator.SetFloat("MovementSpeed", myTotalSpeed);
             Collision();
             ActivateTrail();
+            DisplayShield();
 
             myIsHoldingJump = myPlayerInput.IsJumping();
             myPressJump = myPlayerInput.PressJump();
@@ -287,16 +290,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    public bool GetFinishedGame()
-    {
-        return myFinishedGame;
-    }
-
-    public void SetFinishedGame(bool aBool)
-    {
-        myFinishedGame = aBool;
-    }
-
     public void IncreaseScore()
     {
         myScore++;
@@ -331,6 +324,16 @@ public class Player : MonoBehaviour
         myInvincible = aValue;
     }
 
+    private void DisplayShield()
+    {
+        if (myInvincible || mySpeedInvincible)
+        {
+            myShieldVisual.SetActive(true);
+            return;
+        }
+        myShieldVisual.SetActive(false);
+    }
+
     private void CatchSpline()
     {
         myPlayerBackflip.GetBackflipScore();
@@ -342,10 +345,10 @@ public class Player : MonoBehaviour
 
     public void LevelComplete()
     {
+        int score = GetScore();
         myLevelComplete = true;
+        myGameManager.SetCogCount(score);
     }
 
     public bool GetHasSeenCutscene() { return myHasSeenCutscene; }
-
-    
 }

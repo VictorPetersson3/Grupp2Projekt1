@@ -21,9 +21,8 @@ public class SandParticle : MonoBehaviour
     private float myGravity = 4f;
     private float myMaxYForce = 6f;
     private float myMinYForce = 3f;
-
-    private Vector3 myMaxSize = new Vector3(0.6f, 0.6f, 0.6f);
-    private Vector3 myScaleChange = new Vector3(0.9f, 0.9f, 0);
+    private Vector3 myMaxSize;
+    private Vector3 myScaleChange = new Vector3(5.0f, 5.0f, 0);
     private Vector3 myOriginalScale;
 
     private Transform myPlayerTransform = null;
@@ -33,6 +32,8 @@ public class SandParticle : MonoBehaviour
 
     private void Start()
     {
+        float startScale = Random.Range(1.0f, 3.0f);
+        myMaxSize = new Vector3(startScale, startScale, startScale);
         myPlayerTransform = GameObject.FindGameObjectWithTag("PlayerTag").transform;
         myOriginalScale = transform.localScale;
         SetLifeTime();

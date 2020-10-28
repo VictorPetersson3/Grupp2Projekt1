@@ -9,14 +9,10 @@ public class PathCreator : MonoBehaviour
     [SerializeField]
     private int myBoostEnd = 0;
     [SerializeField]
-    private GameObject myBoostSpherePrefab = null;
-    [SerializeField]
     private bool myIsRail = false;
     
     [SerializeField, HideInInspector]
     private bool myHasBoost;
-    [SerializeField, HideInInspector]
-    private GameObject[] myBoostSpheres;
 
     public Color myAnchorCol = Color.red;
     public Color myControlCol = Color.white;
@@ -50,12 +46,6 @@ public class PathCreator : MonoBehaviour
         }
 
         path.UpdateBoost(myBoostStart, myBoostEnd);
-        if (myBoostStart < 0 || myBoostEnd < 0)
-        {
-            myBoostSpheres[0].transform.position = new Vector3(path.GetFirstPoint().x, path.GetFirstPoint().y, 0);
-            myBoostSpheres[1].transform.position = new Vector3(path.GetFirstPoint().x, path.GetFirstPoint().y, 0);
-            return;
-        }
 
         Vector2[] points = path.CalculateEvenlySpacedPoints();
         if (myBoostStart >= points.Length || myBoostEnd >= points.Length)
@@ -68,26 +58,16 @@ public class PathCreator : MonoBehaviour
             Debug.LogError("myBoostEnd has to be > myBoostStart!");
             return;
         }
-
-        myBoostSpheres[0].transform.position = new Vector3(points[myBoostStart].x, points[myBoostStart].y, 0);
-        myBoostSpheres[1].transform.position = new Vector3(points[myBoostEnd].x, points[myBoostEnd].y, 0);
     }
 
     public void AddBoost()
     {
         myHasBoost = true;
-        myBoostSpheres = new GameObject[2];
-        myBoostSpheres[0] = Instantiate(myBoostSpherePrefab, transform);
-        myBoostSpheres[1] = Instantiate(myBoostSpherePrefab, transform);
     }
 
     public void DeleteBoost()
     {
         myHasBoost = false;
-        DestroyImmediate(myBoostSpheres[0]);
-        DestroyImmediate(myBoostSpheres[1]);
-        myBoostSpheres[0] = null;
-        myBoostSpheres[1] = null;
     }
 
     public bool HasBoost()
