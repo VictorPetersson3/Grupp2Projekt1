@@ -8,6 +8,9 @@ public class SandParticleManager : MonoBehaviour
 
     private List<GameObject> mySandParticles = new List<GameObject>();
     private GameObject mySandParticlesContainer = null;
+
+    private float mySpawnTime = 0;
+    private float myTimeCap = 0.01f;
  
     private float myOffsetX = 0.25f;
     private float myOffsetY = 0.5f;
@@ -20,8 +23,8 @@ public class SandParticleManager : MonoBehaviour
             Debug.LogError("Error, you need a SandParticleContainer.");
         }
 
-        // Instantiate 1000 particles.
-        for (int i = 0; i <= 1000; i++)
+        // Instantiate 100 particles.
+        for (int i = 0; i <= 100; i++)
         {
             GameObject particle = Instantiate(mySandParticle, Vector3.zero, Quaternion.identity, mySandParticlesContainer.transform);
             particle.SetActive(false);
@@ -63,6 +66,13 @@ public class SandParticleManager : MonoBehaviour
 
     public void CreateSandParticle(int aAmount)
     {
+        mySpawnTime += Time.deltaTime;
+        if (mySpawnTime <= myTimeCap)
+        {
+            return;
+        }
+        mySpawnTime -= myTimeCap;
+
         for (int i = 0; i < mySandParticles.Count-aAmount; i++)
         {
             if (!mySandParticles[i].GetComponent<SandParticle>().gameObject.activeSelf)

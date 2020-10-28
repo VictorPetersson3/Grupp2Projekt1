@@ -273,14 +273,16 @@ public class Player : MonoBehaviour
 
     private void ActivateTrail()
     {
-        float trailLimit = 200f;
+        float trailLimit = 185f;
         if (myTotalSpeed >= trailLimit)
         {
             mySpeedTrail.SetActive(true);
+            myInvincible = true;
         }
         else
         {
             mySpeedTrail.SetActive(false);
+            myInvincible = false;
         }
     }
 
