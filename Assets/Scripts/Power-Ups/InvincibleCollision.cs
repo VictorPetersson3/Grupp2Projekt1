@@ -43,6 +43,7 @@ public class InvincibleCollision : MonoBehaviour
             {
                 return;
             }
+            Debug.Log("Invincible working");
             myGraphicsContainer.SetActive(false);
             myPlayer.SetInvincible(true);
             Instantiate(myParticleObject);
