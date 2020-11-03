@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
 
     public bool myFirstTimeCheckOne = true;
     public bool myFirstTimeCheckTwo = true;
+    public bool myFirstTimeCheckThree = true;
     public bool myLevelComplete = false;
 
     private int myCogCountOne;
