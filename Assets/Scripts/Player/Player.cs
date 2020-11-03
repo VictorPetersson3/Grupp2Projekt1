@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
     private bool mySpeedInvincible = false;
     private bool myIsDead = false;
     private bool myFinishedGame = false;
-    private GameObject myShieldVisual = null;
+    //private GameObject myShieldVisual = null;
 
     // Animation
     [SerializeField]
@@ -80,10 +80,10 @@ public class Player : MonoBehaviour
         myPlayerBackflip = GetComponentInChildren<PlayerBackflip>();
         mySandParticleManager = GetComponentInChildren<SandParticleManager>();
         myCameraShake = myCameraFollow.gameObject.GetComponentInChildren<CameraShake>();
-        mySpeedTrail = GameObject.FindGameObjectWithTag("SpeedTrail");
+        //mySpeedTrail = GameObject.FindGameObjectWithTag("SpeedTrail");
         myJumpSound = GetComponentInChildren<AudioSource>();
-        myShieldVisual = GameObject.FindGameObjectWithTag("Shield");
-        myShieldVisual.SetActive(false);
+        //myShieldVisual = GameObject.FindGameObjectWithTag("Shield");
+        //myShieldVisual.SetActive(false);
 
         myUnmodifiedSpeed = myStartSpeed;
         myOldPosition = transform.position;
@@ -119,8 +119,8 @@ public class Player : MonoBehaviour
         {
             myAnimator.SetFloat("MovementSpeed", myTotalSpeed);
             Collision();
-            ActivateTrail();
-            DisplayShield();
+            //ActivateTrail();
+            //DisplayShield();
 
             myIsHoldingJump = myPlayerInput.IsJumping();
             myPressJump = myPlayerInput.PressJump();
@@ -276,20 +276,20 @@ public class Player : MonoBehaviour
         CatchSpline();
     }
 
-    private void ActivateTrail()
-    {
-        float trailLimit = 185f;
-        if (myTotalSpeed >= trailLimit)
-        {
-            mySpeedTrail.SetActive(true);
-            mySpeedInvincible = true;
-        }
-        else
-        {
-            mySpeedTrail.SetActive(false);
-            mySpeedInvincible = false;
-        }
-    }
+    //private void ActivateTrail()
+    //{
+    //    float trailLimit = 185f;
+    //    if (myTotalSpeed >= trailLimit)
+    //    {
+    //        mySpeedTrail.SetActive(true);
+    //        mySpeedInvincible = true;
+    //    }
+    //    else
+    //    {
+    //        mySpeedTrail.SetActive(false);
+    //        mySpeedInvincible = false;
+    //    }
+    //}
 
     public void SetHasFinishedGame(bool aBool)
     {
@@ -335,15 +335,15 @@ public class Player : MonoBehaviour
         myInvincible = aValue;
     }
 
-    private void DisplayShield()
-    {
-        if (myInvincible || mySpeedInvincible)
-        {
-            myShieldVisual.SetActive(true);
-            return;
-        }
-        myShieldVisual.SetActive(false);
-    }
+    //private void DisplayShield()
+    //{
+    //    if (myInvincible || mySpeedInvincible)
+    //    {
+    //        myShieldVisual.SetActive(true);
+    //        return;
+    //    }
+    //    myShieldVisual.SetActive(false);
+    //}
 
     private void CatchSpline()
     {
