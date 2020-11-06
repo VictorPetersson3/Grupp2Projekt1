@@ -8,9 +8,9 @@ public class MainMenuScript : MonoBehaviour
 {
     [SerializeField] private GameObject myLevelSelect = null;
     [SerializeField] private GameObject myCreditsScreen = null;
+    [SerializeField] private GameObject myResolutionsScreen = null;
     [SerializeField] private GameObject myMainMenuObjects = null;
-    [SerializeField] 
-    private GameObject myLoadingScreen = null;
+    [SerializeField] private GameObject myLoadingScreen = null;
 
     //[SerializeField] private MusicManagerScript myMusicManager;;  //Elf
     private MusicManagerScript myMusicManager;   //Elf
@@ -66,6 +66,12 @@ public class MainMenuScript : MonoBehaviour
         //Debug.Log("viewing people who worked on this game and also Dave");
         myMainMenuObjects.SetActive(false);
         myCreditsScreen.SetActive(true);
+    }
+
+    public void ResolutionSettings()
+    {
+        myMainMenuObjects.SetActive(false);
+        myResolutionsScreen.SetActive(true);
     }
 
     public void PlayGame()
@@ -124,6 +130,7 @@ public class MainMenuScript : MonoBehaviour
         //Debug.Log("Returning to main menu");
         myCreditsScreen.SetActive(false);
         myLevelSelect.SetActive(false);
+        myResolutionsScreen.SetActive(false);
         myMainMenuObjects.SetActive(true);
         
         ////myMusicManager.PlayMusic();   //Elf
