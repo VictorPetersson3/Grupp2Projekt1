@@ -39,12 +39,22 @@ public class WindowManagerScript : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
-
+        resolutionDropdown.onValueChanged.AddListener(delegate
+        {
+            DropdownValueChanged(resolutionDropdown);
+        });
     }
 
     public void SetResolution (int resolutionIndex)
     {
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.width, Screen.fullScreen);
+    }
+    void DropdownValueChanged(Dropdown someChange)
+    {
+        int resolutionIndex = someChange.value;
+        Resolution resolution = resolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.width, Screen.fullScreen);
+        Debug.Log("We got here brah");
     }
 }
